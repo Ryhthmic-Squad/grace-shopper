@@ -5,8 +5,10 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack",
-    "start": "node server",
-    "start:dev": "nodemon server",
+    "build:dev": "webpack --watch --mode=development",
+    "seed": "node server/db/seed.js",
+    "start": "node server/index.js",
+    "start:dev": "nodemon server/index.js",
     "test": "mocha",
     "test:dev": "mocha --watch"
   },
