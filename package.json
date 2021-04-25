@@ -7,7 +7,8 @@
     "build": "webpack",
     "start": "node server",
     "start:dev": "nodemon server",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha",
+    "test:dev": "mocha --watch"
   },
   "repository": {
     "type": "git",
@@ -21,7 +22,9 @@
   },
   "homepage": "https://github.com/Ryhthmic-Squad/grace-shopper#readme",
   "dependencies": {
+    "chai": "^4.3.4",
     "express": "^4.17.1",
+    "mocha": "^8.3.2",
     "pg": "^8.6.0",
     "sequelize": "^6.6.2"
   },
