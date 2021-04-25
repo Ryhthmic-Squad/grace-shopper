@@ -1,0 +1,7 @@
+language: node_js
+node_js:
+  - 14.15.3
+services:
+  - postgresql
+before_script:
+  - psql -c 'create database grace_shopper;' -U postgres
