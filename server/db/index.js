@@ -7,4 +7,4 @@ const User = require('./User');
 //e.g. Product.belongsTo(Room);
 
 //export the database connection and models from this file
-module.exports = { db, models: { Product, User } };
+module.exports = { db, models: { User } };

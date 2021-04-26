@@ -40,7 +40,7 @@ User.init(
     },
     fullName: {
       type: DataTypes.VIRTUAL,
-      get: () => {
+      get: function () {
         return `${this.firstName} ${this.lastName}`;
       },
     },
