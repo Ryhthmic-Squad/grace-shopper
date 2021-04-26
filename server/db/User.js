@@ -14,8 +14,11 @@ User.init(
     },
     password: {
       type: DataTypes.STRING,
+      allowNull: false,
       //build in hashing at some point
-      validate: {},
+      validate: {
+        notEmpty: true,
+      },
     },
     phoneNumber: {
       type: DataTypes.STRING,
@@ -46,10 +49,13 @@ User.init(
     },
     isAdmin: {
       type: DataTypes.BOOLEAN,
+      allowNull: false,
       defaultValue: false,
       validate: {
         isBool(value) {
-          if (value !== true || value !== false) {
+          if (value === true || value === false) {
+            console.log('valid isAdmin');
+          } else {
             throw new Error('Only boolean values are allowed');
           }
         },
