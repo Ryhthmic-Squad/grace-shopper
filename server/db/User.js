@@ -1,4 +1,5 @@
 const { DataTypes, Model } = require('sequelize');
+
 const db = require('./db');
 
 class User extends Model {}
@@ -65,4 +66,47 @@ User.init(
   { sequelize: db, modelName: 'user' }
 );
 
-module.exports = User;
+class Product extends Model {}
+Product.init({
+  name: {
+    type: DataTypes.STRING,
+  },
+  inventory: {
+    type: DataTypes.INTEGER,
+  },
+  dimensions: {
+    type: DataTypes.TEXT,
+  },
+  material: {
+    type: DataTypes.STRING,
+  },
+  color: {
+    type: DataTypes.STRING,
+  },
+  imageUrl: {
+    type: DataTypes.STRING,
+  },
+  price: {
+    type: DataTypes.FLOAT,
+  },
+  description: {
+    type: DataTypes.TEXT,
+  },
+  availability: {
+    type: DataTypes.VIRTUAL,
+    get: function (inventory) {
+      if (inventory > 0) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+  },
+});
+
+module.exports = {
+  models: {
+    User,
+    Product,
+  },
+};
