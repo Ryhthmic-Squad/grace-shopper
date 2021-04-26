@@ -15,6 +15,7 @@ describe('Initial Test', () => {
 describe('User Model', () => {
   let newUser;
   beforeEach(async () => {
+    // Create and save an example user before each test.
     newUser = new User({
       email: 'test@email.com',
       password: '1234',
@@ -24,8 +25,9 @@ describe('User Model', () => {
     });
     await newUser.save();
   });
-  afterEach(() => {
-    newUser.destroy();
+  afterEach(async () => {
+    // Delete the example user after each test to avoid unique constraint errors.
+    await newUser.destroy();
   });
   describe('Attribute: email', () => {
     it('has an email attribute', () => {
@@ -61,10 +63,28 @@ describe('User Model', () => {
         expect(err instanceof ValidationError).to.equal(true);
       }
     });
+    it('ensures emails are unique', async () => {
+      //create another user with the same email
+      anotherUser = new User({
+        email: 'test@email.com',
+        password: '1234',
+        phoneNumber: '1234567890',
+        firstName: 'John',
+        lastName: 'Doe',
+      });
+      try {
+        //attempt to save that second user with the same email
+        await anotherUser.save();
+        //above should throw an error, so below should not run
+        expect(true).to.equal(false);
+      } catch (err) {
+        expect(err instanceof ValidationError).to.equal(true);
+      }
+    });
   });
   describe('Attribute: password', () => {
     it('has a password attribute', () => {
-      expect(newUser.password).to.equal('1234');
+      expect(newUser.password).to.be.ok;
     });
     it('password cannot be empty', async () => {
       newUser.password = '';
@@ -89,7 +109,7 @@ describe('User Model', () => {
   });
   describe('Attribute: phoneNumber', () => {
     it('has a phoneNumber attribute', () => {
-      expect(newUser.phoneNumber).to.equal('1234567890');
+      expect(newUser.phoneNumber).be.ok;
     });
     it('phoneNumber cannot be empty', async () => {
       newUser.phoneNumber = '';
@@ -114,7 +134,7 @@ describe('User Model', () => {
   });
   describe('Attribute: firstName', () => {
     it('has a firstName attribute', () => {
-      expect(newUser.firstName).to.equal('Jane');
+      expect(newUser.firstName).to.be.ok;
     });
     it('firstName cannot be empty', async () => {
       newUser.firstName = '';
@@ -139,7 +159,7 @@ describe('User Model', () => {
   });
   describe('Attribute: lastName', () => {
     it('has a lastName attribute', () => {
-      expect(newUser.lastName).to.equal('Doe');
+      expect(newUser.lastName).to.be.ok;
     });
     it('lastName cannot be empty', async () => {
       newUser.email = '';
@@ -163,10 +183,10 @@ describe('User Model', () => {
     });
   });
   describe('Attribute: fullName', () => {
-    it('has a fullName virtual attirbute that combines first and last names', () => {
+    it('has a fullName attirbute that combines first and last names', () => {
       expect(newUser.fullName).to.equal('Jane Doe');
     });
-    it('the fullName attribute is not a column in the database', () => {
+    it('the fullName attribute is virtuall and not a column in the database', () => {
       expect(newUser.hasOwnProperty('fullName')).to.equal(false);
     });
   });

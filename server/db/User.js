@@ -15,7 +15,7 @@ User.init(
     password: {
       type: DataTypes.STRING,
       allowNull: false,
-      //build in hashing at some point
+      //build in hashing at some point, likely beforeUpdate hook?
       validate: {
         notEmpty: true,
       },
@@ -54,7 +54,7 @@ User.init(
       validate: {
         isBool(value) {
           if (value === true || value === false) {
-            console.log('valid isAdmin');
+            // console.log('valid isAdmin');
           } else {
             throw new Error('Only boolean values are allowed');
           }
