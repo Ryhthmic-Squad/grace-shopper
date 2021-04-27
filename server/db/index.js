@@ -2,6 +2,7 @@ const db = require('./db');
 //Import all models here
 //e.g. const Product = require('./Product');
 const User = require('./User');
+const Product = require('./Product');
 
 //Set up relations for models here
 //e.g. Product.belongsTo(Room);
