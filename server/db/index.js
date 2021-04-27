@@ -3,9 +3,19 @@ const db = require('./db');
 //e.g. const Product = require('./Product');
 const User = require('./User');
 const Product = require('./Product');
+const Room = require('./Room');
+const Style = require('/Style');
+const Furniture = require('./Furniture');
 
 //Set up relations for models here
 //e.g. Product.belongsTo(Room);
 
+Product.belongsTo(Style);
+Style.hasMany(Product);
+Product.belongsTo(Room);
+Room.hasMany(Product);
+Product.belongsTo(Furniture);
+Furniture.hasMany(Product);
+
 //export the database connection and models from this file
-module.exports = { db, models: { User, Product } };
+module.exports = { db, models: { User, Product, Room, Style, Furniture } };

@@ -19,7 +19,7 @@ Product.init(
       },
     },
     dimensions: {
-      type: DataTypes.TEXT,
+      type: DataTypes.JSON,
       allowNull: false,
       validate: {
         notEmpty: true,
@@ -62,8 +62,8 @@ Product.init(
     },
     availability: {
       type: DataTypes.VIRTUAL,
-      get: function (inventory) {
-        if (inventory > 0) {
+      get: function () {
+        if (this.inventory > 0) {
           return true;
         } else {
           return false;
