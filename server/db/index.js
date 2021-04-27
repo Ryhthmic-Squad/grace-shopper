@@ -8,4 +8,4 @@ const Product = require('./Product');
 //e.g. Product.belongsTo(Room);
 
 //export the database connection and models from this file
-module.exports = { db, models: { User } };
+module.exports = { db, models: { User, Product } };
