@@ -2,7 +2,7 @@ const { expect } = require('chai');
 const { ValidationError } = require('sequelize');
 const {
   db,
-  models: { User },
+  models: { User, Order },
 } = require('../server/db');
 // db.options.logging = true;
 
@@ -213,4 +213,52 @@ describe('User Model', () => {
       }
     });
   });
+});
+
+describe('Order Model', () => {
+  let newOrder, newUser;
+  beforeEach(async () => {
+    newOrder = new Order();
+    //uncomment and build out once Product is built
+    //newOrder.addProducts(. . . );
+    await newOrder.save();
+    console.log(newOrder.products);
+    newUser = new User({
+      email: 'test@email.com',
+      password: '1234',
+      phoneNumber: '1234567890',
+      firstName: 'Jane',
+      lastName: 'Doe',
+    });
+    await newUser.save();
+  });
+  afterEach(async () => {
+    await newOrder.destroy();
+    await newUser.destroy();
+  });
+  it('Orders can be linked to a User', async () => {
+    try {
+      await newUser.addOrder(newOrder);
+    } catch (err) {
+      console.error(err);
+      expect(true).to.equal(false);
+    }
+    expect(await newUser.getOrders()).to.have.length(1);
+  });
+  it('A user can have multiple linked orders', async () => {
+    try {
+      const orders = Array(3)
+        .fill('')
+        .map(() => new Order());
+      const userOrders = await Promise.all(orders.map((order) => order.save()));
+      await newUser.addOrders(userOrders);
+    } catch (err) {
+      console.error(err);
+      expect(true).to.equal(false);
+    }
+    expect(await newUser.getOrders()).to.have.length(3);
+  });
+  //build these out when Products are ready:
+  it('Orders have Products');
+  it('Orders note the quantity of each Product');
 });
