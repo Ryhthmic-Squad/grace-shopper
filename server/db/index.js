@@ -6,6 +6,8 @@ const Address = require('./Address');
 
 //Set up relations for models here
 //e.g. Product.belongsTo(Room);
+User.hasMany(Address);
+Address.belongsTo(User);
 
 //export the database connection and models from this file
 module.exports = { db, models: { User, Address } };

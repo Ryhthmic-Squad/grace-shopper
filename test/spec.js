@@ -1,5 +1,5 @@
 const { expect } = require('chai');
-const { ValidationError } = require('sequelize');
+const { ValidationError, Sequelize } = require('sequelize');
 const {
   db,
   models: { User, Address },
@@ -218,6 +218,7 @@ describe('User Model', () => {
 describe('Address Model', () => {
   let newAddress;
   beforeEach(async () => {
+    // Create and save an example address before each test
     newAddress = new Address({
       line1: '5 Hanover Square',
       line2: 'Floor 11',
@@ -228,6 +229,7 @@ describe('Address Model', () => {
     await newAddress.save();
   });
   afterEach(async () => {
+    // Delete the example address after each test to avoid unique constraint errors.
     await newAddress.destroy();
   });
   describe('Attribute: line1', () => {
@@ -395,5 +397,63 @@ describe('Address Model', () => {
     it('the fullAddress attribute is virtual and not a column in the database', () => {
       expect(newAddress.hasOwnProperty('fullAddress')).to.equal(false);
     });
+  });
+});
+
+describe('Users & Addresses', () => {
+  let newUser, newAddress;
+  beforeEach(async () => {
+    // Create and save example addresses before each test.
+    newAddress1 = new Address({
+      line1: '5 Hanover Square',
+      line2: 'Floor 11',
+      city: 'New York',
+      state: 'NY',
+      zip: '10004',
+    });
+    await newAddress1.save();
+    newAddress2 = new Address({
+      line1: '5 Hanover Square',
+      line2: 'Floor 13',
+      city: 'New York',
+      state: 'NY',
+      zip: '10004',
+    });
+    await newAddress2.save();
+    // Create and save an example user before each test.
+    newUser = new User({
+      email: 'test@email.com',
+      password: '1234',
+      phoneNumber: '1234567890',
+      firstName: 'Jane',
+      lastName: 'Doe',
+    });
+    await newUser.save();
+  });
+  afterEach(async () => {
+    // Delete the example user & address after each test to avoid unique constraint errors.
+    await newUser.destroy();
+    await newAddress1.destroy();
+    await newAddress2.destroy();
+  });
+
+  it('Addresses can be linked to a User', async () => {
+    try {
+      await newUser.addAddress(newAddress1);
+      expect(await newUser.getAddresses()).to.have.length(1);
+    } catch (err) {
+      console.error(err);
+      expect(true).to.equal(false);
+    }
+  });
+
+  it('A user can have multiple addresses linked', async () => {
+    try {
+      await newUser.addAddresses(newAddress1, newAddress2);
+      expect(await newUser.getAddresses()).to.have.length(1);
+    } catch (err) {
+      console.error(err);
+      expect(true).to.equal(false);
+    }
   });
 });
