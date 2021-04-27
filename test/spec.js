@@ -1,5 +1,5 @@
 const { expect } = require('chai');
-const { ValidationError, Sequelize } = require('sequelize');
+const { ValidationError } = require('sequelize');
 const {
   db,
   models: { User, Address },
