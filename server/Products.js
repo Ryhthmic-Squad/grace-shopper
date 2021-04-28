@@ -12,7 +12,7 @@ router.get('/', async(req,res,next)=>{
     }catch(er){
         next(er)
     }
-})
+});
 // Products by type
 
 router.get('/sofas', async(req,res,next)=>{
@@ -27,7 +27,7 @@ router.get('/sofas', async(req,res,next)=>{
     }catch(er){
         next(er);
     }
-})
+});
 router.get('/chairs', async(req,res,next)=>{
     try{
        const chairs=  await Product.findAll({
@@ -40,7 +40,7 @@ router.get('/chairs', async(req,res,next)=>{
     }catch(er){
         next(er);
     }
-})
+});
 router.get('/beds', async(req,res,next)=>{
     try{
         const beds = await Product.findAll({
@@ -52,7 +52,7 @@ router.get('/beds', async(req,res,next)=>{
     }catch(er){
         next(er);
     }
-})
+});
 router.get('/dressers', async(req,res,next)=>{
     try{
         const dressers = await Product.findAll({
@@ -64,7 +64,7 @@ router.get('/dressers', async(req,res,next)=>{
     }catch(er){
         next(er);
     }
-})
+});
 router.get('/nightstands', async(req,res,next)=>{
     try{
         const nightstands = await Product.findAll({
@@ -76,7 +76,7 @@ router.get('/nightstands', async(req,res,next)=>{
     }catch(er){
         next(er);
     }
-})
+});
 router.get('/tables', async(req,res,next)=>{
     try{
         const tables = await Product.findAll({
@@ -103,7 +103,7 @@ router.get('/styles/transitional', async(req,res,next)=>{
     }catch(er){
         next(er)
     }
-})
+});
 router.get('/styles/modern', async(req,res,next)=>{
     try{
         const modern = await Product.findAll({
@@ -115,7 +115,7 @@ router.get('/styles/modern', async(req,res,next)=>{
     }catch(er){
         next(er);
     }
-})
+});
 
 router.get('/styles/contemporary', async(req,res,next)=>{
     try{
@@ -128,7 +128,7 @@ router.get('/styles/contemporary', async(req,res,next)=>{
     }catch(er){
         next(er);
     }
-}))
+});
 
 //Products by room 
 
