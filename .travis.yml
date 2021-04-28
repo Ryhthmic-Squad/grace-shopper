@@ -5,4 +5,5 @@ services:
   - postgresql
 before_script:
   - psql -c 'create database grace_shopper;' -U postgres
+  - psql -c 'create database grace_shopper_test;' -U postgres
   - npm run seed

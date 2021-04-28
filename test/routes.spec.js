@@ -23,6 +23,14 @@ describe('Routes', () => {
           lastName: 'Smith',
           isAdmin: true,
         }),
+        User.create({
+          email: 'michelleBranch@gmail.com',
+          password: '5678',
+          phoneNumber: '911-456-7890',
+          firstName: 'Michelle',
+          lastName: 'Branch',
+          isAdmin: true,
+        }),
       ]);
     } catch (er) {
       console.error(er);
@@ -30,10 +38,10 @@ describe('Routes', () => {
   });
 
   describe('GET /api/users', () => {
-    it('returns 1 user', async () => {
+    it('returns 2 users', async () => {
       const response = await app.get('/api/users');
       expect(response.status).to.equal(200);
-      expect(response.body.length).to.equal(1);
+      expect(response.body.length).to.equal(2);
     });
   });
   // describe('GET /api/users/:id', () => {
