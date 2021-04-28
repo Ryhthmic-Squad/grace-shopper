@@ -4,7 +4,7 @@ const db = require('./db');
 class Style extends Model {}
 Style.init({
   type: {
-    type: DataTypes.ENUM('contemporary', 'modern', 'transitional'),
+    type: DataTypes.STRING,
   },
   allowNull: false,
   validate: {
