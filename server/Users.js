@@ -14,13 +14,15 @@ router.get('/', async (req, res, next) => {
 });
 
 // GET /api/users/:id
-router.post('/', async (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
   try {
-    res.status(201).send(await User.create(req.body));
+    res.status(201).send(await User.findByPk(req.params.id));
   } catch (err) {
     next(err);
   }
 });
+
+// PUT /api/users/:id
 
 // POST/api/users
 router.post('/', async (req, res, next) => {

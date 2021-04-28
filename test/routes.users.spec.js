@@ -1,5 +1,4 @@
 const { expect } = require('chai');
-//const { syncAndSeed } = require('../server/db/seed');
 const {
   db,
   models: { User },
@@ -7,11 +6,7 @@ const {
 const app = require('supertest')(require('../server/index'));
 
 describe('Routes', () => {
-  // let seed;
-  // beforeEach(async () => {
-  //   seed = await syncAndSeed();
-  // });
-  beforeEach(async () => {
+  beforeEach(async function () {
     try {
       await db.sync({ force: true });
       await Promise.all([
@@ -44,11 +39,11 @@ describe('Routes', () => {
       expect(response.body.length).to.equal(2);
     });
   });
-  // describe('GET /api/users/:id', () => {
-  //   it('returns user', async () => {
-  //     const response = await app.get('/api/users');
-  //     expect(response.status).to.equal(200);
-  //     expect(response.body.length).to.equal(4);
-  //   });
-  // });
+  describe('GET /api/users/:id', () => {
+    it('returns the requested user', async () => {
+      const response = await app.get('/api/users/1');
+      expect(response.status).to.equal(201);
+      expect(response.body.fullName).to.equal('John Smith');
+    });
+  });
 });

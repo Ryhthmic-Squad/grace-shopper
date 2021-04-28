@@ -1,11 +1,12 @@
-//Seed file to add initial products to the database
+// Seed file to add initial products to the database
 const {
   db,
-  models: { User },
+  models: { Product, User },
 } = require('./index');
+const faker = require('faker');
 
-//const products = [array of objects]; may want to import this from separate file
 const { users } = require('./dataForSeeding/users');
+const { products } = require('./dataForSeeding/products');
 
 const syncAndSeed = async () => {
   try {
@@ -23,7 +24,21 @@ const syncAndSeed = async () => {
         })
       )
     );
-    console.log('products seeded into db');
+    await Promise.all(
+      products.map((product) =>
+        Product.create({
+          name: product.name,
+          inventory: product.inventory,
+          dimensions: product.dimensions,
+          material: product.material,
+          color: product.color,
+          imageUrl: product.imagerUrl,
+          price: product.price,
+          description: faker.lorem.paragraphs(3),
+        })
+      )
+    );
+    console.log('products and users seeded into db');
   } catch (er) {
     console.error(er);
   }
