@@ -4,7 +4,7 @@ const products = [
   {
     name: 'Hartley King Bed',
     inventory: 10,
-    dimensions: '{ height: 40, width: 83, depth: 89 }',
+    dimensions: { height: 40, width: 83, depth: 89 },
     material: 'fabric',
     color: 'grey',
     imagerUrl:
@@ -14,7 +14,7 @@ const products = [
   {
     name: 'Miro King Bed',
     inventory: 10,
-    dimensions: '{ height: 36.6, width: 71, depth: 92.1}',
+    dimensions: { height: 36.6, width: 71, depth: 92.1 },
     material: 'wood',
     color: 'brown',
     imagerUrl:
@@ -24,7 +24,7 @@ const products = [
   {
     name: 'Niguel Dresser',
     inventory: 10,
-    dimensions: '{ height: 33, width: 60, depth: 18}',
+    dimensions: { height: 33, width: 60, depth: 18 },
     material: 'wood',
     color: 'beige',
     imagerUrl:
@@ -34,7 +34,7 @@ const products = [
   {
     name: 'Kenwood Dresser',
     inventory: 10,
-    dimensions: '{ height: 33, width: 84, depth: 20}',
+    dimensions: { height: 33, width: 84, depth: 20 },
     material: 'wood',
     color: 'brown',
     imagerUrl:
@@ -44,7 +44,7 @@ const products = [
   {
     name: 'Niguel Nightstand',
     inventory: 10,
-    dimensions: '{ height: 24, width: 24, depth: 18}',
+    dimensions: { height: 24, width: 24, depth: 18 },
     material: 'wood',
     color: 'brown',
     imagerUrl:
@@ -54,7 +54,7 @@ const products = [
   {
     name: 'Copenhagen Nightstand',
     inventory: 10,
-    dimensions: '{ height: 25, width: 26, depth: 20}',
+    dimensions: { height: 25, width: 26, depth: 20 },
     material: 'wood',
     color: 'taupe',
     imagerUrl:

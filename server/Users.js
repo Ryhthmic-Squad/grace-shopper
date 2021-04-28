@@ -1,4 +1,6 @@
 //we may want to move this, along with Products.js into an API subfolder
+// use JWT here?
+
 const {
   models: { User },
 } = require('./db/index');
@@ -17,19 +19,30 @@ router.get('/', async (req, res, next) => {
 router.get('/:id', async (req, res, next) => {
   try {
     res.status(201).send(await User.findByPk(req.params.id));
-  } catch (err) {
-    next(err);
+  } catch (er) {
+    next(er);
   }
 });
 
 // PUT /api/users/:id
 
+// DELETE /api/users/:id
+router.delete('/:id', async (req, res, next) => {
+  try {
+    const user = await User.findByPk(req.params.campusId);
+    await user.destroy();
+    res.sendStatus(204);
+  } catch (er) {
+    next(er);
+  }
+});
+
 // POST/api/users
 router.post('/', async (req, res, next) => {
   try {
     res.status(201).send(await User.create(req.body));
-  } catch (err) {
-    next(err);
+  } catch (er) {
+    next(er);
   }
 });
 
