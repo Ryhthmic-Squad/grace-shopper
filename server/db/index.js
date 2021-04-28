@@ -5,20 +5,25 @@ const User = require('./User');
 const Product = require('./Product');
 const Address = require('./Address');
 const Order = require('./Order');
-const Order_Product = require('./Order_Product');
+const OrderProduct = require('./OrderProduct');
 
 //Set up relations for models here
 //e.g. Product.belongsTo(Room);
+
+// Users can have many orders associated with their account
 User.hasMany(Order);
 Order.belongsTo(User);
+
+// Users can have many addresses associated with their account
 User.hasMany(Address);
 Address.belongsTo(User);
-//uncomment once Product is built out:
-// Order.hasMany(Product);
-// Product.belongsToMany(Order);
+
+// OrderProduct is a connection table that connects a product to an order and keeps a quantity:
+Order.belongsToMany(Product, { through: OrderProduct });
+Product.belongsToMany(Order, { through: OrderProduct });
 
 //export the database connection and models from this file
 module.exports = {
   db,
-  models: { User, Product, Address, Order, Order_Product },
+  models: { User, Product, Address, Order, Order_Product: OrderProduct },
 };

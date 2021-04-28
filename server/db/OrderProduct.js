@@ -1,8 +1,8 @@
 const { DataTypes, Model } = require('sequelize');
 const db = require('./db');
 
-class Order_Products extends Model {}
-Order_Products.init(
+class OrderProduct extends Model {}
+OrderProduct.init(
   {
     quantity: {
       type: DataTypes.INTEGER,
@@ -15,4 +15,4 @@ Order_Products.init(
   { sequelize: db, modelName: 'orders_products' }
 );
 
-module.exports = Order_Products;
+module.exports = OrderProduct;
