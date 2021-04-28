@@ -117,7 +117,7 @@ router.get('/styles/modern', async(req,res,next)=>{
     }
 })
 
-router.get('/styles/contemporary', async(req,res,next=>{
+router.get('/styles/contemporary', async(req,res,next)=>{
     try{
         const contemporary = await Product.findAll({
             where:{
