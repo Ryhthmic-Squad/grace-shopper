@@ -1,4 +1,6 @@
 const { expect } = require('chai');
+const app = require('../server');
+const agent = require('supertest')(app);
 const { ValidationError } = require('sequelize');
 const {
   db,

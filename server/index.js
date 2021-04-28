@@ -1,7 +1,7 @@
 const path = require('path');
 const express = require('express');
 const app = express();
-const PORT = process.env.PORT || 3000
+const port = process.env.PORT || 3000
 
 //Body parsing middleware
 app.use(express.json())
@@ -12,6 +12,7 @@ app.use(express.urlencoded({extended:true}))
 app.use('/api/products',require('./Products'));
 app.use('/api/auth',require('./Users'));
 
-app.listen(process.env.PORT, ()=>{
+app.listen(port, ()=>{
     console.log(`App listening on port ${PORT}`);
 })
+module.exports= app;
