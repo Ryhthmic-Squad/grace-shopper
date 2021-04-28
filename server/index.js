@@ -10,7 +10,7 @@ app.use(express.urlencoded({extended:true}))
 // Routes for products and users
 
 app.use('/api/products',require('./Products'));
-app.use('/api/users',require('./Users'));
+app.use('/api/auth',require('./Users'));
 
 app.listen(process.env.PORT, ()=>{
     console.log(`App listening on port ${PORT}`);

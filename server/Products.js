@@ -7,7 +7,7 @@ const router= require('express').Router()
 router.get('/', async(req,res,next)=>{
     try{
         allProducts = await Product.findAll();
-        res.send(allProducts);
+        res.status(200).send(allProducts);
 
     }catch(er){
         next(er)
@@ -22,7 +22,7 @@ router.get('/sofas', async(req,res,next)=>{
                 type:'sofa'
             }
         })
-        res.send(sofas);
+        res.status(200).send(sofas);
 
     }catch(er){
         next(er);
@@ -35,7 +35,7 @@ router.get('/chairs', async(req,res,next)=>{
                 type:'chair'
             }
         })
-        res.send(chairs);
+        res.status(200).send(chairs);
 
     }catch(er){
         next(er);
@@ -48,7 +48,7 @@ router.get('/beds', async(req,res,next)=>{
                 type:'bed'
             }
         })
-        res.send(beds);
+        res.status(200).send(beds);
     }catch(er){
         next(er);
     }
@@ -60,7 +60,7 @@ router.get('/dressers', async(req,res,next)=>{
                 type:'dresser'
             }
         })
-        res.send(dressers);
+        res.status(200).send(dressers);
     }catch(er){
         next(er);
     }
@@ -72,7 +72,7 @@ router.get('/nightstands', async(req,res,next)=>{
                 type:'nightstand'
             }
         })
-        res.send(nightstands);
+        res.status(200).send(nightstands);
     }catch(er){
         next(er);
     }
@@ -84,7 +84,7 @@ router.get('/tables', async(req,res,next)=>{
                 type:'table'
             }
         })
-        res.send(tables);
+        res.status(200).send(tables);
     }catch(er){
         next(er);
     }
@@ -99,7 +99,7 @@ router.get('/styles/transitional', async(req,res,next)=>{
                 style:'Transitional'
             }
         })
-        res.send(transitional)
+        res.status(200).send(transitional)
     }catch(er){
         next(er)
     }
@@ -111,7 +111,7 @@ router.get('/styles/modern', async(req,res,next)=>{
                 style:'Modern'
             }
         })
-        res.send(modern);
+        res.status(200).send(modern);
     }catch(er){
         next(er);
     }
@@ -124,7 +124,7 @@ router.get('/styles/contemporary', async(req,res,next=>{
                 style:'Contemporary'
             }
         })
-        res.send(contemporary);
+        res.status(200).send(contemporary);
     }catch(er){
         next(er);
     }
@@ -139,7 +139,7 @@ router.get('/rooms/dining', async(req,res,next)=>{
                 type:'Dining'
             }
         })
-        res.send(dining)
+        res.status(200).send(dining)
     }catch(er){
         next(er);
     }
@@ -152,7 +152,7 @@ router.get('/rooms/bedroom', async(req,res,next)=>{
                 type:'Bedroom'
             }
         })
-        res.send(bedroom)
+        res.status(200).send(bedroom)
     }catch(er){
         next(er);
     }
@@ -165,7 +165,7 @@ router.get('/rooms/living', async(req,res,next)=>{
                 type:'Living'
             }
         })
-        res.send(Living)
+        res.status(200).send(Living)
     }catch(er){
         next(er);
     }
@@ -178,7 +178,7 @@ router.get('/rooms/bathroom', async(req,res,next)=>{
                 type:'Bathroom'
             }
         })
-        res.send(bathroom)
+        res.status(200).send(bathroom)
     }catch(er){
         next(er);
     }
@@ -189,45 +189,12 @@ router.get('/rooms/bathroom', async(req,res,next)=>{
 router.get('/:uuid', async(req,res,next)=>{
     try{
         const product = await Product.findByPk(req.params.uuid)
-        res.send(product);
+        res.status(200).send(product);
 
     }catch(er){
         next(er)
     }
 })
 
-// Add product
 
-router.post('/', async(req,res,next)=>{
-    try{
-        const newProduct= await Product.create(req.body)
-        res.send(newProduct)
-    }catch(er){
-        next(er)
-    }
-})
-
-// Edit product
-
-router.put(':uuid', async(req,res,next)=>{
-    try{
-        const editProduct = await Product.findByPk(req.params.uuid)
-        res.send(await Product.update(req.body))
-    }
-    catch(er){
-
-    }
-})
-
-// Delete product
-
-router.delete('/:uuid', async(req, res, next)=>{
-    try{
-        const deleteProduct= await Product.findByPk(req.params.uuid)
-        await deleteProduct.destroy();
-
-    }catch(er){
-        next(er)
-    }
-})
 module.exports = router

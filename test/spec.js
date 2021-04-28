@@ -4,6 +4,7 @@ const {
   db,
   models: { User, Address },
 } = require('../server/db');
+const Product = require('../server/db/Product');
 // db.options.logging = true;
 
 describe('Initial Test', () => {
@@ -457,3 +458,64 @@ describe('Users & Addresses', () => {
     }
   });
 });
+
+describe('Products route',()=>{
+  let allProducts;
+  beforeEach(async()=>{
+    //Create the products
+    const sofa = new Product({
+      name:'theestallion',
+      inventory:10,
+      dimensions:'30w 20h 15d',
+      material:'leather',
+      color:'beige',
+      imageUrl:'www.randomimage.com/1234',
+      price:345.23,
+      description:'comfy beige couch'
+    });
+    sofa.save();
+    const chair = new Product({
+      name:'elseat',
+      inventory:2,
+      dimensions:'24w 24h 15h',
+      material:'wood',
+      color:'brown',
+      imageUrl:'www.randomimage.com/1234',
+      price:50.00,
+      description:'for sitting'
+    })
+    chair.save();
+    const nightstand = new Product({
+      name:'thenight',
+      inventory:23,
+      dimension:'20w 20h 20d',
+      material:'wood',
+      color:'white',
+      imageUrl:'www.randomimage.com/1234',
+      price:34.00,
+      description:'Set your items aside'
+    })
+    nightstand.save()
+  });
+  afterEach(async () => {
+    
+    await sofa.destroy();
+    await chair.destroy();
+    await nightstand.destroy();
+  });
+  it('gets all products',async()=>{
+    const response = await agent.get('/api/products').expect(200);
+    expect(response.body).to.have.length(3);
+  });
+  it('has one sofa',async()=>{
+    const response = await agent.get('/api/products/sofas').expect(200);
+    expect(response.body).to.have.length(1);
+    expect(response.body[0].name).to.equal('theestallion')
+
+  });
+  it('has one chair',async()=>{
+    const response = await agent.get('/api/products/chairs').expect(200);
+    expect(response.body[0].material).to.equal('wood')
+  })
+  
+})
