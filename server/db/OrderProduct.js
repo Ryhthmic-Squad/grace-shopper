@@ -8,7 +8,7 @@ OrderProduct.init(
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
-        min: 0,
+        min: 1,
       },
     },
   },
