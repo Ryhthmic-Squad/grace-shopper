@@ -112,8 +112,8 @@ describe('Order Model', () => {
         console.error(err);
         expect(true).to.equal(false);
       }
-      const { orders_products } = (await newOrder.getProducts())[0];
-      expect(orders_products.quantity).to.equal(7);
+      const { orderProducts } = (await newOrder.getProducts())[0];
+      expect(orderProducts.quantity).to.equal(7);
     });
   });
 });

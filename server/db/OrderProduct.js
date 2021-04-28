@@ -12,7 +12,7 @@ OrderProduct.init(
       },
     },
   },
-  { sequelize: db, modelName: 'orders_products' }
+  { sequelize: db, modelName: 'orderProducts' }
 );
 
 module.exports = OrderProduct;
