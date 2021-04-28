@@ -1,7 +1,7 @@
 const { expect } = require('chai');
 const {
   models: { User, Order, Product },
-} = require('../server/db');
+} = require('../../server/db');
 
 describe('Order Model', () => {
   let newOrder;

@@ -3,7 +3,7 @@ const { ValidationError } = require('sequelize');
 const {
   db,
   models: { User, Order, Address },
-} = require('../server/db');
+} = require('../../server/db');
 // db.options.logging = true;
 
 describe('Address Model', () => {
