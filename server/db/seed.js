@@ -17,4 +17,11 @@ db.sync({ force: true })
   // .then(() => {
   //   console.log('products seeded into db');
   // })
-  .catch(() => db.close());
+  .then(() => {
+    db.close();
+    console.log('db seed complete');
+  })
+  .catch((err) => {
+    db.close();
+    console.error(err);
+  });
