@@ -25,5 +25,5 @@ Product.belongsToMany(Order, { through: OrderProduct });
 //export the database connection and models from this file
 module.exports = {
   db,
-  models: { User, Product, Address, Order, Order_Product: OrderProduct },
+  models: { User, Product, Address, Order, OrderProduct },
 };
