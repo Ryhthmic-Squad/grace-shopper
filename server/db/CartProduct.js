@@ -12,7 +12,7 @@ CartProduct.init(
       },
     },
   },
-  { sequelize: db, modelName: 'carts' }
+  { sequelize: db, modelName: 'cartProducts' }
 );
 
 module.exports = CartProduct;
