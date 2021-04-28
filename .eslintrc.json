@@ -6,7 +6,8 @@
   "extends": "eslint:recommended",
   "rules": {
     "dot-notation": 1,
-    "valid-typeof": 2
+    "valid-typeof": 2,
+    "no-undef": "off"
   },
   "overrides": [
     {
