@@ -37,8 +37,7 @@ Address.belongsTo(User);
 Cart.belongsToMany(Product, { through: CartProduct });
 Product.belongsToMany(Cart, { through: CartProduct });
 
-//Products each belong to 1 room
-//Room can have many products
+//Products each belong to 1 room. Room can have many products
 Room.hasMany(Product);
 Product.belongsTo(Room);
 

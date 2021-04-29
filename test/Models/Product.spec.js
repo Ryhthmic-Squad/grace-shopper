@@ -3,7 +3,7 @@ const { ValidationError } = require('sequelize');
 const {
   db,
   models: { Product },
-} = require('../server/db');
+} = require('../../server/db');
 // db.options.logging = true;
 
 describe('Product Model', () => {
@@ -16,6 +16,7 @@ describe('Product Model', () => {
       height: 10.0,
       width: 20.1,
       depth: null,
+      style: 'testStyle',
       material: 'wood',
       color: 'pink',
       imageUrl: 'image.com',
@@ -125,5 +126,16 @@ describe('Attribute: dimensions', () => {
         expect(err instanceof ValidationError).to.equal(true);
       }
     });
+  });
+
+  describe('Attribute: style', () => {
+    it('has a style', () => {
+      expect(newProduct.style).to.be.ok;
+    });
+  });
+});
+describe('Attribute: type', () => {
+  it('has a type', () => {
+    expect(newProduct.type).to.be.ok;
   });
 });
