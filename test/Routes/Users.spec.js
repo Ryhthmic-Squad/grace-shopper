@@ -1,6 +1,5 @@
 const { expect } = require('chai');
 const {
-  db,
   models: { User },
 } = require('../../server/db/index');
 const app = require('supertest')(require('../../server/index'));
@@ -9,7 +8,6 @@ describe('Routes', () => {
   let user1, user2;
   before(async () => {
     try {
-      await db.sync({ force: true });
       [user1, user2] = await Promise.all([
         User.create({
           email: 'johnSmith@gmail.com',
