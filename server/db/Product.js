@@ -19,6 +19,20 @@ Product.init(
         notEmpty: true,
       },
     },
+    style: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
+    },
+    type: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
+    },
     height: {
       type: DataTypes.FLOAT,
       allowNull: false,

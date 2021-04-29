@@ -4,7 +4,7 @@ const db = require('./db');
 class Room extends Model {}
 Room.init(
   {
-    roomName: {
+    name: {
       type: DataTypes.ENUM('dining', 'bedroom', 'bathroom', 'living'),
     },
     allowNull: false,
