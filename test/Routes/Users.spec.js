@@ -2,8 +2,8 @@ const { expect } = require('chai');
 const {
   db,
   models: { User },
-} = require('../server/db/index');
-const app = require('supertest')(require('../server/index'));
+} = require('../../server/db/index');
+const app = require('supertest')(require('../../server/index'));
 
 describe('Routes', () => {
   beforeEach(async function () {

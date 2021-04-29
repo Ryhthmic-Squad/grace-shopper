@@ -67,20 +67,20 @@ User.init(
   { sequelize: db, modelName: 'user' }
 );
 
-User.addHook('beforeSave', async function (user) {
-  if (user._changed.has('password')) {
-    user.password = await bcrypt.hash(user.password, 5);
-  }
-});
+// User.addHook('beforeSave', async function (user) {
+//   if (user._changed.has('password')) {
+//     user.password = await bcrypt.hash(user.password, 5);
+//   }
+// });
 
-User.authenticate = async function ({ email, password }) {
-  const user = await User.findOne({ where: { email } });
-  if (user && (await bcrypt.compare(password, user.password))) {
-    return jwt.sign({ id: user.id }, process.env.JWT);
-  }
-  const error = Error('bad credentials');
-  error.status = 401;
-  throw error;
-};
+// User.authenticate = async function ({ email, password }) {
+//   const user = await User.findOne({ where: { email } });
+//   if (user && (await bcrypt.compare(password, user.password))) {
+//     return jwt.sign({ id: user.id }, process.env.JWT);
+//   }
+//   const error = Error('bad credentials');
+//   error.status = 401;
+//   throw error;
+// };
 
 module.exports = User;

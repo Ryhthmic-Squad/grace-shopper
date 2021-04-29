@@ -47,12 +47,12 @@ router.post('/', async (req, res, next) => {
 });
 
 // POST send authenticated user
-app.post('/api/auth', async (req, res, next) => {
-  try {
-    res.send({ token: await User.authenticate(req.body) });
-  } catch (err) {
-    next(err);
-  }
-});
+// app.post('/api/auth', async (req, res, next) => {
+//   try {
+//     res.send({ token: await User.authenticate(req.body) });
+//   } catch (err) {
+//     next(err);
+//   }
+// });
 
 module.exports = router;
