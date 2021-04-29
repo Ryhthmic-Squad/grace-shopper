@@ -4,8 +4,6 @@ const db = require('./db');
 const User = require('./User');
 const Product = require('./Product');
 const Room = require('./Room');
-const Style = require('/Style');
-const Furniture = require('./Furniture');
 const Address = require('./Address');
 const Order = require('./Order');
 const OrderProduct = require('./OrderProduct');
@@ -38,6 +36,11 @@ Address.belongsTo(User);
 // CartProduct is a connection table that connects a product to an order and keeps a quantity:
 Cart.belongsToMany(Product, { through: CartProduct });
 Product.belongsToMany(Cart, { through: CartProduct });
+
+//Products each belong to 1 room
+//Room can have many products
+Room.hasMany(Product);
+Product.belongsTo(Room);
 
 //export the database connection and models from this file
 module.exports = {
