@@ -1,6 +1,8 @@
-const {models:{Product}} = require('./db');
-const express = require('express');
-const router= express.Router();
+
+const {
+    models: { Product },
+  } = require('./db/index');
+const router = require('express').Router();
 
 
 // Select all products
@@ -91,12 +93,13 @@ router.get('/tables', async(req,res,next)=>{
     }
 })
 
-//Products by style
+//Products by room and style 
 
-router.get('/styles/transitional', async(req,res,next)=>{
+router.get('/rooms/transitional', async(req,res,next)=>{
     try{
         const transitional = await Product.findAll({
             where:{
+                room:'Bedroom',
                 style:'Transitional'
             }
         })
@@ -105,10 +108,85 @@ router.get('/styles/transitional', async(req,res,next)=>{
         next(er)
     }
 });
-router.get('/styles/modern', async(req,res,next)=>{
+router.get('/rooms/living/transitional', async(req,res,next)=>{
+    try{
+        const transitional = await Product.findAll({
+            where:{
+                room:'Living',
+                style:'Transitional'
+            }
+        })
+        res.status(200).send(transitional)
+    }catch(er){
+        next(er)
+    }
+});router.get('/rooms/dining/transitional', async(req,res,next)=>{
+    try{
+        const transitional = await Product.findAll({
+            where:{
+                room:'Dining',
+                style:'Transitional'
+            }
+        })
+        res.status(200).send(transitional)
+    }catch(er){
+        next(er)
+    }
+});router.get('/rooms/bathroom/transitional', async(req,res,next)=>{
+    try{
+        const transitional = await Product.findAll({
+            where:{
+                room:'Bathroom',
+                style:'Transitional'
+            }
+        })
+        res.status(200).send(transitional)
+    }catch(er){
+        next(er)
+    }
+});
+router.get('/rooms/bedroom/modern', async(req,res,next)=>{
     try{
         const modern = await Product.findAll({
             where:{
+                room:'Bedroom',
+                style:'Modern'
+            }
+        })
+        res.status(200).send(modern);
+    }catch(er){
+        next(er);
+    }
+});
+router.get('/rooms/living/modern', async(req,res,next)=>{
+    try{
+        const modern = await Product.findAll({
+            where:{
+                room:'Living',
+                style:'Modern'
+            }
+        })
+        res.status(200).send(modern);
+    }catch(er){
+        next(er);
+    }
+});router.get('/rooms/dining/modern', async(req,res,next)=>{
+    try{
+        const modern = await Product.findAll({
+            where:{
+                room:'Dining',
+                style:'Modern'
+            }
+        })
+        res.status(200).send(modern);
+    }catch(er){
+        next(er);
+    }
+});router.get('/rooms/bathroom/modern', async(req,res,next)=>{
+    try{
+        const modern = await Product.findAll({
+            where:{
+                room:'Bathroom',
                 style:'Modern'
             }
         })
@@ -118,10 +196,50 @@ router.get('/styles/modern', async(req,res,next)=>{
     }
 });
 
-router.get('/styles/contemporary', async(req,res,next)=>{
+router.get('/rooms/bedroom/contemporary', async(req,res,next)=>{
     try{
         const contemporary = await Product.findAll({
             where:{
+                room:'Bedroom',
+                style:'Contemporary'
+            }
+        })
+        res.status(200).send(contemporary);
+    }catch(er){
+        next(er);
+    }
+});
+router.get('/rooms/living/contemporary', async(req,res,next)=>{
+    try{
+        const contemporary = await Product.findAll({
+            where:{
+                room:'Living',
+                style:'Contemporary'
+            }
+        })
+        res.status(200).send(contemporary);
+    }catch(er){
+        next(er);
+    }
+});
+router.get('/rooms/dining/contemporary', async(req,res,next)=>{
+    try{
+        const contemporary = await Product.findAll({
+            where:{
+                room:'Dining',
+                style:'Contemporary'
+            }
+        })
+        res.status(200).send(contemporary);
+    }catch(er){
+        next(er);
+    }
+});
+router.get('/rooms/bathroom/contemporary', async(req,res,next)=>{
+    try{
+        const contemporary = await Product.findAll({
+            where:{
+                room:'Bathroom',
                 style:'Contemporary'
             }
         })
@@ -131,7 +249,7 @@ router.get('/styles/contemporary', async(req,res,next)=>{
     }
 });
 
-//Products by room 
+//Products by room
 
 router.get('/rooms/dining', async(req,res,next)=>{
     try{

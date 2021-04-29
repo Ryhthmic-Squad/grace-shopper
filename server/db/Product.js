@@ -18,12 +18,23 @@ Product.init(
         notEmpty: true,
       },
     },
-    dimensions: {
-      type: DataTypes.TEXT,
+    height: {
+      type: DataTypes.FLOAT,
       allowNull: false,
       validate: {
         notEmpty: true,
       },
+    },
+    width: {
+      type: DataTypes.FLOAT,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
+    },
+    depth: {
+      type: DataTypes.FLOAT,
+      allowNull: true,
     },
     material: {
       type: DataTypes.STRING,
@@ -44,6 +55,7 @@ Product.init(
       allowNull: false,
       validate: {
         notEmpty: true,
+        isUrl: true,
       },
     },
     price: {
@@ -59,6 +71,10 @@ Product.init(
       validate: {
         notEmpty: true,
       },
+    },
+    type:{
+      type:DataTypes.STRING,
+      allowNull:false
     },
     availability: {
       type: DataTypes.VIRTUAL,
