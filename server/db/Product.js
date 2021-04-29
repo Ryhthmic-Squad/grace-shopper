@@ -7,6 +7,7 @@ Product.init(
     name: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
       validate: {
         notEmpty: true,
       },
@@ -18,11 +19,22 @@ Product.init(
         notEmpty: true,
       },
     },
-    dimensions: {
-      type: DataTypes.JSON,
+    height: {
+      type: DataTypes.FLOAT,
       allowNull: false,
       validate: {
         notEmpty: true,
+      },
+    },
+    width: {
+      type: DataTypes.FLOAT,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
+      depth: {
+        type: DataTypes.FLOAT,
+        allowNull: true,
       },
     },
     material: {
@@ -44,6 +56,7 @@ Product.init(
       allowNull: false,
       validate: {
         notEmpty: true,
+        isUrl: true,
       },
     },
     price: {
