@@ -133,7 +133,9 @@ describe('Review Model', () => {
       newProduct = await new Product({
         name: 'prod1',
         inventory: 1,
-        dimensions: '1x1x1',
+        height: 1,
+        width: 1,
+        depth: 1,
         material: 'felt',
         color: 'red',
         imageUrl: 'test.png',
