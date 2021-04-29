@@ -189,62 +189,60 @@ describe('Address Model', () => {
       expect(newAddress.hasOwnProperty('fullAddress')).to.equal(false);
     });
   });
-});
+  describe('Address and User associations', () => {
+    let newUser, newAddress;
+    before(async () => {
+      // Create and save example addresses before each test.
+      newAddress1 = new Address({
+        line1: '5 Hanover Square',
+        line2: 'Floor 11',
+        city: 'New York',
+        state: 'NY',
+        zip: '10004',
+      });
+      await newAddress1.save();
+      newAddress2 = new Address({
+        line1: '5 Hanover Square',
+        line2: 'Floor 13',
+        city: 'New York',
+        state: 'NY',
+        zip: '10004',
+      });
+      await newAddress2.save();
+      // Create and save an example user before each test.
+      newUser = new User({
+        email: 'test@email.com',
+        password: '1234',
+        phoneNumber: '1234567890',
+        firstName: 'Jane',
+        lastName: 'Doe',
+      });
+      await newUser.save();
+    });
+    after(async () => {
+      // Delete the example user & addresses after each test to avoid unique constraint errors.
+      await newUser.destroy();
+      await newAddress1.destroy();
+      await newAddress2.destroy();
+    });
 
-xdescribe('Users & Addresses', () => {
-  let newUser, newAddress;
-  beforeEach(async () => {
-    // Create and save example addresses before each test.
-    newAddress1 = new Address({
-      line1: '5 Hanover Square',
-      line2: 'Floor 11',
-      city: 'New York',
-      state: 'NY',
-      zip: '10004',
-    });
-    await newAddress1.save();
-    newAddress2 = new Address({
-      line1: '5 Hanover Square',
-      line2: 'Floor 13',
-      city: 'New York',
-      state: 'NY',
-      zip: '10004',
-    });
-    await newAddress2.save();
-    // Create and save an example user before each test.
-    newUser = new User({
-      email: 'test@email.com',
-      password: '1234',
-      phoneNumber: '1234567890',
-      firstName: 'Jane',
-      lastName: 'Doe',
-    });
-    await newUser.save();
-  });
-  afterEach(async () => {
-    // Delete the example user & addresses after each test to avoid unique constraint errors.
-    await newUser.destroy();
-    await newAddress1.destroy();
-    await newAddress2.destroy();
-  });
-
-  it('Addresses can be linked to a User', async () => {
-    try {
-      await newUser.addAddress(newAddress1);
+    it('Addresses can be linked to a User', async () => {
+      try {
+        await newUser.addAddress(newAddress1);
+      } catch (err) {
+        console.error(err);
+        expect(true).to.equal(false);
+      }
       expect(await newUser.getAddresses()).to.have.length(1);
-    } catch (err) {
-      console.error(err);
-      expect(true).to.equal(false);
-    }
-    expect(await newUser.getOrders()).to.have.length(1);
-  });
-  it('A user can have multiple addresses linked', async () => {
-    try {
-      await newUser.addAddresses(newAddress1, newAddress2);
-      expect(await newUser.getAddresses()).to.have.length(1);
-    } catch (err) {
-      console.error(err);
-      expect(true).to.equal(false);
-    }
+    });
+    it('A user can have multiple addresses linked', async () => {
+      try {
+        await newUser.addAddresses(newAddress2);
+      } catch (err) {
+        console.error(err);
+        expect(true).to.equal(false);
+      }
+      expect(await newUser.getAddresses()).to.have.length(2);
+    });
   });
 });
