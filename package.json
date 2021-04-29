@@ -9,8 +9,13 @@
     "seed": "node server/db/seed.js",
     "start": "node server/index.js",
     "start:dev": "nodemon server/index.js",
+<<<<<<< HEAD
     "test": "mocha",
     "test:dev": "JWT=shh DATABASE_URL=postgres://localhost/grace_shopper_test mocha --watch"
+=======
+    "test": "mocha test/*",
+    "test:dev": "mocha --watch test/*"
+>>>>>>> main
   },
   "repository": {
     "type": "git",
