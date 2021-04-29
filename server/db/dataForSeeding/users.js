@@ -1,7 +1,7 @@
 const users = [
   {
     email: 'vikkiwchan@gmail.com',
-    password: '1234',
+    password: 'vikki_pw',
     phoneNumber: '123-456-7890',
     firstName: 'Vikki',
     lastName: 'Chan',
@@ -9,7 +9,7 @@ const users = [
   },
   {
     email: 'mmartin2755@gmail.com',
-    password: '1234',
+    password: 'michelle_pw',
     phoneNumber: '123-456-7890',
     firstName: 'Michelle',
     lastName: 'Martin',
@@ -17,7 +17,7 @@ const users = [
   },
   {
     email: 'justin.mattos@nyu.edu',
-    password: '1234',
+    password: 'justin_pw',
     phoneNumber: '123-456-7890',
     firstName: 'Justin',
     lastName: 'Mattos',
@@ -25,7 +25,7 @@ const users = [
   },
   {
     email: 'princessonyiri@gmail.com',
-    password: '1234',
+    password: 'princess_pw',
     phoneNumber: '123-456-7890',
     firstName: 'Princess',
     lastName: 'Onyiri',

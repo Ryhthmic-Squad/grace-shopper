@@ -12,7 +12,7 @@ describe('Routes', () => {
       await Promise.all([
         User.create({
           email: 'johnSmith@gmail.com',
-          password: '1234',
+          password: 'john_pw',
           phoneNumber: '123-456-7890',
           firstName: 'John',
           lastName: 'Smith',
@@ -20,7 +20,7 @@ describe('Routes', () => {
         }),
         User.create({
           email: 'michelleBranch@gmail.com',
-          password: '5678',
+          password: 'michelle_pw',
           phoneNumber: '911-456-7890',
           firstName: 'Michelle',
           lastName: 'Branch',
@@ -33,14 +33,14 @@ describe('Routes', () => {
   });
 
   describe('GET /api/users', () => {
-    xit('returns 2 users', async () => {
+    it('returns 2 users', async () => {
       const response = await app.get('/api/users');
       expect(response.status).to.equal(200);
       expect(response.body.length).to.equal(2);
     });
   });
   describe('GET /api/users/:id', () => {
-    xit('returns the requested user', async () => {
+    it('returns the requested user', async () => {
       const response = await app.get('/api/users/1');
       expect(response.status).to.equal(201);
       expect(response.body.fullName).to.equal('John Smith');

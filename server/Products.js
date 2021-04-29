@@ -1,3 +1,4 @@
+/*
 const { Product } = require('./db');
 const router = require('express').Router();
 
@@ -230,3 +231,4 @@ router.delete('/:uuid', async(req, res, next)=>{
         next(er)
     }
 })
+*/
