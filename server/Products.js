@@ -1,5 +1,6 @@
-const {Product} = require('./db');
-const router= require('express').Router()
+/*
+const { Product } = require('./db');
+const router = require('express').Router();
 
 
 // Select all products
@@ -130,7 +131,7 @@ router.get('/styles/contemporary', async(req,res,next=>{
     }
 }))
 
-//Products by room 
+//Products by room
 
 router.get('/rooms/dining', async(req,res,next)=>{
     try{
@@ -230,4 +231,4 @@ router.delete('/:uuid', async(req, res, next)=>{
         next(er)
     }
 })
-module.exports = router
+*/
