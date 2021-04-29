@@ -1,15 +1,14 @@
 const { expect } = require('chai');
 const {
-  db,
   models: { User },
 } = require('../../server/db/index');
-const app = require('supertest')(require('../../server/index'));
+const app = require('supertest')(require('../../server/app.js'));
 
 describe('Routes', () => {
+  let user1, user2;
   beforeEach(async function () {
     try {
-      await db.sync({ force: true });
-      await Promise.all([
+      [user1, user2] = await Promise.all([
         User.create({
           email: 'johnSmith@gmail.com',
           password: 'john_pw',
@@ -32,6 +31,14 @@ describe('Routes', () => {
     }
   });
 
+  afterEach(async () => {
+    try {
+      await Promise.all([user1.destroy(), user2.destroy()]);
+    } catch (err) {
+      console.error(err);
+    }
+  });
+
   describe('GET /api/users', () => {
     it('returns 2 users', async () => {
       const response = await app.get('/api/users');
@@ -41,9 +48,10 @@ describe('Routes', () => {
   });
   describe('GET /api/users/:id', () => {
     it('returns the requested user', async () => {
-      const response = await app.get('/api/users/1');
+      const { id, fullName } = user1;
+      const response = await app.get(`/api/users/${id}`);
       expect(response.status).to.equal(201);
-      expect(response.body.fullName).to.equal('John Smith');
+      expect(response.body.fullName).to.equal(fullName);
     });
   });
 });
