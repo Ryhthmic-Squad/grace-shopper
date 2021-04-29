@@ -1,4 +1,4 @@
-//we may want to move this, along with Products.js into an API subfolder
+// we may want to move this, along with Products.js into an API subfolder
 // use JWT here?
 
 const {

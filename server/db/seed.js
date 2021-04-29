@@ -29,15 +29,20 @@ const syncAndSeed = async () => {
         Product.create({
           name: product.name,
           inventory: product.inventory,
-          dimensions: product.dimensions,
+          height: product.height,
+          width: product.width,
+          depth: product.depth,
           material: product.material,
           color: product.color,
           imageUrl: product.imagerUrl,
           price: product.price,
           description: faker.lorem.paragraphs(3),
+          type: product.type,
+          style: product.style,
         })
       )
     );
+
     console.log('products and users seeded into db');
   } catch (er) {
     console.error(er);
