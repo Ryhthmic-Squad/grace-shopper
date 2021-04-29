@@ -433,7 +433,7 @@ describe('Users & Addresses', () => {
     });
     await newUser.save();
   });
-  afterEach(async () => {
+  afterEach(async() => {
     // Delete the example user & address after each test to avoid unique constraint errors.
     await newUser.destroy();
     await newAddress1.destroy();
@@ -499,13 +499,13 @@ describe('Products route',()=>{
     })
     nightstand.save()
   });
-  afterEach(async () => {
-    
+  afterEach(async()=>{
     await sofa.destroy();
     await chair.destroy();
     await nightstand.destroy();
   });
   it('gets all products',async()=>{
+    
     const response = await agent.get('/api/products').expect(200);
     expect(response.body).to.have.length(3);
   });

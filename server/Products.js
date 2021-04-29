@@ -1,5 +1,6 @@
-const {Product} = require('./db');
-const router= require('express').Router()
+const {models:{Product}} = require('./db');
+const express = require('express');
+const router= express.Router();
 
 
 // Select all products
@@ -197,4 +198,4 @@ router.get('/:uuid', async(req,res,next)=>{
 })
 
 
-module.exports = router
+module.exports = router;
