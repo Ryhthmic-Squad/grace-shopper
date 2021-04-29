@@ -10,7 +10,7 @@
     "start": "node server/index.js",
     "start:dev": "nodemon server/index.js",
     "test": "mocha test/*",
-    "test:dev": "mocha --watch test/*"
+    "test:dev": "npm run seed && mocha --watch test/*"
   },
   "repository": {
     "type": "git",
