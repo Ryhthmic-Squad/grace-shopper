@@ -6,10 +6,11 @@ const {
 const app = require('supertest')(require('../../server/index'));
 
 describe('Routes', () => {
-  beforeEach(async function () {
+  let user1, user2;
+  before(async () => {
     try {
       await db.sync({ force: true });
-      await Promise.all([
+      [user1, user2] = await Promise.all([
         User.create({
           email: 'johnSmith@gmail.com',
           password: 'john_pw',
@@ -32,6 +33,10 @@ describe('Routes', () => {
     }
   });
 
+  after(async () => {
+    await Promise.all([user1.destroy(), user2.destroy()]);
+  });
+
   describe('GET /api/users', () => {
     it('returns 2 users', async () => {
       const response = await app.get('/api/users');
@@ -41,9 +46,10 @@ describe('Routes', () => {
   });
   describe('GET /api/users/:id', () => {
     it('returns the requested user', async () => {
-      const response = await app.get('/api/users/1');
+      const { id, fullName } = user1;
+      const response = await app.get(`/api/users/${id}`);
       expect(response.status).to.equal(201);
-      expect(response.body.fullName).to.equal('John Smith');
+      expect(response.body.fullName).to.equal(fullName);
     });
   });
 });
