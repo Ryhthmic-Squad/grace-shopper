@@ -45,7 +45,9 @@ describe('Cart Model', () => {
         {
           name: 'prod1',
           inventory: 1,
-          dimensions: '1x1x1',
+          height: 1,
+          width: 1,
+          depth: 1,
           material: 'felt',
           color: 'red',
           imageUrl: 'test.png',
@@ -55,7 +57,9 @@ describe('Cart Model', () => {
         {
           name: 'prod2',
           inventory: 2,
-          dimensions: '2x2x2',
+          height: 2,
+          width: 2,
+          dimension: 2,
           material: 'felt',
           color: 'red',
           imageUrl: 'test.png',
@@ -65,7 +69,9 @@ describe('Cart Model', () => {
         {
           name: 'prod3',
           inventory: 3,
-          dimensions: '3x3x3',
+          height: 3,
+          width: 3,
+          dimension: 3,
           material: 'felt',
           color: 'red',
           imageUrl: 'test.png',
