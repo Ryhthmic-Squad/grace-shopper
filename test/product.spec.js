@@ -9,7 +9,7 @@ const {
 
 describe('Product Model', () => {
   let newProduct;
-  beforeEach(async () => {
+  beforeEach( async() => {
     // Create and save an example product before each test.
     newProduct = new Product({
       name: 'test product',
@@ -120,4 +120,4 @@ describe('Product Model', () => {
               expect(err instanceof ValidationError).to.equal(true);
             }
           })
-}) 
+        }) 

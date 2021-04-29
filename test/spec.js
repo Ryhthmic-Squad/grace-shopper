@@ -1,4 +1,5 @@
 const { expect } = require('chai');
+<<<<<<< HEAD
 const { ValidationError } = require('sequelize');
 const {
   db,
@@ -9,12 +10,15 @@ const {
 >>>>>>> main
 } = require('../server/db');
 // db.options.logging = true;
+=======
+>>>>>>> main
 
 describe('Initial Test', () => {
   it('adds 1 and 1 to make 2', () => {
     expect(1 + 1).to.equal(2);
   });
 });
+<<<<<<< HEAD
 
 describe('User Model', () => {
   let newUser;
@@ -629,3 +633,5 @@ describe('Users & Addresses', () => {
   });
 >>>>>>> main
 });
+=======
+>>>>>>> main

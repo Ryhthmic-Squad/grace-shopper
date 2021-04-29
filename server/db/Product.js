@@ -88,3 +88,5 @@ Product.init(
 );
 
 module.exports = Product;
+
+//keep dedicated model for room, type and style will be properties on product
