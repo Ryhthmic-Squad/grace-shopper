@@ -51,8 +51,10 @@ describe('Cart Model', () => {
           material: 'felt',
           color: 'red',
           imageUrl: 'test.png',
+          type:'bed',
           price: 1.11,
           description: 'product 1',
+          style:'contemporary'
         },
         {
           name: 'prod2',
@@ -64,7 +66,9 @@ describe('Cart Model', () => {
           color: 'red',
           imageUrl: 'test.png',
           price: 2.22,
+          type:'nightstand',
           description: 'product 2',
+          style:'contemporary'
         },
         {
           name: 'prod3',
@@ -76,7 +80,9 @@ describe('Cart Model', () => {
           color: 'red',
           imageUrl: 'test.png',
           price: 3.33,
+          type:'bed',
           description: 'product 3',
+          style:'contemporary'
         },
       ].map((prod) => new Product(prod));
       await Promise.all(products.map((prod) => prod.save()));
