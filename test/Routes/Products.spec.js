@@ -5,7 +5,7 @@ const {
 const app = require('../../server/app');
 const agent = require('supertest')(app);
 
-describe('Products route',()=>{
+describe('Products routes',()=>{
     test('gets all products',async()=>{
       const product = await Product.findAll()
       const response = await agent.get('/api/products').expect(200);
@@ -22,8 +22,7 @@ describe('Products route',()=>{
           where:{
               color:'taupe'
           }
-      })
-      
+      });
       const response = await agent.get(`/api/products/${id}`).expect(200);
       expect(response.body.width).toBe(width);
       expect(response.body.heigt).toBe(height);
