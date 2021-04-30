@@ -3,6 +3,7 @@ const db = require('./db');
 //e.g. const Product = require('./Product');
 const User = require('./User');
 const Product = require('./Product');
+const Room = require('./Room');
 const Address = require('./Address');
 const Order = require('./Order');
 const OrderProduct = require('./OrderProduct');
@@ -36,8 +37,21 @@ Address.belongsTo(User);
 Cart.belongsToMany(Product, { through: CartProduct });
 Product.belongsToMany(Cart, { through: CartProduct });
 
+//Products each belong to 1 room. Room can have many products
+Room.hasMany(Product);
+Product.belongsTo(Room);
+
 //export the database connection and models from this file
 module.exports = {
   db,
-  models: { User, Address, Order, OrderProduct, Cart, CartProduct, Product },
+  models: {
+    User,
+    Address,
+    Order,
+    OrderProduct,
+    Cart,
+    CartProduct,
+    Product,
+    Room,
+  },
 };

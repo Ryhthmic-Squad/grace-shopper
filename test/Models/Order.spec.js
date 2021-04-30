@@ -70,8 +70,8 @@ describe('Order Model', () => {
           imageUrl: 'test.png',
           price: 1.11,
           description: 'product 1',
-          type:'bed',
-          style:'contemporary'
+          type: 'bed',
+          style: 'contemporary',
         },
         {
           name: 'prod2',
@@ -84,8 +84,8 @@ describe('Order Model', () => {
           imageUrl: 'test.png',
           price: 2.22,
           description: 'product 2',
-          type:'bed',
-          style:'contemporary'
+          type: 'bed',
+          style: 'contemporary',
         },
         {
           name: 'prod3',
@@ -98,14 +98,14 @@ describe('Order Model', () => {
           imageUrl: 'test.png',
           price: 3.33,
           description: 'product 3',
-          type:'bed',
-          style:'contemporary'
+          type: 'bed',
+          style: 'contemporary',
         },
       ].map((prod) => new Product(prod));
       await Promise.all(products.map((prod) => prod.save()));
     });
     after(async () => {
-      // await Promise.all(products.map((prod) => prod.destroy()));
+      await Promise.all(products.map((prod) => prod.destroy()));
     });
     it('Orders can have Products', async () => {
       try {
