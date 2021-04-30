@@ -2,13 +2,14 @@ const db = require('./db');
 //Import all models here
 //e.g. const Product = require('./Product');
 const User = require('./User');
+const Product = require('./Product');
+const Room = require('./Room');
 const Address = require('./Address');
 const Order = require('./Order');
 const OrderProduct = require('./OrderProduct');
 const Cart = require('./Cart');
 const CartProduct = require('./CartProduct');
 const Review = require('./Review');
-const Product = require('./Product');
 
 //Set up relations for models here
 //e.g. Product.belongsTo(Room);
@@ -43,6 +44,10 @@ Product.hasMany(Review);
 Review.belongsTo(User);
 Review.belongsTo(Product);
 
+//Products each belong to 1 room. Room can have many products
+Room.hasMany(Product);
+Product.belongsTo(Room);
+
 //export the database connection and models from this file
 module.exports = {
   db,
@@ -55,5 +60,6 @@ module.exports = {
     CartProduct,
     Review,
     Product,
+    Room,
   },
 };
