@@ -3,7 +3,7 @@
 
 const {
   models: { User },
-} = require('./db/index');
+} = require('../db/index');
 const router = require('express').Router();
 
 // GET /api/users
