@@ -44,7 +44,7 @@ describe('Routes', () => {
     it('returns 6 users', async () => {
       const response = await app.get('/api/users');
       expect(response.status).to.equal(200);
-      expect(response.body.length).to.equal(2);
+      expect(response.body.length).to.equal(6);
     });
   });
   describe('GET /api/users/:id', () => {
