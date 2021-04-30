@@ -44,6 +44,10 @@ Product.init(
         notEmpty: true,
       },
     },
+    type: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     material: {
       type: DataTypes.STRING,
       allowNull: false,
