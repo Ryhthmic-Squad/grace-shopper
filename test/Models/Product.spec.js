@@ -1,7 +1,6 @@
-const { expect } = require('chai');
+const { test } = require('@jest/globals');
 const { ValidationError } = require('sequelize');
 const {
-  db,
   models: { Product },
 } = require('../../server/db');
 // db.options.logging = true;
@@ -32,10 +31,10 @@ describe('Product Model', () => {
   });
 
   describe('Attribute: name', () => {
-    it('has a name', () => {
+    test('has a name', () => {
       expect(newProduct.name).to.be.ok;
     });
-    it('name cannot be empty', async () => {
+    test('name cannot be empty', async () => {
       newProduct.name = '';
       try {
         await newProduct.save();
@@ -45,7 +44,7 @@ describe('Product Model', () => {
         expect(err instanceof ValidationError).to.equal(true);
       }
     });
-    it('name cannot be null', async () => {
+    test('name cannot be null', async () => {
       newProduct.name = null;
       try {
         await newProduct.save();
@@ -58,10 +57,10 @@ describe('Product Model', () => {
   });
 
   describe('Attribute: inventory', () => {
-    it('has inventory', () => {
+    test('has inventory', () => {
       expect(newProduct.inventory).to.be.ok;
     });
-    it('inventory cannot be empty', async () => {
+    test('inventory cannot be empty', async () => {
       newProduct.inventory = '';
       try {
         await newProduct.save();
@@ -74,10 +73,10 @@ describe('Product Model', () => {
   });
 
   describe('Attribute: imageUrl', () => {
-    it('has a name attribute', () => {
+    test('has a name attribute', () => {
       expect(newProduct.imageUrl).to.be.ok;
     });
-    it('only allows valid imageUrls', async () => {
+    test('only allows valid imageUrls', async () => {
       newProduct.imageUrl = 'a fake website';
       try {
         await newProduct.save();
@@ -90,10 +89,10 @@ describe('Product Model', () => {
   });
 
   describe('Attribute: description', () => {
-    it('has a description attribute', () => {
+    test('has a description attribute', () => {
       expect(newProduct.description).to.be.ok;
     });
-    it('description cannot be empty', async () => {
+    test('description cannot be empty', async () => {
       newProduct.description = '';
       try {
         await newProduct.save();
@@ -106,7 +105,7 @@ describe('Product Model', () => {
   });
 
   describe('Attribute: dimensions', () => {
-    it('has height, width, and optional depth', () => {
+    test('has height, width, and optional depth', () => {
       expect(newProduct.height).to.be.ok;
       expect(newProduct.width).to.be.ok;
       expect(newProduct.depth).to.be.null;
@@ -114,10 +113,10 @@ describe('Product Model', () => {
   });
 
   describe('Attribute: description', () => {
-    it('has a name attribute', () => {
+    test('has a name attribute', () => {
       expect(newProduct.description).to.be.ok;
     });
-    it('description cannot be empty', async () => {
+    test('description cannot be empty', async () => {
       newProduct.description = '';
       try {
         await newProduct.save();
@@ -129,12 +128,12 @@ describe('Product Model', () => {
     });
   });
   describe('Attribute: style', () => {
-    it('has a style', () => {
+    test('has a style', () => {
       expect(newProduct.style).to.be.ok;
     });
   });
   describe('Attribute: type', () => {
-    it('has a type', () => {
+    test('has a type', () => {
       expect(newProduct.type).to.be.ok;
     });
   });

@@ -1,4 +1,4 @@
-// Seed file to add initial products to the database
+// Seed file to add initial products and users to the database
 const {
   db,
   models: { Product, User },
@@ -43,6 +43,7 @@ const syncAndSeed = async () => {
     );
 
     console.log('products and users seeded into db');
+    await db.close();
   } catch (er) {
     console.error(er);
   }

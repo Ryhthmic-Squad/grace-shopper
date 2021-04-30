@@ -3,6 +3,7 @@ const {
   models: { Room },
 } = require('../../server/db');
 const { ValidationError } = require('sequelize');
+const { test } = require('@jest/globals');
 describe('Room Model', () => {
   let newRoom;
   beforeEach(async () => {
@@ -17,10 +18,10 @@ describe('Room Model', () => {
     await newRoom.destroy();
   });
   describe('Attribute: Room Name', () => {
-    it('has a name', () => {
+    test('has a name', () => {
       expect(newRoom.name).to.be.ok;
     });
-    it('name cannot be empty', async () => {
+    test('name cannot be empty', async () => {
       newRoom.name = '';
       try {
         await newRoom.save();
@@ -30,7 +31,7 @@ describe('Room Model', () => {
         expect(err instanceof ValidationError).to.equal(true);
       }
     });
-    it('name cannot be null', async () => {
+    test('name cannot be null', async () => {
       newRoom.name = null;
       try {
         await newRoom.save();
