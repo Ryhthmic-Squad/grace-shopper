@@ -65,7 +65,7 @@ User.init(
   },
   { sequelize: db, modelName: 'user' }
 );
-
+/*
 // encrypts password
 User.addHook('beforeSave', async function (user) {
   if (user._changed.has('password')) {
@@ -102,3 +102,4 @@ User.byToken = async function (token) {
 };
 
 module.exports = User;
+*/
