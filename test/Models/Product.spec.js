@@ -16,13 +16,14 @@ describe('Product Model', () => {
       height: 10.0,
       width: 20.1,
       depth: null,
-      style: 'testStyle',
       material: 'wood',
       color: 'pink',
       imageUrl: 'image.com',
       price: 1000.25,
       description:
         'This is a long detailed description of the product you are currently looking at.',
+      type: 'typetest',
+      style: 'testStyle',
     });
     await newProduct.save();
   });

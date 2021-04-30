@@ -37,17 +37,6 @@ Product.init(
       type: DataTypes.FLOAT,
       allowNull: true,
     },
-    style: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-      },
-    },
-    type: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
     material: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -79,6 +68,17 @@ Product.init(
     },
     description: {
       type: DataTypes.TEXT,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
+    },
+    type: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    style: {
+      type: DataTypes.STRING,
       allowNull: false,
       validate: {
         notEmpty: true,
