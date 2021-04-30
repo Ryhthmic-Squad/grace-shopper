@@ -1,12 +1,13 @@
 const { expect } = require('chai');
 const {
+  db,
   models: { User },
 } = require('../../server/db/index');
 const app = require('supertest')(require('../../server/app.js'));
 
 describe('Routes', () => {
   let user1, user2;
-  beforeEach(async function () {
+  beforeEach(async () => {
     try {
       [user1, user2] = await Promise.all([
         User.create({
