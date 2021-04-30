@@ -44,5 +44,14 @@ Product.belongsTo(Room);
 //export the database connection and models from this file
 module.exports = {
   db,
-  models: { User, Address, Order, OrderProduct, Cart, CartProduct, Product },
+  models: {
+    User,
+    Address,
+    Order,
+    OrderProduct,
+    Cart,
+    CartProduct,
+    Product,
+    Room,
+  },
 };

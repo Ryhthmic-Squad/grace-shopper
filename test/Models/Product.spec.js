@@ -109,7 +109,7 @@ describe('Product Model', () => {
     it('has height, width, and optional depth', () => {
       expect(newProduct.height).to.be.ok;
       expect(newProduct.width).to.be.ok;
-      expect(newProduct.depth).to.be.ok;
+      expect(newProduct.depth).to.be.null;
     });
   });
 
