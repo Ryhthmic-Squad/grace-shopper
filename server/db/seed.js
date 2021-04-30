@@ -43,6 +43,7 @@ const syncAndSeed = async () => {
     );
 
     console.log('products and users seeded into db');
+    await db.close();
   } catch (er) {
     console.error(er);
   }

@@ -26,6 +26,9 @@ describe('Grace Shopper Tests', () => {
   });
 
   describe('Route Tests', () => {
+    describe('/api/products', () => {
+      require('./Routes/Products.spec');
+    });
     describe('/api/users', () => {
       require('./Routes/Users.spec');
     });
