@@ -100,6 +100,5 @@ User.byToken = async function (token) {
     throw error;
   }
 };
-
-module.exports = User;
 */
+module.exports = User;
