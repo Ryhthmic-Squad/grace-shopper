@@ -130,6 +130,8 @@ describe('Review and Product associations', () => {
       depth: 1,
       material: 'felt',
       color: 'red',
+      type: 'chair',
+      style: 'modern',
       imageUrl: 'test.png',
       price: 1.11,
       description: 'product 1',
