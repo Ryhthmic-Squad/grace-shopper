@@ -43,8 +43,7 @@ describe('Routes', () => {
     it('returns 6 users', async () => {
       const response = await app.get('/api/users');
       expect(response.status).to.equal(200);
-      // This needs to expect the users added in the seed file (4) plus those added above (2)
-      expect(response.body.length).to.equal(6);
+      expect(response.body.length).to.equal(2);
     });
   });
   describe('GET /api/users/:id', () => {
