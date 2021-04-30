@@ -4,5 +4,5 @@ node_js:
 services:
   - postgresql
 before_script:
-  - psql -c 'create database grace_shopper_test;' -U postgres
+  - psql -c 'create database grace_shopper;' -U postgres
   - npm run seed

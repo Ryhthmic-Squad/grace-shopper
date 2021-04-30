@@ -6,8 +6,8 @@ Room.init(
   {
     name: {
       type: DataTypes.ENUM('dining', 'bedroom', 'bathroom', 'living'),
+      allowNull: false,
     },
-    allowNull: false,
   },
   { sequelize: db, modelName: 'room' }
 );
