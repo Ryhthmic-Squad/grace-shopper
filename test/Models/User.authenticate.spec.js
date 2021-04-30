@@ -8,7 +8,7 @@ const {
 describe('Models', () => {
   describe('User.authenticate', () => {
     describe('correct credentials', () => {
-      it('returns a token', async () => {
+      xit('returns a token', async () => {
         const token = await User.authenticate({
           email: 'johnSmith@gmail.com',
           password: 'john_pw',
@@ -19,7 +19,7 @@ describe('Models', () => {
     });
   });
   describe('incorrect credentials', () => {
-    it('throws an error', async () => {
+    xit('throws an error', async () => {
       try {
         await User.authenticate({
           email: 'johnSmith@gmail.com',
@@ -35,7 +35,7 @@ describe('Models', () => {
   describe('User.byToken', () => {
     //before each await user
     describe('with a valid token', () => {
-      it('returns a user', async () => {
+      xit('returns a user', async () => {
         const userLogin = await User.findOne({
           where: { email: 'johnSmith@gmail.com' },
         });
