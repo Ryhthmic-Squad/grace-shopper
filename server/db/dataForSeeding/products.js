@@ -14,7 +14,7 @@ const products = [
     color: 'grey',
     imagerUrl:
       'https://rnb.scene7.com/is/image/roomandboard/?src=ir%7Broomandboardrender/hartley_queen_60_2018?obj=main&sharp=1&src=rpt_declanhaze&obj=material&show&src=drape_material_cc&obj=hboard/40H&show&src=rpt_declanhaze%7D&$prodzoom0$&size=1280,400&scl=1',
-    price: 2250.00,
+    price: 2250,
     style: 'contemporary',
     type: 'bed',
   },
@@ -28,7 +28,7 @@ const products = [
     color: 'brown',
     imagerUrl:
       'https://images.hermanmiller.group/m/3effef93d8420f64/W-DWR_2517925_100169751_surf_oak_a.tif?blend-mode=darken&blend=f8f8f8&trim-color=ffffff&trim=color&bg=f8f8f8&auto=format&w=1200&q=68&h=1000',
-    price: 1500.00,
+    price: 1500,
     style: 'contemporary',
     type: 'bed',
   },
@@ -42,7 +42,7 @@ const products = [
     color: 'beige',
     imagerUrl:
       'https://cdn.shopify.com/s/files/1/0351/7510/4651/products/2021_02_23_LAWSON_FENNING_0179_600x.png?v=1616896702',
-    price: 875.00,
+    price: 875,
     style: 'contemporary',
     type: 'dresser',
   },
@@ -56,7 +56,7 @@ const products = [
     color: 'brown',
     imagerUrl:
       'https://rnb.scene7.com/is/image/roomandboard/?layer=0&size=1280,400&scl=1&src=899535_wood_SHELL&layer=1&size=1280,400&scl=1&src=899535_base_GP&layer=2&size=1280,400&scl=1&src=899535_pull_GRPH&layer=comp&$prodzoom0$',
-    price: 1000.00,
+    price: 1000,
     style: 'contemporary',
     type: 'dresser',
   },
@@ -70,7 +70,7 @@ const products = [
     color: 'brown',
     imagerUrl:
       'https://cdn.shopify.com/s/files/1/0351/7510/4651/products/2020_06_24_LAWSON_FENNING_0270-3_1200x.png?v=1596131972',
-    price: 500.00,
+    price: 500,
     style: 'contemporary',
     type: 'nightstand',
   },
@@ -84,7 +84,7 @@ const products = [
     color: 'taupe',
     imagerUrl:
       'https://www.roomandboard.com/catalog/bedroom/nightstands/copenhagen-nightstands',
-    price: 450.00,
+    price: 450,
     style: 'contemporary',
     type: 'nightstand',
   },

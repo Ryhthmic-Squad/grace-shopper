@@ -3,7 +3,7 @@ const {
   db,
   models: { Product },
 } = require('../../server/db/index');
-const app = require('../../server/index');
+const app = require('../../server/app');
 const agent = require('supertest')(app);
 
 describe('Products route',()=>{
@@ -13,24 +13,19 @@ describe('Products route',()=>{
       expect(response.body).to.have.length(product.length);
     });
     it('getting the price',async()=>{
-      const {id, price} = Product.findOne({
-          where:{
-              name:'Niguel Dresser'
-          }
-      })
-      console.log(id)
+      const {id, price} = await Product.findOne()
       const response = await agent.get(`/api/products/dressers/${id}`).expect(200);
-      expect(response.body[0].price).to.equal(price)
+      expect(response.body.price).to.equal(price)
     });
-    it('has a color',async()=>{
-      const {id, width} = Product.findOne({
+    it('has a width',async()=>{
+      const {id, width} = await Product.findOne({
           where:{
               color:'taupe'
           }
       })
+      
       const response = await agent.get(`/api/products/nightstands/${id}`).expect(200);
-      expect(response.body).to.have.length(1);
-      expect(response.body[0].width).to.equal(width)
+      expect(response.body.width).to.equal(width)
   
     });
     
