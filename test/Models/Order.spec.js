@@ -99,7 +99,7 @@ describe('Order Model', () => {
       await Promise.all(products.map((prod) => prod.save()));
     });
     after(async () => {
-      // await Promise.all(products.map((prod) => prod.destroy()));
+      await Promise.all(products.map((prod) => prod.destroy()));
     });
     it('Orders can have Products', async () => {
       try {
