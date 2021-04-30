@@ -1,7 +1,6 @@
-const path = require('path');
-const express = require('express');
-const app = express();
+const app = './app.js';
 const PORT = process.env.PORT || 3000;
+<<<<<<< HEAD
 const morgan = require('morgan');
 
 //Body parsing middleware
@@ -15,16 +14,9 @@ app.use(morgan('dev'));
 
 app.use('/api/products', require('./Products'));
 app.use('/api/users', require('./Users'));
+=======
+>>>>>>> 183f698287e580ed8047dad5f8f37dcc38fe59f5
 
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
 });
-
-// Error hander
-
-app.use((er, req, res, next) => {
-  console.error(er.stack);
-  res.status(500).send({ error: er });
-});
-
-module.exports = app;
