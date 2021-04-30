@@ -6,50 +6,19 @@ const {
 const app = require('supertest')(require('../../server/app.js'));
 
 describe('Routes', () => {
-  let user1, user2;
-  beforeEach(async () => {
-    try {
-      [user1, user2] = await Promise.all([
-        User.create({
-          email: 'johnSmith@gmail.com',
-          password: 'john_pw',
-          phoneNumber: '123-456-7890',
-          firstName: 'John',
-          lastName: 'Smith',
-          isAdmin: true,
-        }),
-        User.create({
-          email: 'michelleBranch@gmail.com',
-          password: 'michelle_pw',
-          phoneNumber: '911-456-7890',
-          firstName: 'Michelle',
-          lastName: 'Branch',
-          isAdmin: true,
-        }),
-      ]);
-    } catch (er) {
-      console.error(er);
-    }
-  });
-
-  afterEach(async () => {
-    try {
-      await Promise.all([user1.destroy(), user2.destroy()]);
-    } catch (err) {
-      console.error(err);
-    }
-  });
-
   describe('GET /api/users', () => {
-    it('returns 6 users', async () => {
+    it('returns all users in the database', async () => {
+      const users = await User.findAll();
       const response = await app.get('/api/users');
       expect(response.status).to.equal(200);
-      expect(response.body.length).to.equal(6);
+      expect(response.body.length).to.equal(users.length);
     });
   });
   describe('GET /api/users/:id', () => {
     it('returns the requested user', async () => {
-      const { id, fullName } = user1;
+      const { id, fullName } = await User.findOne({
+        where: { firstName: 'Princess' },
+      });
       const response = await app.get(`/api/users/${id}`);
       expect(response.status).to.equal(201);
       expect(response.body.fullName).to.equal(fullName);
