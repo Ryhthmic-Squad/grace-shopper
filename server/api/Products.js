@@ -16,6 +16,16 @@ router.get('/', async(req,res,next)=>{
         next(er)
     }
 });
+//Product by id
+router.get('/:id',async(req,res,next)=>{
+    try{
+        const product = await Product.findByPk(req.params.id);
+        res.status(200).send(product);
+    }catch(er){
+        next(er);
+    }
+})
+
 // Products by type
 
 router.get('/sofas', async(req,res,next)=>{
@@ -31,15 +41,7 @@ router.get('/sofas', async(req,res,next)=>{
         next(er);
     }
 });
-router.get('/sofas/:id', async(req,res,next)=>{
-    try{
-        const sofas = await Product.findByPk(req.params.id)
-        res.status(200).send(sofas);
 
-    }catch(er){
-        next(er);
-    }
-});
 router.get('/dressers', async(req,res,next)=>{
     try{
         const dressers = await Product.findAll({
@@ -47,15 +49,6 @@ router.get('/dressers', async(req,res,next)=>{
                 type:'dresser'
             }
         })
-        res.status(200).send(dressers);
-
-    }catch(er){
-        next(er);
-    }
-});
-router.get('/dressers/:id', async(req,res,next)=>{
-    try{
-        const dressers = await Product.findByPk(req.params.id)
         res.status(200).send(dressers);
 
     }catch(er){
@@ -75,15 +68,7 @@ router.get('/chairs', async(req,res,next)=>{
         next(er);
     }
 });
-router.get('/chairs/:id', async(req,res,next)=>{
-    try{
-       const chairs=  await Product.findByPk(req.params.id)
-        res.status(200).send(chairs);
 
-    }catch(er){
-        next(er);
-    }
-});
 router.get('/beds', async(req,res,next)=>{
     try{
         const beds = await Product.findAll({
@@ -96,14 +81,7 @@ router.get('/beds', async(req,res,next)=>{
         next(er);
     }
 });
-router.get('/beds/:id', async(req,res,next)=>{
-    try{
-        const beds = await Product.findByPk(req.params.id)
-        res.status(200).send(beds);
-    }catch(er){
-        next(er);
-    }
-});
+
 router.get('/dressers', async(req,res,next)=>{
     try{
         const dressers = await Product.findAll({
@@ -116,14 +94,7 @@ router.get('/dressers', async(req,res,next)=>{
         next(er);
     }
 });
-router.get('/dressers/:id', async(req,res,next)=>{
-    try{
-        const dressers = await Product.findByPk(req.params.id)
-        res.status(200).send(dressers);
-    }catch(er){
-        next(er);
-    }
-});
+
 router.get('/nightstands', async(req,res,next)=>{
     try{
         const nightstands = await Product.findAll({
@@ -136,14 +107,7 @@ router.get('/nightstands', async(req,res,next)=>{
         next(er);
     }
 });
-router.get('/nightstands/:id', async(req,res,next)=>{
-    try{
-        const nightstands = await Product.findByPk(req.params.id)
-        res.status(200).send(nightstands);
-    }catch(er){
-        next(er);
-    }
-});
+
 router.get('/tables', async(req,res,next)=>{
     try{
         const tables = await Product.findAll({
@@ -151,14 +115,6 @@ router.get('/tables', async(req,res,next)=>{
                 type:'table'
             }
         })
-        res.status(200).send(tables);
-    }catch(er){
-        next(er);
-    }
-})
-router.get('/tables/:id', async(req,res,next)=>{
-    try{
-        const tables = await Product.findByPk(req.params.id)
         res.status(200).send(tables);
     }catch(er){
         next(er);

@@ -1,4 +1,3 @@
-const { expect } = require('chai');
 const {
   db,
   models: { Product },
@@ -7,25 +6,27 @@ const app = require('../../server/app');
 const agent = require('supertest')(app);
 
 describe('Products route',()=>{
-    it('gets all products',async()=>{
+    test('gets all products',async()=>{
       const product = await Product.findAll()
       const response = await agent.get('/api/products').expect(200);
-      expect(response.body).to.have.length(product.length);
+      expect(response.body).toBe(product.length);
+      expect(product).toEqual(response.body);
     });
-    it('getting the price',async()=>{
+    test('getting the price',async()=>{
       const {id, price} = await Product.findOne()
-      const response = await agent.get(`/api/products/dressers/${id}`).expect(200);
-      expect(response.body.price).to.equal(price)
+      const response = await agent.get(`/api/products/${id}`).expect(200);
+      expect(response.body.price).toBe(price)
     });
-    it('has a width',async()=>{
-      const {id, width} = await Product.findOne({
+    test('has a width',async()=>{
+      const {id, width,height} = await Product.findOne({
           where:{
               color:'taupe'
           }
       })
       
-      const response = await agent.get(`/api/products/nightstands/${id}`).expect(200);
-      expect(response.body.width).to.equal(width)
+      const response = await agent.get(`/api/products/${id}`).expect(200);
+      expect(response.body.width).toBe(width);
+      expect(response.body.heigt).toBe(height);
   
     });
     
