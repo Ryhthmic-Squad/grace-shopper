@@ -141,6 +141,8 @@ describe('Review Model', () => {
         imageUrl: 'test.png',
         price: 1.11,
         description: 'product 1',
+        type: 'bed',
+        style: 'contemporary',
       }).save();
     });
     after(async () => {
