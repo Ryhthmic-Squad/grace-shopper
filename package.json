@@ -9,7 +9,7 @@
     "seed": "node server/db/seed.js",
     "start": "node server/index.js",
     "start:dev": "nodemon server/index.js",
-    "test": "mocha test/*",
+    "test": "JWT=shh DATABASE_URL=postgres://localhost/grace_shopper_test mocha test/* --exit",
     "test:dev": "JWT=shh DATABASE_URL=postgres://localhost/grace_shopper_test mocha --watch test/*"
   },
   "repository": {

@@ -17,7 +17,6 @@ User.init(
     password: {
       type: DataTypes.STRING,
       allowNull: false,
-      //build in hashing at some point, likely beforeUpdate hook?
       validate: {
         notEmpty: true,
       },
@@ -67,20 +66,39 @@ User.init(
   { sequelize: db, modelName: 'user' }
 );
 
-// User.addHook('beforeSave', async function (user) {
-//   if (user._changed.has('password')) {
-//     user.password = await bcrypt.hash(user.password, 5);
-//   }
-// });
+// encrypts password
+User.addHook('beforeSave', async function (user) {
+  if (user._changed.has('password')) {
+    user.password = await bcrypt.hash(user.password, 5);
+  }
+});
 
-// User.authenticate = async function ({ email, password }) {
-//   const user = await User.findOne({ where: { email } });
-//   if (user && (await bcrypt.compare(password, user.password))) {
-//     return jwt.sign({ id: user.id }, process.env.JWT);
-//   }
-//   const error = Error('bad credentials');
-//   error.status = 401;
-//   throw error;
-// };
+// generates token for user & adds signature on the backend
+User.authenticate = async function ({ email, password }) {
+  const user = await User.findOne({ where: { email } });
+  if (user && (await bcrypt.compare(password, user.password))) {
+    return jwt.sign({ id: user.id }, process.env.JWT);
+  }
+  const error = Error('bad credentials');
+  error.status = 401;
+  throw error;
+};
+
+// Verifies user
+User.byToken = async function (token) {
+  try {
+    const { id } = jwt.verify(token, process.env.JWT);
+    const user = await User.findByPk(id);
+    // checks if the user exists
+    if (user) {
+      return user;
+    }
+  } catch (ex) {
+    // if a token that is not sized correctly this sends the correct error message
+    const error = Error('bad credentials');
+    error.status = 401;
+    throw error;
+  }
+};
 
 module.exports = User;
