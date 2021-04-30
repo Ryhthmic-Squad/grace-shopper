@@ -2,13 +2,13 @@ const { expect } = require('chai');
 const {
   models: { Room },
 } = require('../../server/db');
-
+const { ValidationError } = require('sequelize');
 describe('Room Model', () => {
   let newRoom;
   beforeEach(async () => {
     // Create and save an example room before each test.
     newRoom = new Room({
-      name: 'testRoom',
+      name: 'living',
     });
 
     await newRoom.save();

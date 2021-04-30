@@ -90,7 +90,7 @@ describe('Product Model', () => {
   });
 
   describe('Attribute: description', () => {
-    it('has a name attribute', () => {
+    it('has a description attribute', () => {
       expect(newProduct.description).to.be.ok;
     });
     it('description cannot be empty', async () => {
