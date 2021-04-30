@@ -1,8 +1,7 @@
 const { expect } = require('chai');
 const { ValidationError } = require('sequelize');
 const {
-  db,
-  models: { User, Order, Address },
+  models: { User, Address },
 } = require('../../server/db');
 // db.options.logging = true;
 
