@@ -1,3 +1,4 @@
+const { test } = require('@jest/globals');
 const { ValidationError } = require('sequelize');
 const {
   models: { User, Address },
@@ -21,10 +22,10 @@ afterEach(async () => {
 });
 describe('Attributes', () => {
   describe('Attribute: line1', () => {
-    it('has a line1 attribute', () => {
+    test('has a line1 attribute', () => {
       expect(newAddress.line1).toBeTruthy();
     });
-    it('line1 cannot be empty', async () => {
+    test('line1 cannot be empty', async () => {
       newAddress.line1 = '';
       try {
         await newAddress.save();
@@ -34,7 +35,7 @@ describe('Attributes', () => {
         expect(err instanceof ValidationError).toBe(true);
       }
     });
-    it('line1 cannot be null', async () => {
+    test('line1 cannot be null', async () => {
       newAddress.line1 = null;
       try {
         await newAddress.save();
@@ -46,10 +47,10 @@ describe('Attributes', () => {
     });
   });
   describe('Attribute: line2', () => {
-    it('has a line2 attribute', () => {
+    test('has a line2 attribute', () => {
       expect(newAddress.line2).toBeTruthy();
     });
-    it('line2 can be null', async () => {
+    test('line2 can be null', async () => {
       delete newAddress.line2;
       try {
         await newAddress.save();
@@ -62,10 +63,10 @@ describe('Attributes', () => {
     });
   });
   describe('Attribute: city', () => {
-    it('has a city attribute', () => {
+    test('has a city attribute', () => {
       expect(newAddress.city).toBeTruthy();
     });
-    it('city cannot be empty', async () => {
+    test('city cannot be empty', async () => {
       newAddress.city = '';
       try {
         await newAddress.save();
@@ -75,7 +76,7 @@ describe('Attributes', () => {
         expect(err instanceof ValidationError).toBe(true);
       }
     });
-    it('city cannot be null', async () => {
+    test('city cannot be null', async () => {
       newAddress.city = null;
       try {
         await newAddress.save();
@@ -87,10 +88,10 @@ describe('Attributes', () => {
     });
   });
   describe('Attribute: state', () => {
-    it('has a state attribute', () => {
+    test('has a state attribute', () => {
       expect(newAddress.state).toBeTruthy();
     });
-    it('state cannot be empty', async () => {
+    test('state cannot be empty', async () => {
       newAddress.state = '';
       try {
         await newAddress.save();
@@ -100,7 +101,7 @@ describe('Attributes', () => {
         expect(err instanceof ValidationError).toBe(true);
       }
     });
-    it('state cannot be null', async () => {
+    test('state cannot be null', async () => {
       newAddress.state = null;
       try {
         await newAddress.save();
@@ -110,7 +111,7 @@ describe('Attributes', () => {
         expect(err instanceof ValidationError).toBe(true);
       }
     });
-    it('only accepts state abbreviations from server/db/states.js', async () => {
+    test('only accepts state abbreviations from server/db/states.js', async () => {
       newAddress.state = 'ST';
       try {
         await newAddress.save();
@@ -122,10 +123,10 @@ describe('Attributes', () => {
     });
   });
   describe('Attribute: zip', () => {
-    it('has a zip attribute', () => {
+    test('has a zip attribute', () => {
       expect(newAddress.zip).toBeTruthy();
     });
-    it('zip cannot be empty', async () => {
+    test('zip cannot be empty', async () => {
       newAddress.zip = '';
       try {
         await newAddress.save();
@@ -135,7 +136,7 @@ describe('Attributes', () => {
         expect(err instanceof ValidationError).toBe(true);
       }
     });
-    it('zip cannot be null', async () => {
+    test('zip cannot be null', async () => {
       newAddress.zip = null;
       try {
         await newAddress.save();
@@ -145,7 +146,7 @@ describe('Attributes', () => {
         expect(err instanceof ValidationError).toBe(true);
       }
     });
-    it('zip must be at least 5 characters', async () => {
+    test('zip must be at least 5 characters', async () => {
       newAddress.zip = '1234';
       try {
         await newAddress.save();
@@ -155,7 +156,7 @@ describe('Attributes', () => {
         expect(err instanceof ValidationError).toBe(true);
       }
     });
-    it('zip must be at most 5 characters', async () => {
+    test('zip must be at most 5 characters', async () => {
       newAddress.zip = '123456';
       try {
         await newAddress.save();
@@ -165,7 +166,7 @@ describe('Attributes', () => {
         expect(err instanceof ValidationError).toBe(true);
       }
     });
-    it('zip should only contain digits', async () => {
+    test('zip should only contain digits', async () => {
       newAddress.zip = 'abcde';
       try {
         await newAddress.save();
@@ -177,12 +178,12 @@ describe('Attributes', () => {
     });
   });
   describe('Attribute: fullAddress', () => {
-    it('has a fullAddress attribute that combines first and last names', () => {
+    test('has a fullAddress attribute that combines first and last names', () => {
       expect(newAddress.fullAddress).toBe(
         '5 Hanover Square Floor 11\nNew York, NY 10004'
       );
     });
-    it('the fullAddress attribute is virtual and not a column in the database', () => {
+    test('the fullAddress attribute is virtual and not a column in the database', () => {
       expect(newAddress.hasOwnProperty('fullAddress')).toBe(false);
     });
   });
@@ -224,7 +225,7 @@ describe('Address and User associations', () => {
     await newAddress2.destroy();
   });
 
-  it('Addresses can be linked to a User', async () => {
+  test('Addresses can be linked to a User', async () => {
     try {
       await newUser.addAddress(newAddress1);
     } catch (err) {
@@ -233,7 +234,7 @@ describe('Address and User associations', () => {
     }
     expect((await newUser.getAddresses()).length).toBe(1);
   });
-  it('A user can have multiple addresses linked', async () => {
+  test('A user can have multiple addresses linked', async () => {
     try {
       await newUser.addAddresses(newAddress2);
     } catch (err) {

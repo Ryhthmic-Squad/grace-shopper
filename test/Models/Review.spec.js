@@ -1,3 +1,4 @@
+const { test } = require('@jest/globals');
 const { ValidationError } = require('sequelize');
 const {
   models: { User, Product, Review },
@@ -20,10 +21,10 @@ describe('Attributes', () => {
     reviews = await Review.findAll({ where: { id: newReview.id } });
   });
   describe('Attribute: rating', () => {
-    it('has a rating attribute', async () => {
+    test('has a rating attribute', async () => {
       expect(reviews[0].rating).toBe(4);
     });
-    it('rating cannot be lower than 1', async () => {
+    test('rating cannot be lower than 1', async () => {
       try {
         await new Review({ rating: 0, text: 'this should fail' }).save();
         expect(false).toBe(true);
@@ -31,7 +32,7 @@ describe('Attributes', () => {
         expect(err instanceof ValidationError).toBe(true);
       }
     });
-    it('rating cannot be higher than 5', async () => {
+    test('rating cannot be higher than 5', async () => {
       try {
         await new Review({ rating: 6, text: 'this should also fail' }).save();
         expect(false).toBe(true);
@@ -41,10 +42,10 @@ describe('Attributes', () => {
     });
   });
   describe('Attribute: text', () => {
-    it('has a text attribute', () => {
+    test('has a text attribute', () => {
       expect(reviews[0].text).toBe('This product is pretty good');
     });
-    it('can be null', async () => {
+    test('can be null', async () => {
       try {
         await new Review({ rating: 4 }).save();
       } catch (err) {
@@ -53,7 +54,7 @@ describe('Attributes', () => {
       }
       expect(true).toBe(true);
     });
-    it('can be empty', async () => {
+    test('can be empty', async () => {
       try {
         await new Review({ rating: 3 }).save();
       } catch (err) {
@@ -64,10 +65,10 @@ describe('Attributes', () => {
     });
   });
   describe('Attribute: date', () => {
-    it('has a date attribute', () => {
+    test('has a date attribute', () => {
       expect(reviews[0].date).toBeTruthy();
     });
-    it("defaults to today's date in YYYY-MM-DD format", () => {
+    test("defaults to today's date in YYYY-MM-DD format", () => {
       const today = new Date();
       const year = today.getFullYear();
       const month = today.getMonth() + 1;
@@ -93,7 +94,7 @@ describe('Review and User associations', () => {
   afterAll(async () => {
     await newUser.destroy();
   });
-  it('Reviews can be linked to a User', async () => {
+  test('Reviews can be linked to a User', async () => {
     try {
       await newUser.addReview(newReview);
     } catch (err) {
@@ -104,7 +105,7 @@ describe('Review and User associations', () => {
     expect(reviews.length).toBe(1);
     expect(reviews[0].rating).toBe(4);
   });
-  it('Multiple reviews can be linked to a User', async () => {
+  test('Multiple reviews can be linked to a User', async () => {
     const reviewsToLink = Array(3)
       .fill(4)
       .map((rating) => new Review({ rating }));
@@ -140,7 +141,7 @@ describe('Review and Product associations', () => {
   afterAll(async () => {
     await newProduct.destroy();
   });
-  it('Reviews can be linked to a Product', async () => {
+  test('Reviews can be linked to a Product', async () => {
     try {
       await newProduct.addReview(newReview);
     } catch (err) {
@@ -151,7 +152,7 @@ describe('Review and Product associations', () => {
     expect(reviews.length).toBe(1);
     expect(reviews[0].rating).toBe(4);
   });
-  it('Multiple reviews can be linked to a Product', async () => {
+  test('Multiple reviews can be linked to a Product', async () => {
     const reviewsToLink = Array(3)
       .fill(4)
       .map((rating) => new Review({ rating }));

@@ -1,3 +1,4 @@
+const { test } = require('@jest/globals');
 const jwt = require('jsonwebtoken');
 const {
   models: { User },
@@ -21,7 +22,7 @@ afterEach(async () => {
 });
 describe('User Update', () => {
   describe('change name', () => {
-    it('does not change the password', async () => {
+    test('does not change the password', async () => {
       const password = userLogin.password;
       const admin = userLogin;
       admin.firstName = 'Janelle';
@@ -32,7 +33,7 @@ describe('User Update', () => {
 });
 describe('Class Method: User.authenticate', () => {
   describe('correct credentials', () => {
-    it('returns a token', async () => {
+    test('returns a token', async () => {
       const token = await User.authenticate({
         email: 'test@email.com',
         password: '1234',
@@ -42,7 +43,7 @@ describe('Class Method: User.authenticate', () => {
     });
   });
   describe('incorrect credentials', () => {
-    it('throws an error', async () => {
+    test('throws an error', async () => {
       try {
         await User.authenticate({
           email: 'test@email.com',
@@ -58,7 +59,7 @@ describe('Class Method: User.authenticate', () => {
 });
 describe('Class Method: User.byToken', () => {
   describe('with a valid token', () => {
-    it('returns a user', async () => {
+    test('returns a user', async () => {
       const token = await jwt.sign({ id: userLogin.id }, process.env.JWT);
       const user = await User.byToken(token);
       expect(user.fullName).toBe(userLogin.fullName);
@@ -66,7 +67,7 @@ describe('Class Method: User.byToken', () => {
   });
   // error will be thrown if someone uses an invalid token
   describe('with a invalid token', () => {
-    it('throws a 401', async () => {
+    test('throws a 401', async () => {
       try {
         const token = await jwt.sign({ id: userLogin.id }, 'randomToken');
         await User.byToken(token);
@@ -78,7 +79,7 @@ describe('Class Method: User.byToken', () => {
     });
   });
   describe('with a valid token but no associated user', () => {
-    it('throws a 401', async () => {
+    test('throws a 401', async () => {
       try {
         const token = await jwt.sign({ id: 99 }, process.env.JWT);
         await User.byToken(token);

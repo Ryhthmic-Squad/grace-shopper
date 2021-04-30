@@ -1,3 +1,4 @@
+const { test } = require('@jest/globals');
 const {
   models: { User, Order, Product },
 } = require('../../server/db');
@@ -10,7 +11,7 @@ beforeAll(async () => {
 afterAll(async () => {
   await newOrder.destroy();
 });
-it('Orders have a status that defaults to "CREATED"', async () => {
+test('Orders have a status that defaults to "CREATED"', async () => {
   expect(newOrder.status).toBe('CREATED');
 });
 describe('Order and User associations', () => {
@@ -28,7 +29,7 @@ describe('Order and User associations', () => {
   afterEach(async () => {
     newUser.destroy();
   });
-  it('Orders can be linked to a User', async () => {
+  test('Orders can be linked to a User', async () => {
     try {
       await newUser.addOrder(newOrder);
     } catch (err) {
@@ -38,7 +39,7 @@ describe('Order and User associations', () => {
     const { length } = await newUser.getOrders();
     expect(length).toBe(1);
   });
-  it('A user can have multiple linked orders', async () => {
+  test('A user can have multiple linked orders', async () => {
     try {
       const orders = Array(3)
         .fill('')
@@ -105,7 +106,7 @@ describe('Order and Product associations', () => {
   afterEach(async () => {
     await Promise.all(products.map((prod) => prod.destroy()));
   });
-  it('Orders can have Products', async () => {
+  test('Orders can have Products', async () => {
     try {
       await newOrder.addProduct(products[0], { through: { quantity: 1 } });
     } catch (err) {
@@ -115,7 +116,7 @@ describe('Order and Product associations', () => {
     const { length } = await newOrder.getProducts();
     expect(length).toBe(1);
   });
-  it('Orders note the quantity of each Product', async () => {
+  test('Orders note the quantity of each Product', async () => {
     try {
       await newOrder.addProduct(products[0], { through: { quantity: 7 } });
     } catch (err) {

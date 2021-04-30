@@ -1,11 +1,11 @@
+const { test } = require('@jest/globals');
 const {
-  db,
   models: { User },
 } = require('../../server/db/index');
 const app = require('supertest')(require('../../server/app.js'));
 
 describe('GET /api/users', () => {
-  it('returns all users in the database', async () => {
+  test('returns all users in the database', async () => {
     const users = await User.findAll();
     const response = await app.get('/api/users');
     expect(response.status).toBe(200);
@@ -13,7 +13,7 @@ describe('GET /api/users', () => {
   });
 });
 describe('GET /api/users/:id', () => {
-  it('returns the requested user', async () => {
+  test('returns the requested user', async () => {
     const { id, fullName } = await User.findOne({
       where: { firstName: 'Princess' },
     });

@@ -1,3 +1,4 @@
+const { test } = require('@jest/globals');
 const {
   models: { User, Cart, Product },
 } = require('../../server/db');
@@ -25,7 +26,7 @@ describe('Cart and User associations', () => {
   afterEach(async () => {
     newUser.destroy();
   });
-  it('Carts can be linked to a User', async () => {
+  test('Carts can be linked to a User', async () => {
     try {
       await newUser.setCart(newCart);
     } catch (err) {
@@ -88,7 +89,7 @@ describe('Carts and Product associations', () => {
   afterAll(async () => {
     await Promise.all(products.map((prod) => prod.destroy()));
   });
-  it('Carts can have Products', async () => {
+  test('Carts can have Products', async () => {
     try {
       await newCart.addProduct(products[0], { through: { quantity: 1 } });
     } catch (err) {
@@ -98,7 +99,7 @@ describe('Carts and Product associations', () => {
     const cartProducts = await newCart.getProducts();
     expect(cartProducts.length).toBe(1);
   });
-  it('Carts note the quantity of each Product', async () => {
+  test('Carts note the quantity of each Product', async () => {
     try {
       await newCart.addProduct(products[0], { through: { quantity: 7 } });
     } catch (err) {
