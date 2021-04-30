@@ -65,7 +65,7 @@ User.init(
   },
   { sequelize: db, modelName: 'user' }
 );
-/*
+
 // encrypts password
 User.addHook('beforeSave', async function (user) {
   if (user._changed.has('password')) {
@@ -89,10 +89,14 @@ User.byToken = async function (token) {
   try {
     const { id } = jwt.verify(token, process.env.JWT);
     const user = await User.findByPk(id);
-    // checks if the user exists
+    // check if user exists
     if (user) {
       return user;
     }
+    // if user does not exist, send this error message
+    const error = Error('bad credentials');
+    error.status = 401;
+    throw error;
   } catch (ex) {
     // if a token that is not sized correctly this sends the correct error message
     const error = Error('bad credentials');
@@ -100,5 +104,5 @@ User.byToken = async function (token) {
     throw error;
   }
 };
-*/
+
 module.exports = User;
