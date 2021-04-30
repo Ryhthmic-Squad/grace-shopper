@@ -1,7 +1,7 @@
 
 const {
     models: { Product },
-  } = require('./db/index');
+  } = require('../db/index');
 const router = require('express').Router();
 
 

@@ -11,8 +11,8 @@ app.use(morgan('dev'));
 
 // Routes for products and users
 
-app.use('/api/products', require('./Products'));
-app.use('/api/users', require('./Users'));
+app.use('/api/products', require('./api/Products'));
+app.use('/api/users', require('./api/Users'));
 
 // Error hander
 
