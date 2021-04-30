@@ -1,39 +1,37 @@
-const { expect } = require('chai');
 const { ValidationError } = require('sequelize');
 const {
   models: { User, Address },
 } = require('../../server/db');
 // db.options.logging = true;
 
-describe('Address Model', () => {
-  let newAddress;
-  beforeEach(async () => {
-    // Create and save an example address before each test
-    newAddress = new Address({
-      line1: '5 Hanover Square',
-      line2: 'Floor 11',
-      city: 'New York',
-      state: 'NY',
-      zip: '10004',
-    });
-    await newAddress.save();
+beforeEach(async () => {
+  // Create and save an example address before each test
+  newAddress = new Address({
+    line1: '5 Hanover Square',
+    line2: 'Floor 11',
+    city: 'New York',
+    state: 'NY',
+    zip: '10004',
   });
-  afterEach(async () => {
-    // Delete the example address after each test to avoid unique constraint errors.
-    await newAddress.destroy();
-  });
+  await newAddress.save();
+});
+afterEach(async () => {
+  // Delete the example address after each test to avoid unique constraint errors.
+  await newAddress.destroy();
+});
+describe('Attributes', () => {
   describe('Attribute: line1', () => {
     it('has a line1 attribute', () => {
-      expect(newAddress.line1).to.be.ok;
+      expect(newAddress.line1).toBeTruthy();
     });
     it('line1 cannot be empty', async () => {
       newAddress.line1 = '';
       try {
         await newAddress.save();
         //above should throw an error, so below should not run
-        expect(true).to.equal(false);
+        expect(true).toBe(false);
       } catch (err) {
-        expect(err instanceof ValidationError).to.equal(true);
+        expect(err instanceof ValidationError).toBe(true);
       }
     });
     it('line1 cannot be null', async () => {
@@ -41,40 +39,40 @@ describe('Address Model', () => {
       try {
         await newAddress.save();
         //above should throw an error, so below should not run
-        expect(true).to.equal(false);
+        expect(true).toBe(false);
       } catch (err) {
-        expect(err instanceof ValidationError).to.equal(true);
+        expect(err instanceof ValidationError).toBe(true);
       }
     });
   });
   describe('Attribute: line2', () => {
     it('has a line2 attribute', () => {
-      expect(newAddress.line2).to.be.ok;
+      expect(newAddress.line2).toBeTruthy();
     });
     it('line2 can be null', async () => {
       delete newAddress.line2;
       try {
         await newAddress.save();
         //above should throw an error, so below should not run
-        expect(true).to.equal(true);
+        expect(true).toBe(true);
       } catch (err) {
         console.error(err);
-        expect(true).to.equal(false);
+        expect(true).toBe(false);
       }
     });
   });
   describe('Attribute: city', () => {
     it('has a city attribute', () => {
-      expect(newAddress.city).to.be.ok;
+      expect(newAddress.city).toBeTruthy();
     });
     it('city cannot be empty', async () => {
       newAddress.city = '';
       try {
         await newAddress.save();
         //above should throw an error, so below should not run
-        expect(true).to.equal(false);
+        expect(true).toBe(false);
       } catch (err) {
-        expect(err instanceof ValidationError).to.equal(true);
+        expect(err instanceof ValidationError).toBe(true);
       }
     });
     it('city cannot be null', async () => {
@@ -82,24 +80,24 @@ describe('Address Model', () => {
       try {
         await newAddress.save();
         //above should throw an error, so below should not run
-        expect(true).to.equal(false);
+        expect(true).toBe(false);
       } catch (err) {
-        expect(err instanceof ValidationError).to.equal(true);
+        expect(err instanceof ValidationError).toBe(true);
       }
     });
   });
   describe('Attribute: state', () => {
     it('has a state attribute', () => {
-      expect(newAddress.state).to.be.ok;
+      expect(newAddress.state).toBeTruthy();
     });
     it('state cannot be empty', async () => {
       newAddress.state = '';
       try {
         await newAddress.save();
         //above should throw an error, so below should not run
-        expect(true).to.equal(false);
+        expect(true).toBe(false);
       } catch (err) {
-        expect(err instanceof ValidationError).to.equal(true);
+        expect(err instanceof ValidationError).toBe(true);
       }
     });
     it('state cannot be null', async () => {
@@ -107,9 +105,9 @@ describe('Address Model', () => {
       try {
         await newAddress.save();
         //above should throw an error, so below should not run
-        expect(true).to.equal(false);
+        expect(true).toBe(false);
       } catch (err) {
-        expect(err instanceof ValidationError).to.equal(true);
+        expect(err instanceof ValidationError).toBe(true);
       }
     });
     it('only accepts state abbreviations from server/db/states.js', async () => {
@@ -117,24 +115,24 @@ describe('Address Model', () => {
       try {
         await newAddress.save();
         //above should throw an error, so below should not run
-        expect(true).to.equal(false);
+        expect(true).toBe(false);
       } catch (err) {
-        expect(err instanceof ValidationError).to.equal(true);
+        expect(err instanceof ValidationError).toBe(true);
       }
     });
   });
   describe('Attribute: zip', () => {
     it('has a zip attribute', () => {
-      expect(newAddress.zip).to.be.ok;
+      expect(newAddress.zip).toBeTruthy();
     });
     it('zip cannot be empty', async () => {
       newAddress.zip = '';
       try {
         await newAddress.save();
         //above should throw an error, so below should not run
-        expect(true).to.equal(false);
+        expect(true).toBe(false);
       } catch (err) {
-        expect(err instanceof ValidationError).to.equal(true);
+        expect(err instanceof ValidationError).toBe(true);
       }
     });
     it('zip cannot be null', async () => {
@@ -142,9 +140,9 @@ describe('Address Model', () => {
       try {
         await newAddress.save();
         //above should throw an error, so below should not run
-        expect(true).to.equal(false);
+        expect(true).toBe(false);
       } catch (err) {
-        expect(err instanceof ValidationError).to.equal(true);
+        expect(err instanceof ValidationError).toBe(true);
       }
     });
     it('zip must be at least 5 characters', async () => {
@@ -152,9 +150,9 @@ describe('Address Model', () => {
       try {
         await newAddress.save();
         //above should throw an error, so below should not run
-        expect(true).to.equal(false);
+        expect(true).toBe(false);
       } catch (err) {
-        expect(err instanceof ValidationError).to.equal(true);
+        expect(err instanceof ValidationError).toBe(true);
       }
     });
     it('zip must be at most 5 characters', async () => {
@@ -162,9 +160,9 @@ describe('Address Model', () => {
       try {
         await newAddress.save();
         //above should throw an error, so below should not run
-        expect(true).to.equal(false);
+        expect(true).toBe(false);
       } catch (err) {
-        expect(err instanceof ValidationError).to.equal(true);
+        expect(err instanceof ValidationError).toBe(true);
       }
     });
     it('zip should only contain digits', async () => {
@@ -172,76 +170,76 @@ describe('Address Model', () => {
       try {
         await newAddress.save();
         //above should throw an error, so below should not run
-        expect(true).to.equal(false);
+        expect(true).toBe(false);
       } catch (err) {
-        expect(err instanceof ValidationError).to.equal(true);
+        expect(err instanceof ValidationError).toBe(true);
       }
     });
   });
   describe('Attribute: fullAddress', () => {
     it('has a fullAddress attribute that combines first and last names', () => {
-      expect(newAddress.fullAddress).to.equal(
+      expect(newAddress.fullAddress).toBe(
         '5 Hanover Square Floor 11\nNew York, NY 10004'
       );
     });
     it('the fullAddress attribute is virtual and not a column in the database', () => {
-      expect(newAddress.hasOwnProperty('fullAddress')).to.equal(false);
+      expect(newAddress.hasOwnProperty('fullAddress')).toBe(false);
     });
   });
-  describe('Address and User associations', () => {
-    let newUser, newAddress;
-    before(async () => {
-      // Create and save example addresses before each test.
-      newAddress1 = new Address({
-        line1: '5 Hanover Square',
-        line2: 'Floor 11',
-        city: 'New York',
-        state: 'NY',
-        zip: '10004',
-      });
-      await newAddress1.save();
-      newAddress2 = new Address({
-        line1: '5 Hanover Square',
-        line2: 'Floor 13',
-        city: 'New York',
-        state: 'NY',
-        zip: '10004',
-      });
-      await newAddress2.save();
-      // Create and save an example user before each test.
-      newUser = new User({
-        email: 'test@email.com',
-        password: '1234',
-        phoneNumber: '1234567890',
-        firstName: 'Jane',
-        lastName: 'Doe',
-      });
-      await newUser.save();
+});
+describe('Address and User associations', () => {
+  let newUser, newAddress;
+  beforeAll(async () => {
+    // Create and save example addresses before each test.
+    newAddress1 = new Address({
+      line1: '5 Hanover Square',
+      line2: 'Floor 11',
+      city: 'New York',
+      state: 'NY',
+      zip: '10004',
     });
-    after(async () => {
-      // Delete the example user & addresses after each test to avoid unique constraint errors.
-      await newUser.destroy();
-      await newAddress1.destroy();
-      await newAddress2.destroy();
+    await newAddress1.save();
+    newAddress2 = new Address({
+      line1: '5 Hanover Square',
+      line2: 'Floor 13',
+      city: 'New York',
+      state: 'NY',
+      zip: '10004',
     });
+    await newAddress2.save();
+    // Create and save an example user before each test.
+    newUser = new User({
+      email: 'test@email.com',
+      password: '1234',
+      phoneNumber: '1234567890',
+      firstName: 'Jane',
+      lastName: 'Doe',
+    });
+    await newUser.save();
+  });
+  afterAll(async () => {
+    // Delete the example user & addresses after each test to avoid unique constraint errors.
+    await newUser.destroy();
+    await newAddress1.destroy();
+    await newAddress2.destroy();
+  });
 
-    it('Addresses can be linked to a User', async () => {
-      try {
-        await newUser.addAddress(newAddress1);
-      } catch (err) {
-        console.error(err);
-        expect(true).to.equal(false);
-      }
-      expect(await newUser.getAddresses()).to.have.length(1);
-    });
-    it('A user can have multiple addresses linked', async () => {
-      try {
-        await newUser.addAddresses(newAddress2);
-      } catch (err) {
-        console.error(err);
-        expect(true).to.equal(false);
-      }
-      expect(await newUser.getAddresses()).to.have.length(2);
-    });
+  it('Addresses can be linked to a User', async () => {
+    try {
+      await newUser.addAddress(newAddress1);
+    } catch (err) {
+      console.error(err);
+      expect(true).toBe(false);
+    }
+    expect((await newUser.getAddresses()).length).toBe(1);
+  });
+  it('A user can have multiple addresses linked', async () => {
+    try {
+      await newUser.addAddresses(newAddress2);
+    } catch (err) {
+      console.error(err);
+      expect(true).to.equal(false);
+    }
+    expect((await newUser.getAddresses()).length).toBe(2);
   });
 });

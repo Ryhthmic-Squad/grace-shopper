@@ -1,4 +1,4 @@
-// Seed file to add initial products to the database
+// Seed file to add initial products and users to the database
 const {
   db,
   models: { Product, User },
@@ -10,7 +10,6 @@ const { products } = require('./dataForSeeding/products');
 
 const syncAndSeed = async () => {
   try {
-    await db.authenticate;
     await db.sync({ force: true });
     await Promise.all(
       users.map((user) =>

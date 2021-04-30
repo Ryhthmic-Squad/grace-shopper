@@ -1,4 +1,3 @@
-const { expect } = require('chai');
 const {
   db,
   models: { User },
@@ -10,8 +9,8 @@ describe('Routes', () => {
     it('returns all users in the database', async () => {
       const users = await User.findAll();
       const response = await app.get('/api/users');
-      expect(response.status).to.equal(200);
-      expect(response.body.length).to.equal(users.length);
+      expect(response.status).toBe(200);
+      expect(response.body.length).toBe(users.length);
     });
   });
   describe('GET /api/users/:id', () => {
@@ -20,8 +19,8 @@ describe('Routes', () => {
         where: { firstName: 'Princess' },
       });
       const response = await app.get(`/api/users/${id}`);
-      expect(response.status).to.equal(201);
-      expect(response.body.fullName).to.equal(fullName);
+      expect(response.status).toBe(201);
+      expect(response.body.fullName).toBe(fullName);
     });
   });
 });
