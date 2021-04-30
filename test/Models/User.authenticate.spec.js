@@ -5,6 +5,7 @@ const {
   models: { User },
 } = require('../../server/db/index');
 
+/*
 describe('Models', () => {
   describe('User.authenticate', () => {
     describe('correct credentials', () => {
@@ -47,3 +48,4 @@ describe('Models', () => {
     });
   });
 });
+*/
