@@ -2,6 +2,8 @@ const { db } = require('../server/db');
 
 describe('Grace Shopper Tests', () => {
   beforeAll(async () => {
+    // Be sure to npm run seed before testing, as some tests rely on seeded data
+    // Do not { force: true } otherwise it overwrites the seed
     await db.sync();
   });
   afterAll(async () => {
