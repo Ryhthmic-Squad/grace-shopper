@@ -10,7 +10,6 @@ const { products } = require('./dataForSeeding/products');
 
 const syncAndSeed = async () => {
   try {
-    await db.authenticate;
     await db.sync({ force: true });
     await Promise.all(
       users.map((user) =>

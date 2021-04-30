@@ -7,6 +7,7 @@ Product.init(
     name: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
       validate: {
         notEmpty: true,
       },
@@ -72,18 +73,21 @@ Product.init(
         notEmpty: true,
       },
     },
-    type:{
-      type:DataTypes.STRING,
-      allowNull:false
+    type: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
-    style:{
-      type:DataTypes.STRING,
-      allowNull:false
+    style: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
     },
     availability: {
       type: DataTypes.VIRTUAL,
-      get: function (inventory) {
-        if (inventory > 0) {
+      get: function () {
+        if (this.inventory > 0) {
           return true;
         } else {
           return false;
@@ -95,3 +99,5 @@ Product.init(
 );
 
 module.exports = Product;
+
+//keep dedicated model for room, type and style will be properties on product
