@@ -76,6 +76,10 @@ Product.init(
       type:DataTypes.STRING,
       allowNull:false
     },
+    style:{
+      type:DataTypes.STRING,
+      allowNull:false
+    },
     availability: {
       type: DataTypes.VIRTUAL,
       get: function (inventory) {
