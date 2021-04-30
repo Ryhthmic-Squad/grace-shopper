@@ -1,3 +1,4 @@
+const { describe } = require('@jest/globals');
 const { db } = require('../server/db');
 
 describe('Grace Shopper Tests', () => {
@@ -8,6 +9,11 @@ describe('Grace Shopper Tests', () => {
   });
   afterAll(async () => {
     await db.close();
+  });
+  describe('Authentication Tests', () => {
+    describe('User Authentication', () => {
+      require('./Authentication/User.spec');
+    });
   });
   describe('Model Tests', () => {
     describe('Address Model', () => {
@@ -26,7 +32,6 @@ describe('Grace Shopper Tests', () => {
       require('./Models/User.spec');
     });
   });
-
   describe('Route Tests', () => {
     describe('/api/products', () => {
       require('./Routes/Products.spec');
