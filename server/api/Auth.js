@@ -21,7 +21,6 @@ router.get('/', async (req, res, next) => {
   try {
     // class method handles logic for the token
     const user = await User.verifyByToken(req.headers.authorization);
-    console.log('----->ROUTER /GET /api/auth', user);
     res.send(user);
   } catch (err) {
     next(err);
