@@ -18,14 +18,14 @@ class UserDashboard extends Component {
   attemptTokenLogin = async () => {
     const token = window.localStorage.getItem('token');
     if (token) {
-      const response = await axios.get('/api/auth', {
+      const { data: auth } = await axios.get('/api/auth', {
         headers: {
           authorization: token,
         },
       });
-      const existingUsers = await axios.get('/api/users');
+      const { data: existingUsers } = await axios.get('/api/users');
       // for future referenc: {headers: { authorization: token }} may be required for loading user orders
-      this.setState({ auth: response.data, existingUsers: existingUsers.data });
+      this.setState({ auth, existingUsers });
     }
   };
   componentDidMount() {
