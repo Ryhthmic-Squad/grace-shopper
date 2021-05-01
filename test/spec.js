@@ -14,6 +14,9 @@ describe('Grace Shopper Tests', () => {
     describe('User Authentication', () => {
       require('./Authentication/User.spec');
     });
+    describe('User Authentication Routes', () => {
+      require('./Authentication/UserRoutes.spec');
+    });
   });
   describe('Model Tests', () => {
     describe('Address Model', () => {
