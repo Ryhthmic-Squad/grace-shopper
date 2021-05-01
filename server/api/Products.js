@@ -53,7 +53,8 @@ router.get('/', async (req, res, next) => {
   }
   try {
     const { count, rows } = await Product.findAndCountAll(options);
-    res.status(200).send({ total: count, products: rows });
+    res.status(200).send({ maxPage: Math.ceil(count / size), products: rows });
+    // sends back an object like { maxPage: INT, products: [products...] }
   } catch (er) {
     next(er);
   }
