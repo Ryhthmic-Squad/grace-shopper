@@ -8,7 +8,7 @@ const router = require('express').Router();
 // server returns a token, a string that can't be manipulated & will identify user
 router.post('/', async (req, res, next) => {
   try {
-    console.log('-----> POST ROUTE');
+    //console.log('-----> POST ROUTE');
     res.send({ token: await User.authenticate(req.body) });
   } catch (err) {
     next(err);

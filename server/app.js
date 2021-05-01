@@ -27,7 +27,7 @@ app.use('/api/auth', require('./api/Auth'));
 
 app.use((er, req, res, next) => {
   console.error(er.stack);
-  res.status(500).send({ error: er });
+  res.status(er.status || 500).send({ error: er.message });
 });
 
 module.exports = app;

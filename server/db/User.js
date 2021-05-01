@@ -75,11 +75,11 @@ User.addHook('beforeSave', async function (user) {
 
 // generates token for user & adds signature on the backend
 User.authenticate = async function ({ email, password }) {
-  console.log('-----> User.authenticate', email, password);
+  //console.log('-----> User.authenticate', email, password);
   const user = await User.findOne({ where: { email } });
   if (user && (await bcrypt.compare(password, user.password))) {
     const token = jwt.sign({ id: user.id }, process.env.JWT);
-    console.log('-----> User.authenticate: token', token);
+    //console.log('-----> User.authenticate: token', token);
     return token;
   }
   const error = Error('bad credentials');
