@@ -1,5 +1,5 @@
 const {
-  models: { Product },
+  models: { Product, Room },
 } = require('../db/index');
 const router = require('express').Router();
 
@@ -44,6 +44,12 @@ router.get('/', async (req, res, next) => {
   }
   if (style) {
     options.where.style = style;
+  }
+  if (room) {
+    console.log(room);
+    const { id } = await Room.findOne({ where: { name: room } });
+    console.log(id);
+    options.where.roomId = id;
   }
   try {
     const { count, rows } = await Product.findAndCountAll(options);

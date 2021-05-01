@@ -1,6 +1,6 @@
 const { test, describe, expect } = require('@jest/globals');
 const {
-  models: { Product },
+  models: { Product, Room },
 } = require('../../server/db/index');
 const app = require('../../server/app');
 const agent = require('supertest')(app);
@@ -58,7 +58,20 @@ describe('GET /api/products with queries', () => {
     expect(products[1].name).toBe(rows[1].name);
   });
   test('Filter by room', async () => {
-    const room = '';
+    const room = await Room.findOne({ where: { name: 'dining' } });
+    const { count, rows } = await Product.findAndCountAll({
+      order: ['name'],
+      where: { roomId: room.id },
+    });
+    const {
+      status,
+      body: { total, products },
+    } = await agent.get('/api/products?room=dining');
+    expect(status).toBe(200);
+    expect(total).toBe(count);
+    if (total) {
+      expect(products[1].name).toBe(rows[1].name);
+    }
   });
 });
 describe('GET /api/products/:Bytype', () => {
