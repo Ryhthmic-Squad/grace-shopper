@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 
-class allProducts extends Component {
+class AllProducts extends Component {
   constructor() {
     super();
   }
   componentDidMount() {
-    console.log('mounted!');
+    console.log('AllProducts component mounted!');
   }
   render() {
     return (
@@ -16,4 +16,4 @@ class allProducts extends Component {
   }
 }
 
-export default allProducts;
+export default AllProducts;
