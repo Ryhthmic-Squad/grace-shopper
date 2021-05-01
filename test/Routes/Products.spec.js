@@ -1,33 +1,32 @@
+const { test } = require('@jest/globals');
 const {
-  db,
   models: { Product },
 } = require('../../server/db/index');
 const app = require('../../server/app');
 const agent = require('supertest')(app);
 
-describe('Products routes',()=>{
-    test('gets all products',async()=>{
-      const product = await Product.findAll()
-      const response = await agent.get('/api/products').expect(200);
-      expect(response.body).toBe(product.length);
-      expect(product).toEqual(response.body);
-    });
-    test('getting the price',async()=>{
-      const {id, price} = await Product.findOne()
-      const response = await agent.get(`/api/products/${id}`).expect(200);
-      expect(response.body.price).toBe(price)
-    });
-    test('has a width',async()=>{
-      const {id, width,height} = await Product.findOne({
-          where:{
-              color:'taupe'
-          }
-      });
-      const response = await agent.get(`/api/products/${id}`).expect(200);
-      expect(response.body.width).toBe(width);
-      expect(response.body.heigt).toBe(height);
-  
-    });
-    
-  })
-  
+describe('GET /api/products', () => {
+  test('returns all products in the database', async () => {
+    const products = await Product.findAll();
+    const response = await agent.get('/api/products').expect(200);
+    expect(response.body.length).toBe(products.length);
+  });
+});
+describe('GET /api/products/:Bytype', () => {
+  test('returns all products of a given type', async () => {
+    const dressers = await Product.findAll({ where: { type: 'dresser' } });
+    console.log(dressers)
+    const response = await agent.get('/api/products/Bytype/dresser').expect(200);
+    console.log(response.body)
+    expect(response.body.length).toBe(dressers.length);
+  });
+});
+describe('GET /api/products/Byid/:id', () => {
+  test('returns a specific product', async () => {
+    const dresser = await Product.findOne({ where: { type: 'dresser' } });
+    const response = await agent
+      .get(`/api/products/Byid/${dresser.id}`)
+      .expect(200);
+    expect(response.body.name).toBe(dresser.name);
+  });
+});
