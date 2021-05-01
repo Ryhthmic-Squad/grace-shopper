@@ -74,7 +74,9 @@ describe('Attributes', () => {
       const month = today.getMonth() + 1;
       const day = today.getDate();
       expect(reviews[0].date).toBe(
-        `${year}-${month < 10 ? '0' + month : month}-${day}`
+        `${year}-${month < 10 ? '0' + month : month}-${
+          day < 10 ? '0' + day : day
+        }`
       );
     });
   });
