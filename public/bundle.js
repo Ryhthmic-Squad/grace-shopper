@@ -1858,14 +1858,19 @@ class Login extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  onChange(ev) {
+  onChange({
+    target: {
+      name,
+      value
+    }
+  }) {
     this.setState({
-      [ev.target.name]: ev.target.value
+      [name]: value
     });
   }
 
-  onSubmit(ev) {
-    ev.preventDefault();
+  onSubmit(event) {
+    event.preventDefault();
     const {
       email,
       password
