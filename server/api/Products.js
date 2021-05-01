@@ -46,9 +46,7 @@ router.get('/', async (req, res, next) => {
     options.where.style = style;
   }
   if (room) {
-    console.log(room);
     const { id } = await Room.findOne({ where: { name: room } });
-    console.log(id);
     options.where.roomId = id;
   }
   try {

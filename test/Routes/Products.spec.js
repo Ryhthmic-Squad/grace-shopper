@@ -23,10 +23,10 @@ describe('GET /api/products with queries', () => {
     });
     const {
       status,
-      body: { total, products },
+      body: { maxPage, products },
     } = await agent.get('/api/products?page=1&size=2');
     expect(status).toBe(200);
-    expect(total).toBe(count);
+    expect(maxPage).toBe(Math.ceil(count / limit));
     expect(products[0].name).toBe(rows[0].name);
   });
   test('Filter by type', async () => {
@@ -37,10 +37,10 @@ describe('GET /api/products with queries', () => {
     });
     const {
       status,
-      body: { total, products },
+      body: { maxPage, products },
     } = await agent.get('/api/products?type=bed');
     expect(status).toBe(200);
-    expect(total).toBe(count);
+    expect(maxPage).toBe(null);
     expect(products[1].name).toBe(rows[1].name);
   });
   test('Filter by style', async () => {
@@ -51,10 +51,10 @@ describe('GET /api/products with queries', () => {
     });
     const {
       status,
-      body: { total, products },
+      body: { maxPage, products },
     } = await agent.get('/api/products?style=contemporary');
     expect(status).toBe(200);
-    expect(total).toBe(count);
+    expect(maxPage).toBe(null);
     expect(products[1].name).toBe(rows[1].name);
   });
   test('Filter by room', async () => {
@@ -65,11 +65,11 @@ describe('GET /api/products with queries', () => {
     });
     const {
       status,
-      body: { total, products },
+      body: { maxPage, products },
     } = await agent.get('/api/products?room=dining');
     expect(status).toBe(200);
-    expect(total).toBe(count);
-    if (total) {
+    expect(maxPage).toBe(null);
+    if (products.length) {
       expect(products[1].name).toBe(rows[1].name);
     }
   });
