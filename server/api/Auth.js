@@ -8,8 +8,8 @@ const router = require('express').Router();
 // server returns a token, a string that can't be manipulated & will identify user
 router.post('/', async (req, res, next) => {
   try {
-    //console.log('-----> POST ROUTE');
-    res.send({ token: await User.authenticate(req.body) });
+    //console.log('-----> POST ROUTE, req.body', req.body);
+    res.send({ token: await User.authentication(req.body) });
   } catch (err) {
     next(err);
   }
@@ -20,7 +20,9 @@ router.post('/', async (req, res, next) => {
 router.get('/', async (req, res, next) => {
   try {
     // class method handles logic for the token
-    res.send(await User.byToken(req.headers.authorization));
+    const user = await User.verifyByToken(req.headers.authorization);
+    console.log('----->ROUTER /GET /api/auth', user);
+    res.send(user);
   } catch (err) {
     next(err);
   }

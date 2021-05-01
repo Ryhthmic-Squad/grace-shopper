@@ -8,7 +8,7 @@
     "build:dev": "webpack --watch --mode=development",
     "seed": "node server/db/seed.js",
     "start": "node server/index.js",
-    "start:dev": "nodemon server/index.js",
+    "start:dev": "JWT=shhh nodemon server/index.js",
     "test": "JWT=shh jest test/spec.js",
     "test:dev": "JWT=shh jest test/spec.js --watch"
   },

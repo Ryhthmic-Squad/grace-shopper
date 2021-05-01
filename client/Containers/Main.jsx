@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import Login from './Login';
+import UserDashboard from './UserDashboard';
 
 class Main extends Component {
   render() {
     return (
       <div>
         <hr />
-        <Login />
+        <UserDashboard />
       </div>
     );
   }

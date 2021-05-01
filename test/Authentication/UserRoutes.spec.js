@@ -35,7 +35,7 @@ describe('POST /api/auth', () => {
     const response = await agent
       .post('/api/auth')
       .send({ email: 'authTest@email.com', password: 'randomPW' });
-    console.log('-----> TEST SPEC', response.body);
+    //console.log('-----> TEST SPEC', response.body);
     expect(response.status).toBe(401);
     expect(response.body.error).toBe('bad credentials');
   });

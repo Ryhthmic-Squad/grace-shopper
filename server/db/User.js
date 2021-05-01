@@ -74,12 +74,13 @@ User.addHook('beforeSave', async function (user) {
 });
 
 // generates token for user & adds signature on the backend
-User.authenticate = async function ({ email, password }) {
-  //console.log('-----> User.authenticate', email, password);
+User.authentication = async function ({ email, password }) {
+  // console.log('-----> User.authentication, CREDENTIALS', email, password);
   const user = await User.findOne({ where: { email } });
+  // console.log('-----> User.authentication, USER', user);
   if (user && (await bcrypt.compare(password, user.password))) {
     const token = jwt.sign({ id: user.id }, process.env.JWT);
-    //console.log('-----> User.authenticate: token', token);
+    // console.log('-----> User.authentication: token', token);
     return token;
   }
   const error = Error('bad credentials');
@@ -88,7 +89,7 @@ User.authenticate = async function ({ email, password }) {
 };
 
 // Verifies user
-User.byToken = async function (token) {
+User.verifyByToken = async function (token) {
   try {
     const { id } = jwt.verify(token, process.env.JWT);
     const user = await User.findByPk(id);
