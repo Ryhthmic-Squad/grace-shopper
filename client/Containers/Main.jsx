@@ -1,15 +1,21 @@
 import React, { Component } from 'react';
-import Login from './Login';
+import UserDashboard from './UserDashboard';
+import { connect } from 'react-redux';
 
 class Main extends Component {
   render() {
+    const { fetchProductList } = this.props;
     return (
       <div>
         <hr />
-        <Login />
+        <UserDashboard />
       </div>
     );
   }
 }
 
-export default Main;
+const mapDispatchToProps = (dispatch) => ({
+  fetchProductList: () => dispatch(fetchProductList()),
+});
+
+export default connect(null, mapDispatchToProps)(Main);

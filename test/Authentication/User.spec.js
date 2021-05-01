@@ -31,10 +31,10 @@ describe('User Update', () => {
     });
   });
 });
-describe('Class Method: User.authenticate', () => {
+describe('Class Method: User.authentication', () => {
   describe('correct credentials', () => {
     test('returns a token', async () => {
-      const token = await User.authenticate({
+      const token = await User.authentication({
         email: 'test@email.com',
         password: '1234',
       });
@@ -45,7 +45,7 @@ describe('Class Method: User.authenticate', () => {
   describe('incorrect credentials', () => {
     test('throws an error', async () => {
       try {
-        await User.authenticate({
+        await User.authentication({
           email: 'test@email.com',
           password: '4321',
         });
@@ -57,11 +57,11 @@ describe('Class Method: User.authenticate', () => {
     });
   });
 });
-describe('Class Method: User.byToken', () => {
+describe('Class Method: User.verifyByToken', () => {
   describe('with a valid token', () => {
     test('returns a user', async () => {
       const token = await jwt.sign({ id: userLogin.id }, process.env.JWT);
-      const user = await User.byToken(token);
+      const user = await User.verifyByToken(token);
       expect(user.fullName).toBe(userLogin.fullName);
     });
   });
@@ -70,7 +70,7 @@ describe('Class Method: User.byToken', () => {
     test('throws a 401', async () => {
       try {
         const token = await jwt.sign({ id: userLogin.id }, 'randomToken');
-        await User.byToken(token);
+        await User.verifyByToken(token);
         throw 'invalid token';
       } catch (er) {
         expect(er.status).toBe(401);
@@ -82,10 +82,9 @@ describe('Class Method: User.byToken', () => {
     test('throws a 401', async () => {
       try {
         const token = await jwt.sign({ id: 99 }, process.env.JWT);
-        await User.byToken(token);
+        await User.verifyByToken(token);
         throw 'no associated user';
       } catch (er) {
-        // console.log(er);
         expect(er.status).toBe(401);
         expect(er.message).toBe('bad credentials');
       }
