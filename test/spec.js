@@ -10,7 +10,7 @@ describe('Grace Shopper Tests', () => {
   afterAll(async () => {
     await db.close();
   });
-  xdescribe('Authentication Tests', () => {
+  describe('Authentication Tests', () => {
     describe('User Authentication', () => {
       require('./Authentication/User.spec');
     });
