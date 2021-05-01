@@ -1,52 +1,41 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 
 class Login extends Component {
-  constructor() {
-    super();
-    this.state = {
-      email: '',
-      password: '',
-    };
-  }
-
-  //componentDidUpdate
-  //perform axios call to authenticate user
-
-  handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(this.state);
-    this.setState({ email: '', password: '' });
+  state = {
+    email: '',
+    password: '',
   };
 
-  handleChange = ({ target: { name, value } }) => {
-    this.setState({ ...this.state, [name]: [value] });
+  onChange = ({ target: { name, value } }) => {
+    this.setState({ [name]: value });
+  };
+  onSubmit = (event) => {
+    event.preventDefault();
+    const { email, password } = this.state;
+    this.props.signIn({
+      email,
+      password,
+    });
   };
 
   render() {
-    const { handleSubmit, handleChange } = this;
-    console.log('render():', this.state);
+    const { onChange, onSubmit } = this;
+    const { email, password } = this.state;
     return (
-      <div>
-        <div>Login</div>
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="email">email:</label>
-          <input
-            type="text"
-            name="email"
-            value={this.state.email}
-            onChange={handleChange}
-          />
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            name="password"
-            value={this.state.password}
-            onChange={handleChange}
-          />
-          <button type="submit">Submit</button>
-        </form>
-      </div>
+      <form onSubmit={onSubmit}>
+        <label>email:</label>
+        <input value={email} onChange={onChange} name="email" />
+        <br />
+        <label>Password:</label>
+        <input
+          value={password}
+          onChange={onChange}
+          type="password"
+          name="password"
+        />
+        <br />
+        <button>Sign In</button>
+      </form>
     );
   }
 }

@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
+import UserDashboard from './UserDashboard';
 import { connect } from 'react-redux';
-//testing fetchProductList, will remove later;
-import { fetchProductList } from '../store/product/productList';
-import Login from './Login';
 
 class Main extends Component {
   render() {
@@ -10,9 +8,7 @@ class Main extends Component {
     return (
       <div>
         <hr />
-        <Login />
-        {/* Next line also for testing fetchProductList thunk */}
-        <button onClick={fetchProductList}>Fetch Products</button>
+        <UserDashboard />
       </div>
     );
   }

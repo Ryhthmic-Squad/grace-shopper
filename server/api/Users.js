@@ -1,6 +1,3 @@
-// we may want to move this, along with Products.js into an API subfolder
-// use JWT here?
-
 const {
   models: { User },
 } = require('../db/index');
@@ -46,13 +43,6 @@ router.post('/', async (req, res, next) => {
   }
 });
 
-// POST send authenticated user
-// app.post('/api/auth', async (req, res, next) => {
-//   try {
-//     res.send({ token: await User.authenticate(req.body) });
-//   } catch (err) {
-//     next(err);
-//   }
-// });
+// GET /api/users/:id/orders
 
 module.exports = router;

@@ -8,7 +8,7 @@
     "build:dev": "webpack --watch --mode=development",
     "seed": "node server/db/seed.js",
     "start": "node server/index.js",
-    "start:dev": "nodemon server/index.js",
+    "start:dev": "JWT=shhh nodemon server/index.js",
     "test": "JWT=shh jest test/spec.js",
     "test:dev": "JWT=shh jest test/spec.js --watch"
   },
@@ -35,6 +35,9 @@
   },
   "devDependencies": {
     "@babel/core": "^7.14.0",
+    "@babel/plugin-proposal-class-properties": "^7.13.0",
+    "@babel/plugin-proposal-private-methods": "^7.13.0",
+    "@babel/preset-env": "^7.14.0",
     "@babel/preset-react": "^7.13.13",
     "axios": "^0.21.1",
     "babel-loader": "^8.2.2",
