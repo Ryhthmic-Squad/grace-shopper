@@ -12,18 +12,20 @@ describe('GET /api/products', () => {
     expect(response.body.length).toBe(products.length);
   });
 });
-describe('GET /api/products/:type', () => {
+describe('GET /api/products/:Bytype', () => {
   test('returns all products of a given type', async () => {
     const dressers = await Product.findAll({ where: { type: 'dresser' } });
-    const response = await agent.get(`/api/products/dressers`).expect(200);
+    console.log(dressers)
+    const response = await agent.get('/api/products/Bytype/dresser').expect(200);
+    console.log(response.body)
     expect(response.body.length).toBe(dressers.length);
   });
 });
-describe('GET /api/products/:type/:id', () => {
+describe('GET /api/products/Byid/:id', () => {
   test('returns a specific product', async () => {
     const dresser = await Product.findOne({ where: { type: 'dresser' } });
     const response = await agent
-      .get(`/api/products/dressers/${dresser.id}`)
+      .get(`/api/products/Byid/${dresser.id}`)
       .expect(200);
     expect(response.body.name).toBe(dresser.name);
   });
