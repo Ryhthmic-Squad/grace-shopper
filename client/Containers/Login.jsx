@@ -13,9 +13,12 @@ class Login extends Component {
   //componentDidUpdate
   //perform axios call to authenticate user
 
-  handleSubmit = (e) => {
+  async handleSubmit = (e) => {
     e.preventDefault();
     console.log(this.state);
+    const credentials = {email: this.state.email, password: this.state.password};
+    const {token} = (await axios.post('/api/auth', credential)).data;
+    window.localStorage.setIten('token', token);
     this.setState({ email: '', password: '' });
   };
 
