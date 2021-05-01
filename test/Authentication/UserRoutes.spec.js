@@ -23,7 +23,7 @@ afterEach(async () => {
 });
 
 // Q: why is the post route send a 404?
-describe.only('POST /api/auth', () => {
+describe('POST /api/auth', () => {
   test('with valid credentials it returns a token', async () => {
     const response = await agent
       .post('/api/auth')
