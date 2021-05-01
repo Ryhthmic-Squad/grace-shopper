@@ -1,15 +1,58 @@
 const {
-  models: { Product },
+  models: { Product, Room },
 } = require('../db/index');
 const router = require('express').Router();
 
 // Select all products
 
-router.get('/', async (req, res, next) => {
+router.get('/all', async (req, res, next) => {
   try {
     allProducts = await Product.findAll();
-
     res.status(200).send(allProducts);
+  } catch (err) {
+    next(err);
+  }
+});
+
+// get with queries to paginate and filter
+
+router.get('/', async (req, res, next) => {
+  const { page, size, type, style, room, sort } = req.query;
+  const options = {
+    attributes: {
+      include: [
+        'id',
+        'name',
+        'material',
+        'color',
+        'imageUrl',
+        'price',
+        'type',
+        'style',
+        'availability',
+      ],
+    },
+    order: ['name'],
+    where: {},
+  };
+  if (page && size) {
+    options.offset = (page - 1) * size;
+    options.limit = size;
+  }
+  if (type) {
+    options.where.type = type;
+  }
+  if (style) {
+    options.where.style = style;
+  }
+  if (room) {
+    const { id } = await Room.findOne({ where: { name: room } });
+    options.where.roomId = id;
+  }
+  try {
+    const { count, rows } = await Product.findAndCountAll(options);
+    res.status(200).send({ maxPage: Math.ceil(count / size), products: rows });
+    // sends back an object like { maxPage: INT, products: [products...] }
   } catch (er) {
     next(er);
   }
@@ -17,30 +60,29 @@ router.get('/', async (req, res, next) => {
 
 // Products by type
 
-router.get('/Bytype/:type',async(req,res,next)=>{
-  try{
-  
+router.get('/Bytype/:type', async (req, res, next) => {
+  try {
     const type = await Product.findAll({
-      where:{
-      type:req.params.type
-    }})
-    res.status(200).send(type)
-  }catch(er){
-    next(er)
+      where: {
+        type: req.params.type,
+      },
+    });
+    res.status(200).send(type);
+  } catch (er) {
+    next(er);
   }
-})
+});
 
-router.get('/Bystyle/:style',async(req,res,next)=>{
-  try{
+router.get('/Bystyle/:style', async (req, res, next) => {
+  try {
     const type = await Product.findAll({
-      style:req.params.style
-    })
-    res.status(200).send(type)
-  }catch(er){
-    next(er)
+      style: req.params.style,
+    });
+    res.status(200).send(type);
+  } catch (er) {
+    next(er);
   }
-})
-
+});
 
 //Products by room and style
 
@@ -61,7 +103,7 @@ router.get('/Byroom/:room/:style', async (req, res, next) => {
     const room = await Product.findAll({
       where: {
         room: req.params.room,
-        style:req.params.style
+        style: req.params.style,
       },
     });
     res.status(200).send(room);
@@ -69,8 +111,6 @@ router.get('/Byroom/:room/:style', async (req, res, next) => {
     next(er);
   }
 });
-
-
 
 // Single product
 
