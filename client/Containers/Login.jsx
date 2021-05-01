@@ -19,8 +19,8 @@ class Login extends Component {
     this.setState({ email: '', password: '' });
   };
 
-  handleChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
+  handleChange = ({ target: { name, value } }) => {
+    this.setState({ ...this.state, [name]: [value] });
   };
 
   render() {

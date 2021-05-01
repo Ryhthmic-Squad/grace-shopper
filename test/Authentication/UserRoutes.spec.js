@@ -23,14 +23,14 @@ afterEach(async () => {
 });
 
 // Q: why is the post route send a 404?
-describe('POST /api/auth', () => {
+describe.only('POST /api/auth', () => {
   test('with valid credentials it returns a token', async () => {
     const response = await agent
       .post('/api/auth')
       .send({ email: 'authTest@email.com', password: '1234' });
-    // console.log('-----> TEST SPEC', newUser);
-    //expect(response.status).to.equal(201);
-    expect(response).toBeTruthy();
+    console.log('-----> TEST SPEC', response.body);
+    expect(response.status).toBe(200);
+    expect(response.body.token).toBeTruthy();
   });
 });
 
