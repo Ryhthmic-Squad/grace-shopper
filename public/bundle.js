@@ -1845,39 +1845,40 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 class Login extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
-  constructor() {
-    super();
-    this.state = {
+  constructor(...args) {
+    super(...args);
+
+    _defineProperty(this, "state", {
       email: '',
       password: ''
-    };
-    this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-  }
-
-  onChange({
-    target: {
-      name,
-      value
-    }
-  }) {
-    this.setState({
-      [name]: value
     });
-  }
 
-  onSubmit(event) {
-    event.preventDefault();
-    const {
-      email,
-      password
-    } = this.state;
-    this.props.signIn({
-      email,
-      password
+    _defineProperty(this, "onChange", ({
+      target: {
+        name,
+        value
+      }
+    }) => {
+      this.setState({
+        [name]: value
+      });
+    });
+
+    _defineProperty(this, "onSubmit", event => {
+      event.preventDefault();
+      const {
+        email,
+        password
+      } = this.state;
+      this.props.signIn({
+        email,
+        password
+      });
     });
   }
 
@@ -1906,53 +1907,7 @@ class Login extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
 
 }
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Login); // constructor() {
-//     super();
-//     this.state = {
-//       email: '',
-//       password: '',
-//     };
-//   }
-//   //componentDidUpdate
-//   //perform axios call to authenticate user
-//   async handleSubmit = (e) => {
-//     e.preventDefault();
-//     console.log(this.state);
-//     const credentials = {email: this.state.email, password: this.state.password};
-//     const {token} = (await axios.post('/api/auth', credential)).data;
-//     window.localStorage.setIten('token', token);
-//     this.setState({ email: '', password: '' });
-//   };
-//   handleChange = ({ target: { name, value } }) => {
-//     this.setState({ ...this.state, [name]: [value] });
-//   };
-//   render() {
-//     const { handleSubmit, handleChange } = this;
-//     console.log('render():', this.state);
-//     return (
-//       <div>
-//         <div>Login</div>
-//         <form onSubmit={handleSubmit}>
-//           <label htmlFor="email">email:</label>
-//           <input
-//             type="text"
-//             name="email"
-//             value={this.state.email}
-//             onChange={handleChange}
-//           />
-//           <label htmlFor="password">Password:</label>
-//           <input
-//             type="password"
-//             name="password"
-//             value={this.state.password}
-//             onChange={handleChange}
-//           />
-//           <button type="submit">Submit</button>
-//         </form>
-//       </div>
-//     );
-//   }
-// }
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Login);
 
 /***/ }),
 
@@ -1998,61 +1953,57 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _Login__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Login */ "./client/Containers/Login.jsx");
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
- // Filter based on isAdmin attribute of user
+
+ // Filter users based on 'isAdmin' attribute
 
 class UserDashboard extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
-  constructor() {
-    super();
-    this.state = {
+  constructor(...args) {
+    super(...args);
+
+    _defineProperty(this, "state", {
       auth: {},
       existingUsers: []
-    };
-    this.signIn = this.signIn.bind(this);
-    this.logout = this.logout.bind(this);
-  }
+    });
 
-  logout() {
-    window.localStorage.removeItem('token');
-    this.setState({
-      auth: {}
+    _defineProperty(this, "logout", () => {
+      window.localStorage.removeItem('token');
+      this.setState({
+        auth: {}
+      });
+    });
+
+    _defineProperty(this, "attemptTokenLogin", async () => {
+      const token = window.localStorage.getItem('token');
+
+      if (token) {
+        const response = await axios__WEBPACK_IMPORTED_MODULE_1___default().get('/api/auth', {
+          headers: {
+            authorization: token
+          }
+        });
+        const existingUsers = await axios__WEBPACK_IMPORTED_MODULE_1___default().get('/api/users'); // for future referenc: {headers: { authorization: token }} may be required for loading user orders
+
+        this.setState({
+          auth: response.data,
+          existingUsers: existingUsers.data
+        });
+      }
+    });
+
+    _defineProperty(this, "signIn", async credentials => {
+      let response = await axios__WEBPACK_IMPORTED_MODULE_1___default().post('/api/auth', credentials);
+      const {
+        token
+      } = response.data;
+      window.localStorage.setItem('token', token);
+      this.attemptTokenLogin();
     });
   }
 
-  async attemptTokenLogin() {
-    const token = window.localStorage.getItem('token');
-
-    if (token) {
-      const response = await axios__WEBPACK_IMPORTED_MODULE_1___default().get('/api/auth', {
-        headers: {
-          authorization: token
-        }
-      });
-      const existingUsers = await axios__WEBPACK_IMPORTED_MODULE_1___default().get('/api/users'); // headers: {
-      //   authorization: token,
-      // }
-      // console.log(existingUsers.data);
-
-      this.setState({
-        auth: response.data,
-        existingUsers: existingUsers.data
-      });
-    }
-  }
-
   componentDidMount() {
-    this.attemptTokenLogin();
-  }
-
-  async signIn(credentials) {
-    //console.log('-----> UserDashboard, signIn', credentials);
-    let response = await axios__WEBPACK_IMPORTED_MODULE_1___default().post('/api/auth', credentials);
-    const {
-      token
-    } = response.data; // console.log('-----> UserDashboard, response', response);
-
-    window.localStorage.setItem('token', token);
     this.attemptTokenLogin();
   }
 

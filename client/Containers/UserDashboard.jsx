@@ -2,23 +2,20 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Login from './Login';
 
-// Filter based on isAdmin attribute of user
+// Filter users based on 'isAdmin' attribute
 
 class UserDashboard extends Component {
-  constructor() {
-    super();
-    this.state = {
-      auth: {},
-      existingUsers: [],
-    };
-    this.signIn = this.signIn.bind(this);
-    this.logout = this.logout.bind(this);
-  }
-  logout() {
+  state = {
+    auth: {},
+    existingUsers: [],
+  };
+
+  logout = () => {
     window.localStorage.removeItem('token');
     this.setState({ auth: {} });
-  }
-  async attemptTokenLogin() {
+  };
+
+  attemptTokenLogin = async () => {
     const token = window.localStorage.getItem('token');
     if (token) {
       const response = await axios.get('/api/auth', {
@@ -27,24 +24,19 @@ class UserDashboard extends Component {
         },
       });
       const existingUsers = await axios.get('/api/users');
-      // headers: {
-      //   authorization: token,
-      // }
-      // console.log(existingUsers.data);
+      // for future referenc: {headers: { authorization: token }} may be required for loading user orders
       this.setState({ auth: response.data, existingUsers: existingUsers.data });
     }
-  }
+  };
   componentDidMount() {
     this.attemptTokenLogin();
   }
-  async signIn(credentials) {
-    //console.log('-----> UserDashboard, signIn', credentials);
+  signIn = async (credentials) => {
     let response = await axios.post('/api/auth', credentials);
     const { token } = response.data;
-    // console.log('-----> UserDashboard, response', response);
     window.localStorage.setItem('token', token);
     this.attemptTokenLogin();
-  }
+  };
   render() {
     const { auth, existingUsers } = this.state;
     const { signIn, logout } = this;
