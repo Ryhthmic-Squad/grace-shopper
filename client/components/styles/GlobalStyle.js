@@ -27,10 +27,10 @@ const GlobalStyle = createGlobalStyle`
     height: 1px;
     background: black
   }
-ul {
-    list-style: none;
-    padding-left: 0;
-}​
+  ul {
+      list-style: none;
+      padding-left: 0;
+  }​
 `;
 
 export default GlobalStyle;

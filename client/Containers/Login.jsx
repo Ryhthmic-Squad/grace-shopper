@@ -31,7 +31,7 @@ class Login extends Component {
             <Label>email:</Label>
             <Input value={email} onChange={onChange} name="email" />
             <br />
-            <Label>Password:</Label>
+            <Label>password:</Label>
             <Input
               value={password}
               onChange={onChange}

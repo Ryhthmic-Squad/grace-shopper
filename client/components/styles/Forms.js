@@ -2,11 +2,9 @@ import styled from 'styled-components';
 
 export const FormGroup = styled.div`
   color: white;
-  margin: 3rem auto;
-  border: black;
   display: flex;
-  justify-content: 'center';
-  align-items: 'center';
+  justify-content: center;
+  align-items: center;
 `;
 
 export const Label = styled.label`
