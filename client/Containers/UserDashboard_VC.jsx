@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Login from './Login';
+import AdminConsole from './AdminConsole';
+import Button from '../components/styles/Button';
 
 // Filter users based on 'isAdmin' attribute
-
 class UserDashboard extends Component {
   state = {
     auth: {},
-    existingUsers: [],
   };
 
   logout = () => {
@@ -23,9 +23,8 @@ class UserDashboard extends Component {
           authorization: token,
         },
       });
-      const { data: existingUsers } = await axios.get('/api/users');
       // for future referenc: {headers: { authorization: token }} may be required for loading user orders
-      this.setState({ auth, existingUsers });
+      this.setState({ auth });
     }
   };
   componentDidMount() {
@@ -38,22 +37,16 @@ class UserDashboard extends Component {
     this.attemptTokenLogin();
   };
   render() {
-    const { auth, existingUsers } = this.state;
+    const { auth } = this.state;
     const { signIn, logout } = this;
     if (!auth.id) {
       return <Login signIn={signIn} />;
     } else {
       return (
         <div>
-          Welcome {auth.username}
-          {existingUsers.length && (
-            <ul>
-              {existingUsers.map((user) => (
-                <li key={user.id}>{user.fullName}</li>
-              ))}
-            </ul>
-          )}
-          <button onClick={logout}>Logout</button>
+          <h3>Welcome {auth.firstName}</h3>
+          {auth.isAdmin && <AdminConsole />}
+          <Button onClick={logout}>Logout</Button>
         </div>
       );
     }
