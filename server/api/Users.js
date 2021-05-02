@@ -1,5 +1,8 @@
+// we may want to move this, along with Products.js into an API subfolder
+// use JWT here?
+
 const {
-  models: { User },
+  models: { User, Cart },
 } = require('../db/index');
 const router = require('express').Router();
 
@@ -21,6 +24,18 @@ router.get('/:id', async (req, res, next) => {
   }
 });
 
+// GET /api/users/:id/cart
+router.get('/:id/cart', async (req, res, next) => {
+  try {
+    // find cart
+    const cart = await Cart.findOne({ where: { userId: req.params.id } });
+    //need to figure out how authorization works here
+    //find associated Products, this may be a class Method to add to Cart
+  } catch (er) {
+    next(er);
+  }
+});
+
 // PUT /api/users/:id
 
 // DELETE /api/users/:id
@@ -34,7 +49,7 @@ router.delete('/:id', async (req, res, next) => {
   }
 });
 
-// POST/api/users
+// POST /api/users
 router.post('/', async (req, res, next) => {
   try {
     res.status(201).send(await User.create(req.body));
@@ -42,7 +57,5 @@ router.post('/', async (req, res, next) => {
     next(er);
   }
 });
-
-// GET /api/users/:id/orders
 
 module.exports = router;
