@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { FormGroup, Label, Input } from '../components/styles/Forms';
-import Button from '../components/styles/Button';
+import FeaturedButton from '../components/styles/FeaturedButton';
 
 class Login extends Component {
   state = {
@@ -39,7 +39,7 @@ class Login extends Component {
               name="password"
             />
             <br />
-            <Button>Log In</Button>
+            <FeaturedButton>Log In</FeaturedButton>
           </form>
         </FormGroup>
       </>

@@ -14,9 +14,9 @@ export const Label = styled.label`
 `;
 
 export const Input = styled.input`
-  padding: 0.5rem;
+  padding: 0.75rem;
   background: white;
   border-style: solid;
-  width: 15rem;
+  width: 20rem;
   margin-bottom: 0.5rem;
 `;
