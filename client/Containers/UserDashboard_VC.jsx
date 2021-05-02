@@ -5,7 +5,6 @@ import AdminConsole from './AdminConsole';
 import Button from '../components/styles/Button';
 
 // Filter users based on 'isAdmin' attribute
-
 class UserDashboard extends Component {
   state = {
     auth: {},

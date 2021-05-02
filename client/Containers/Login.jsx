@@ -25,22 +25,18 @@ class Login extends Component {
     const { email, password } = this.state;
     return (
       <>
-        <h2>Welcome Back!</h2>
-        <FormGroup>
-          <form onSubmit={onSubmit}>
-            <Label>email:</Label>
-            <Input value={email} onChange={onChange} name="email" />
-            <br />
-            <Label>password:</Label>
-            <Input
-              value={password}
-              onChange={onChange}
-              type="password"
-              name="password"
-            />
-            <br />
-            <FeaturedButton>Log In</FeaturedButton>
-          </form>
+        <FormGroup onSubmit={onSubmit}>
+          <h2>Welcome Back!</h2>
+          <Label>email:</Label>
+          <Input value={email} onChange={onChange} name="email" />
+          <Label>password:</Label>
+          <Input
+            value={password}
+            onChange={onChange}
+            type="password"
+            name="password"
+          />
+          <FeaturedButton>Log In</FeaturedButton>
         </FormGroup>
       </>
     );

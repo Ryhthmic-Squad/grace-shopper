@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
 export const FormGroup = styled.div`
-  color: white;
   display: flex;
   justify-content: center;
+  flex-direction: column;
   align-items: center;
 `;
 
@@ -15,8 +15,8 @@ export const Label = styled.label`
 
 export const Input = styled.input`
   padding: 0.75rem;
-  background: white;
-  border-style: solid;
+  background: #e4e4e4;
+  border-style: none;
   width: 20rem;
   margin-bottom: 0.5rem;
 `;

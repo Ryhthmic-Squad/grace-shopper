@@ -10,5 +10,3 @@ export const Row = styled.div`
 `;
 
 export const Spacer = styled.div(space);
-
-export const Box = styled.div({});
