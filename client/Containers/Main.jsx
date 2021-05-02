@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import UserDashboard from './UserDashboard';
+import UserDashboard from './UserDashboard_VC';
 import { connect } from 'react-redux';
 
 class Main extends Component {

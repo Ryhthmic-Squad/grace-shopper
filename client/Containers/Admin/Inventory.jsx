@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react';
+import { connect } from 'react-redux';
 import { fetchProductInventory } from '.../store/product/productInventory';
 
 class Inventory extends Component {

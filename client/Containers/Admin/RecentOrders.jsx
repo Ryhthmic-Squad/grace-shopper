@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react';
+import { connect } from 'react-redux';
 import { fetchOrderList } from '.../store/order/orderList';
 
 class RecentOrders extends Component {
