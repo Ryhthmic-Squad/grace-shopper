@@ -7,7 +7,6 @@ class Main extends Component {
     const { fetchProductList } = this.props;
     return (
       <div>
-        <hr />
         <UserDashboard />
       </div>
     );
