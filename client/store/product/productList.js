@@ -1,19 +1,19 @@
 import axios from 'axios';
 // import store from '../index';
 
-const SET_PRODUCT_LIST = 'SET_PRODUCT_LIST';
+export const SET_PRODUCT_LIST = 'SET_PRODUCT_LIST';
 
-export const setProductList = (productList) => {
-  return {
-    productList,
-    type: SET_PRODUCT_LIST,
-  };
-};
+export const setProductList = (productList) => ({
+  productList,
+  type: SET_PRODUCT_LIST,
+});
 
-export const fetchProductList = () => {
-  return async (dispatch, getState) => {
-    const { productList } = getState();
-    const { page, size, sort, type, style, room } = productList;
+// fetchProductList is a thunk that needs a product id, as well as page, size
+// and sort parameters. You can optionally provide type, style and room filters
+// to get a targeted list of products. This will grab a chunk of paginated
+// products from the backend /api/products route.
+export const fetchProductList = ({ page, size, sort, type, style, room }) => {
+  return async (dispatch) => {
     const optionalParameters = [type, style, room].filter(
       (param) => param !== null
     );
@@ -25,8 +25,18 @@ export const fetchProductList = () => {
       const {
         data: { maxPage, products },
       } = await axios.get(query);
-      console.log(maxPage, products);
-      dispatch(setProductList({ ...productList, maxPage, products }));
+      dispatch(
+        setProductList({
+          products,
+          maxPage,
+          page,
+          size,
+          sort,
+          type,
+          style,
+          room,
+        })
+      );
     } catch (err) {
       console.error(err);
     }
