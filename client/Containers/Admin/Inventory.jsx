@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react';
-import { setProductList } from '.../store';
+import { fetchProductInventory } from '.../store/product/productInventory';
 
 class Inventory extends Component {
   constructor() {
@@ -68,7 +68,7 @@ class Inventory extends Component {
 const mapStateToProps = (state) => {
   let products;
   try {
-    products = state.products
+    products = state.productInventory.products
       .filter((product) => product.inventory <= 5)
       .slice(2);
   } catch {
@@ -77,9 +77,9 @@ const mapStateToProps = (state) => {
     return products;
   }
 };
-const MapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
   return {
     fetchProductInventory: () => dispatch(fetchProductInventory()),
   };
 };
-export default connect(mapStateToProps, MapDispatchToProps)(Inventory);
+export default connect(mapStateToProps, mapDispatchToProps)(Inventory);

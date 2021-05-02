@@ -3,12 +3,14 @@ import RecentOrders from './RecentOrders';
 import NewUsers from './NewUsers';
 import Inventory from './Inventory';
 
-class AdminConsole extends Component {
+export default class AdminConsole extends Component {
   render() {
-    <div>
-      <NewUsers />
-      <RecentOrders />
-      <Inventory />
-    </div>;
+    return (
+      <div>
+        <NewUsers />
+        <RecentOrders />
+        <Inventory />
+      </div>
+    );
   }
 }

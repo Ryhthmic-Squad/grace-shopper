@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react';
+import { fetchOrderList } from '.../store/order/orderList';
 
 class RecentOrders extends Component {
   constructor() {
@@ -77,9 +78,9 @@ const mapStateToProps = (state) => {
   };
 };
 //create and impor thunks for orders
-const MapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    fetchOrder: () => dispatch(fetchOrders),
+    fetchOrder: () => dispatch(fetchOrderList()),
   };
 };
-export default connect(mapStateToProps, MapDispatchToProps)(RecentOrders);
+export default connect(mapStateToProps, mapDispatchToProps)(RecentOrders);

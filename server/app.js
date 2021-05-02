@@ -20,6 +20,7 @@ app.get('/', (req, res, next) => {
 // Routes for products and users
 
 app.use('/api/products', require('./api/Products'));
+app.use('/api/orders', require('./api/Orders'));
 app.use('/api/users', require('./api/Users'));
 app.use('/api/auth', require('./api/Auth'));
 

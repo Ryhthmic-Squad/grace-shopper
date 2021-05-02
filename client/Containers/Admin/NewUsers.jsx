@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { fetchUserList } from '.../store/user/userList';
 class NewUsers extends Component {
   constructor() {
     super();
@@ -35,9 +36,7 @@ class NewUsers extends Component {
                 <tbody>
                   <tr>
                     <td>{user.id}</td>
-                    <td>
-                      {user.firstName} {user.lastName}
-                    </td>
+                    <td>{user.fullName}</td>
                     <td>{user.phoneNumber}</td>
                   </tr>
                 </tbody>
@@ -62,7 +61,7 @@ class NewUsers extends Component {
 }
 //need to make and import user thunks and state
 const mapStateToProps = (state) => {
-  const users = state.users
+  const users = state.userList.users
     .sort((a, b) => b.createdAt.substring(0, 10) - a.createdAt.substring(0, 10))
     .filter((user) => !user.isAdmin)
     .slice(2);
@@ -70,9 +69,9 @@ const mapStateToProps = (state) => {
     users,
   };
 };
-const MapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    fetchUsers: () => dispatch(fetchUsers()),
+    fetchUsers: () => dispatch(fetchUserList()),
   };
 };
-export default connect(mapStateToProps, MapDispatchToProps)(NewUsers);
+export default connect(mapStateToProps, mapDispatchToProps)(NewUsers);
