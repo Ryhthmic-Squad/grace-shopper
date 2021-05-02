@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import UserDashboard from './UserDashboard';
 import { connect } from 'react-redux';
+import TESTforProductList from './TESTforProductList';
 
 class Main extends Component {
   render() {
@@ -8,14 +9,10 @@ class Main extends Component {
     return (
       <div>
         <hr />
-        <UserDashboard />
+        <TESTforProductList />
       </div>
     );
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  fetchProductList: () => dispatch(fetchProductList()),
-});
-
-export default connect(null, mapDispatchToProps)(Main);
+export default connect(null, null)(Main);
