@@ -18,6 +18,7 @@ import {
   filterByRoom,
   clearFilters,
 } from '../store/product/productFilters';
+import Button from '../components/styles/Button';
 
 // This page needs productList, productPagination and productFilters from the store
 const mapStateToProps = ({
@@ -45,7 +46,10 @@ const mapDispatchToProps = (dispatch) => ({
     // goToPage() dispatches the goToPage() action creator, which sets the current page to a specific value. The `page` parameter should only be an integer. This should only be able to reach actual pages, between 1 and maxPage, inclusive.
     goToPage: (page) => dispatch(goToPage(page)),
     // sizePage() dispatches the sizePage() action creator, which changes how many results appear on the page (default 6). The `size` parameter should be an integer between 1 and the maxPage, inclusive, unless you want all products, then passing in an empty string will get all products in the database.
-    sizePage: (size) => dispatch(sizePage(size)),
+    sizePage: (size) => {
+      dispatch(sizePage(size));
+      dispatch(goToPage(1));
+    },
     // sortPage() dispatches the sortPage() action creator, which changes how results are ordered. The `sort` parameter should be a string with the sequelize attribute you want to sort by and either DESC (for descending sort) or ASC (for ascending sort) separated by a comma (e.g. 'name,DESC')
     sortPage: (sort) => dispatch(sortPage(sort)),
   },
@@ -134,8 +138,10 @@ class TestProductList extends Component {
     const {
       // grab the productList from props to list the current products
       productList,
-      // grab maxPage, sort, and page for pagination mechanics
-      productPagination: { maxPage, sort, page },
+      // grab maxPage, page, size and sort for pagination mechanics
+      productPagination: { maxPage, page, size, sort },
+      // grab type, style, and room for filter mechanics
+      productFilters: { type, style, room },
       // grab the various pagination funcs we need to manipulate pagination
       paginationFuncs: { nextPage, prevPage, goToPage, sizePage, sortPage },
       // grab the dynamic filter method as well
@@ -153,52 +159,91 @@ class TestProductList extends Component {
               <p>Type Tests</p>
               <ButtonRow>
                 {/* These buttons apply a single filter by calling filter() with an options object that specifies the type to filter by */}
-                <button onClick={() => filter({ type: 'bed' })}>Beds</button>
-                <button onClick={() => filter({ type: 'dresser' })}>
-                  Dressers
-                </button>
-                <button onClick={() => filter({ type: 'nightstand' })}>
-                  Nightstands
-                </button>
-                {/* This button resets the type filter by calling filter() with an options object that sets the type to empty string */}
-                <button onClick={() => filter({ type: '' })}>Clear</button>
+                {[
+                  ['bed', 'Beds'],
+                  ['dresser', 'Dressers'],
+                  ['nightstand', 'Nightstands'],
+                  ['', 'Clear'],
+                ].map((val, idx) => {
+                  const [newType, label] = val;
+                  return (
+                    // Display text, rather than a Button for the currently enabled filter
+                    <>
+                      {newType !== type ? (
+                        <Button
+                          key={idx}
+                          onClick={() => filter({ type: newType })}
+                        >
+                          {label}
+                        </Button>
+                      ) : (
+                        <div key={idx}>{label}</div>
+                      )}
+                    </>
+                  );
+                })}
+                {/* The clear Button resets the type filter by calling filter() with an options object that sets the type to empty string */}
               </ButtonRow>
             </div>
             <div>
               <p>Style Tests</p>
               <ButtonRow>
                 {/* These buttons apply a single filter by calling filter() with an options object that specifies the style to filter by */}
-                <button onClick={() => filter({ style: 'contemporary' })}>
-                  Contemporary
-                </button>
-                <button onClick={() => filter({ style: 'modern' })}>
-                  Modern
-                </button>
-                <button onClick={() => filter({ style: 'transitional' })}>
-                  Transitional
-                </button>
-                {/* This button resets the style filter by calling filter() with an options object that sets the style to empty string */}
-                <button onClick={() => filter({ style: '' })}>Clear</button>
+                {[
+                  ['contemporary', 'Contemporary'],
+                  ['modern', 'Modern'],
+                  ['transitional', 'Transitional'],
+                  ['', 'Clear'],
+                ].map((val, idx) => {
+                  const [newStyle, label] = val;
+                  return (
+                    // Display text, rather than a Button for the currently enabled filter
+                    <>
+                      {newStyle !== style ? (
+                        <Button
+                          key={idx}
+                          onClick={() => filter({ style: newStyle })}
+                        >
+                          {label}
+                        </Button>
+                      ) : (
+                        <div key={idx}>{label}</div>
+                      )}
+                    </>
+                  );
+                })}
+                {/* The clear Button resets the style filter by calling filter() with an options object that sets the style to empty string */}
               </ButtonRow>
             </div>
             <div>
               <p>Room Tests</p>
               <ButtonRow>
                 {/* These buttons apply a single filter by calling filter() with an options object that specifies the room to filter by */}
-                <button onClick={() => filter({ room: 'bedroom' })}>
-                  Bedroom
-                </button>
-                <button onClick={() => filter({ room: 'living' })}>
-                  Living
-                </button>
-                <button onClick={() => filter({ room: 'dining' })}>
-                  Dining
-                </button>
-                <button onClick={() => filter({ room: 'bathroom' })}>
-                  Bathroom
-                </button>
-                {/* This button resets the room filter by calling filter() with an options object that sets the room to empty string */}
-                <button onClick={() => filter({ room: '' })}>Clear</button>
+                {[
+                  ['bedroom', 'Bedroom'],
+                  ['living', 'Living'],
+                  ['dining', 'Dining'],
+                  ['bathroom', 'Bathroom'],
+                  ['', 'Clear'],
+                ].map((val, idx) => {
+                  const [newRoom, label] = val;
+                  return (
+                    // Display text, rather than a Button for the currently enabled filter
+                    <>
+                      {newRoom !== room ? (
+                        <Button
+                          key={idx}
+                          onClick={() => filter({ room: newRoom })}
+                        >
+                          {label}
+                        </Button>
+                      ) : (
+                        <div key={idx}>{label}</div>
+                      )}
+                    </>
+                  );
+                })}
+                {/* The clear Button resets the room filter by calling filter() with an options object that sets the room to empty string */}
               </ButtonRow>
             </div>
             <div>
@@ -206,31 +251,43 @@ class TestProductList extends Component {
               <ButtonRow>
                 Modern:{' '}
                 {/* These buttons apply multiple filters at once by calling filter() with an options object that specifies both the type and style to filter by */}
-                <button
-                  onClick={() => filter({ type: 'bed', style: 'modern' })}
-                >
-                  Beds
-                </button>
-                <button
-                  onClick={() => filter({ type: 'dresser', style: 'modern' })}
-                >
-                  Dressers
-                </button>
-                <button
-                  onClick={() =>
-                    filter({ type: 'nightstand', style: 'modern' })
-                  }
-                >
-                  Nightstands
-                </button>
+                {style === 'modern' && type === 'bed' ? (
+                  <div>Beds</div>
+                ) : (
+                  <Button
+                    onClick={() => filter({ type: 'bed', style: 'modern' })}
+                  >
+                    Beds
+                  </Button>
+                )}
+                {style === 'modern' && type === 'dresser' ? (
+                  <div>Dressers</div>
+                ) : (
+                  <Button
+                    onClick={() => filter({ type: 'dresser', style: 'modern' })}
+                  >
+                    Dressers
+                  </Button>
+                )}
+                {style === 'modern' && type === 'nightstand' ? (
+                  <div>Nightstands</div>
+                ) : (
+                  <Button
+                    onClick={() =>
+                      filter({ type: 'nightstand', style: 'modern' })
+                    }
+                  >
+                    Nightstands
+                  </Button>
+                )}
               </ButtonRow>
             </div>
             <div>
               <p>Clear Test</p>
-              {/* This button clears all filters by calling the filter() method with clear set to true */}
-              <button onClick={() => filter({ clear: true })}>
+              {/* This Button clears all filters by calling the filter() method with clear set to true */}
+              <Button onClick={() => filter({ clear: true })}>
                 Clear All Filters
-              </button>
+              </Button>
             </div>
           </TestChild>
           <TestChild>
@@ -238,14 +295,14 @@ class TestProductList extends Component {
             <div>
               <p>Page Tests</p>
               <ButtonRow>
-                {/* The PrevPage button only displays if the current page is greater than one, and the NextPage button only display if it's less than the maxPage. For styling we may want to instead display these at all times but give them an 'inoperable' class so they appear but clearly are not operable by the user. */}
+                {/* The PrevPage Button only displays if the current page is greater than one, and the NextPage Button only display if it's less than the maxPage. For styling we may want to instead display these at all times but give them an 'inoperable' class so they appear but clearly are not operable by the user. */}
                 {page > 1 ? (
-                  <button onClick={prevPage}>PrevPage</button>
+                  <Button onClick={prevPage}>PrevPage</Button>
                 ) : (
                   <div>PrevPage</div>
                 )}
                 {page < maxPage ? (
-                  <button onClick={nextPage}>NextPage</button>
+                  <Button onClick={nextPage}>NextPage</Button>
                 ) : (
                   <div>NextPage</div>
                 )}
@@ -256,10 +313,17 @@ class TestProductList extends Component {
                 {Array(maxPage)
                   .fill('')
                   .map((val, idx) => {
+                    const newPage = idx + 1;
                     return (
-                      <button key={idx} onClick={() => goToPage(idx + 1)}>
-                        {idx + 1}
-                      </button>
+                      <>
+                        {page !== newPage ? (
+                          <Button key={idx} onClick={() => goToPage(idx + 1)}>
+                            {idx + 1}
+                          </Button>
+                        ) : (
+                          <div>{newPage}</div>
+                        )}
+                      </>
                     );
                   })}
               </ButtonRow>
@@ -271,11 +335,17 @@ class TestProductList extends Component {
                 {Array(4)
                   .fill('')
                   .map((val, idx) => {
-                    const size = (idx + 1) * 6;
+                    const newSize = (idx + 1) * 6;
                     return (
-                      <button key={idx} onClick={() => sizePage(size)}>
-                        {size}
-                      </button>
+                      <>
+                        {newSize !== size ? (
+                          <Button key={idx} onClick={() => sizePage(newSize)}>
+                            {newSize}
+                          </Button>
+                        ) : (
+                          <div>{newSize}</div>
+                        )}
+                      </>
                     );
                   })}
               </ButtonRow>
@@ -284,16 +354,34 @@ class TestProductList extends Component {
               <p>Sort Tests</p>
               {/* These first two buttons sort invoke the sortPage() method to sort by Name A->Z and Price $$ -> $, respectively, showing how you can prescribe the initial sort of a given option */}
               <ButtonRow>
-                <button onClick={() => sortPage(`name,ASC`)}>Name</button>
-                <button onClick={() => sortPage(`price,DESC`)}>Price</button>
+                {by === 'price' ? (
+                  <Button onClick={() => sortPage(`name,ASC`)}>Name</Button>
+                ) : (
+                  <div>Name</div>
+                )}
+                {by === 'name' ? (
+                  <Button onClick={() => sortPage(`price,DESC`)}>Price</Button>
+                ) : (
+                  <div>Price</div>
+                )}
               </ButtonRow>
               <br />
               <ButtonRow>
                 {/* These buttons simply change the direction of the current sort, using the `by` variable we destructured from `sort` above and a template literal to change the direction */}
-                <button onClick={() => sortPage(`${by},DESC`)}>
-                  Descending
-                </button>
-                <button onClick={() => sortPage(`${by},ASC`)}>Ascending</button>
+                {dir === 'ASC' ? (
+                  <Button onClick={() => sortPage(`${by},DESC`)}>
+                    Descending
+                  </Button>
+                ) : (
+                  <div>Descending</div>
+                )}
+                {dir === 'DESC' ? (
+                  <Button onClick={() => sortPage(`${by},ASC`)}>
+                    Ascending
+                  </Button>
+                ) : (
+                  <div>Ascending</div>
+                )}
               </ButtonRow>
             </div>
           </TestChild>

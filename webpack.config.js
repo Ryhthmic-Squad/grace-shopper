@@ -1,8 +1,10 @@
+const path = require('path');
+
 module.exports = {
-  entry: './client/index.js',
+  entry: path.join(__dirname, './client/index.js'),
   output: {
-    path: __dirname,
-    filename: './public/bundle.js',
+    path: path.join(__dirname, 'public'),
+    filename: 'bundle.js',
   },
   devtool: 'source-map',
   resolve: {
@@ -13,10 +15,7 @@ module.exports = {
       {
         exclude: /node_modules/,
         test: /\.jsx?$/,
-        loader: 'babel-loader',
-        options: {
-          presets: ['@babel/preset-react'],
-        },
+        use: { loader: 'babel-loader' },
       },
     ],
   },

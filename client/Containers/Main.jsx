@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import UserDashboard from './UserDashboard';
+import UserDashboard from './UserDashboard.jsx';
 import { connect } from 'react-redux';
-import TestProductList from './TESTforProductList';
+import TestProductList from './TestForProductList.jsx';
 
 class Main extends Component {
   render() {
