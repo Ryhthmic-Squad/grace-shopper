@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import UserDashboard from './UserDashboard';
 import { connect } from 'react-redux';
-import TESTforProductList from './TESTforProductList';
+import TestProductList from './TESTforProductList';
 
 class Main extends Component {
   render() {
@@ -9,7 +9,9 @@ class Main extends Component {
     return (
       <div>
         <hr />
-        <TESTforProductList />
+        <UserDashboard />
+        <hr className="heavy" />
+        <TestProductList />
       </div>
     );
   }
