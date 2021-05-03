@@ -62,7 +62,10 @@ const syncAndSeed = async () => {
     });
     await testCart.addProduct(bed, { through: { quantity: 1 } });
     await testCart.addProduct(dresser, { through: { quantity: 2 } });
+    // DELETE PRODUCT
+    // FIND CART
     console.log('products and users seeded into db');
+
     await db.close();
   } catch (er) {
     console.error(er);

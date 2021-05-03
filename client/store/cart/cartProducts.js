@@ -1,9 +1,9 @@
 import axios from 'axios';
 
 export const SET_CART_PRODUCTS = 'SET_CART_PRODUCTS';
-
 export const REMOVE_PRODUCT = 'REMOVE_PRODUCT';
-
+export const INCREASE_QTY = 'INCREASE_QTY';
+export const DESCREASE_QTY = 'DECREASE_QTY';
 export const RESET_CART = 'RESET_CART';
 
 export const setCartProducts = (cartProducts) => ({
@@ -11,7 +11,7 @@ export const setCartProducts = (cartProducts) => ({
   cartProducts,
 });
 
-export const resetCart = () => ({
+export const resetCartProducts = () => ({
   type: RESET_CART,
   cartProducts: [],
 });
@@ -32,11 +32,17 @@ export const fetchCartProducts = (id, token) => {
   };
 };
 
+export const resetCart = () => {
+  return (dispatch) => {
+    dispatch(resetCartProducts());
+  };
+};
+
 const initialState = [];
 
 export default (state = initialState, action) => {
   const { type, cartProducts } = action;
   if (type === SET_CART_PRODUCTS) return cartProducts;
-  if (type == RESET_CART) return cartProducts;
-  else return state;
+  if (type === RESET_CART) return cartProducts;
+  return state;
 };

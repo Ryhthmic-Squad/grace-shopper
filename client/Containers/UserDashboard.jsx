@@ -13,9 +13,9 @@ class UserDashboard extends Component {
   };
 
   logout = () => {
+    this.props.resetCart();
     window.localStorage.removeItem('token');
     this.setState({ auth: {} });
-    resetCart();
   };
 
   attemptTokenLogin = async () => {
@@ -57,6 +57,8 @@ class UserDashboard extends Component {
             cartProducts.map((product) => (
               <li>
                 {product.name},{product.cartProducts.quantity}
+                <br />
+                <img display="block" width="150rem" src={product.imageUrl} />
               </li>
             ))}
           {auth.isAdmin && <AdminConsole />}
