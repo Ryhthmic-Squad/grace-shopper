@@ -35,7 +35,7 @@ class AllUsers extends Component {
                   <span>{user.email}</span>
                   <span>{user.isAdmin}</span>
                   <span>{user.phoneNumber}</span>
-                  <Link to={`/Admin/edit/${user.id}`}>Edit</Link>
+                  <Link to={`/Admin/view/users/edit/${user.id}`}>Edit</Link>
                 </Row>
               </li>
             ))

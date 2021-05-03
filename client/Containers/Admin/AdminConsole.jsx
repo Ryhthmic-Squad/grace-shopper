@@ -3,8 +3,7 @@ import RecentOrders from './RecentOrders';
 import NewUsers from './NewUsers';
 import Inventory from './Inventory';
 import { Row, Spacer } from '../../components/styles/AdminConsole';
-
-export default class AdminConsole extends Component {
+class AdminConsole extends Component {
   render() {
     return (
       <Row>
@@ -17,3 +16,4 @@ export default class AdminConsole extends Component {
     );
   }
 }
+export default AdminConsole;

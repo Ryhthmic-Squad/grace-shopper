@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchUserList } from '../../store/user/userList';
 import { Row } from '../../components/styles/AdminConsole';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import Button from '../../components/styles/Button';
 
 class NewUsers extends Component {
   constructor() {
@@ -16,7 +17,12 @@ class NewUsers extends Component {
     await fetchUsers();
     this.setState({ users: this.props.users, loading: false });
   }
+  handleClick = () => {
+    let history = useHistory();
+    history.push('/Admin/view/users');
+  };
   render() {
+    const { handleClick } = this;
     const { users } = this.state;
     return (
       <div>
@@ -42,6 +48,7 @@ class NewUsers extends Component {
             </li>
           )}
         </ul>
+        <Button onClick={handleClick}>Show All Users</Button>
         <Link to={'/Admin/view/users'}>Show All Users</Link>
       </div>
     );
