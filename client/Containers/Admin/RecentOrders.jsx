@@ -22,8 +22,8 @@ class RecentOrders extends Component {
       <div>
         <h2>Recent Orders</h2>
         <Row>
-          <span>Name</span>
-          <span>Order Date</span>
+          <strong>Name</strong>
+          <strong>Order Date</strong>
         </Row>
         <hr />
         <ul>
