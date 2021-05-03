@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchUserList } from '../../store/user/userList';
 import { Row } from '../../components/styles/AdminConsole';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Button from '../../components/styles/Button';
 
 class NewUsers extends Component {
@@ -18,8 +18,7 @@ class NewUsers extends Component {
     this.setState({ users: this.props.users, loading: false });
   }
   handleClick = () => {
-    let history = useHistory();
-    history.push('/Admin/view/users');
+    //need to link to allusers in a different page
   };
   render() {
     const { handleClick } = this;
