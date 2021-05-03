@@ -1,7 +1,9 @@
 const {
-  models: { User },
+  models: { User, Cart },
 } = require('../db/index');
 const router = require('express').Router();
+const { requireToken } = require('./Utils');
+// add require by token middleware
 
 // GET /api/users
 router.get('/', async (req, res, next) => {
@@ -21,6 +23,16 @@ router.get('/:id', async (req, res, next) => {
   }
 });
 
+// GET /api/users/:id/cart
+// retrieves a cart's associated products from database
+router.get('/:id/cart', requireToken, async (req, res, next) => {
+  try {
+    res.send(await Cart.verifyByToken(req.user, req.params.id));
+  } catch (er) {
+    next(er);
+  }
+});
+
 // PUT /api/users/:id
 router.put('/:id', async (req, res, next) => {
   try {
@@ -34,7 +46,7 @@ router.put('/:id', async (req, res, next) => {
 // DELETE /api/users/:id
 router.delete('/:id', async (req, res, next) => {
   try {
-    const user = await User.findByPk(req.params.campusId);
+    const user = await User.findByPk(req.params.id);
     await user.destroy();
     res.sendStatus(204);
   } catch (er) {
@@ -42,7 +54,7 @@ router.delete('/:id', async (req, res, next) => {
   }
 });
 
-// POST/api/users
+// POST /api/users
 router.post('/', async (req, res, next) => {
   try {
     res.status(201).send(await User.create(req.body));
@@ -50,7 +62,5 @@ router.post('/', async (req, res, next) => {
     next(er);
   }
 });
-
-// GET /api/users/:id/orders
 
 module.exports = router;

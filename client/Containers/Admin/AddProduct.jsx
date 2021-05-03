@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { FormGroup, Label, Input } from '../../components/styles/Forms';
 import FeaturedButton from '../../components/styles/FeaturedButton';
 import { connect } from 'react-redux';
-import { productCreate } from '../../store/user/userList';
+import { productCreate } from '../../store/product/productCreate';
 
 class AddProduct extends Component {
   state = {
