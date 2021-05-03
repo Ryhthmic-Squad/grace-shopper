@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import UserDashboard from './UserDashboard.jsx';
 import { connect } from 'react-redux';
+import TestProductList from './TestForProductList.jsx';
 import {
   HashRouter as Router,
   Route,
@@ -17,14 +19,16 @@ class Main extends Component {
     return (
       <Router>
         <div>
-          <div>
-            <Route component={MainNav} />
-            <Route component={AllProducts} path="/api/product/all" exact />
-          </div>
+          <Route component={MainNav} />
+          <Route component={AllProducts} path="/api/product/all" exact />
           <hr />
           <Link to="/api/product/all">
             <FeaturedButton> Shop All Furniture </FeaturedButton>
           </Link>
+
+          <hr />
+          <hr className="heavy" />
+          <TestProductList />
         </div>
       </Router>
     );

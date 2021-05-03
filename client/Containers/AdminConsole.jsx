@@ -1,5 +1,5 @@
 import React from 'react';
-import UsersCard from './UsersCard_VC';
+import UsersCard from './UsersCard.jsx';
 import { Row, Spacer } from '../components/styles/AdminConsole';
 
 const AdminConsole = () => (

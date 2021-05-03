@@ -17,7 +17,7 @@ router.get('/all', async (req, res, next) => {
 // get with queries to paginate and filter
 
 router.get('/', async (req, res, next) => {
-  const { page, size, type, style, room, sort } = req.query;
+  const { page, size, sort, type, style, room } = req.query;
   const options = {
     attributes: {
       include: [
@@ -32,12 +32,16 @@ router.get('/', async (req, res, next) => {
         'availability',
       ],
     },
-    order: ['name'],
+    order: [['name', 'DESC']],
     where: {},
   };
   if (page && size) {
     options.offset = (page - 1) * size;
     options.limit = size;
+  }
+  if (sort) {
+    const [by, dir] = sort.split(',');
+    options.order = [[by, dir]];
   }
   if (type) {
     options.where.type = type;
