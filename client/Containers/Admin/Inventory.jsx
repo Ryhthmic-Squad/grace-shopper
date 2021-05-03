@@ -1,81 +1,69 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchProductInventory } from '.../store/product/productInventory';
+import { fetchProductInventory } from '../../store/product/productInventory';
+import { Row } from '../../components/styles/AdminConsole';
+import Button from '../../components/styles/Button';
 
 class Inventory extends Component {
   constructor() {
     super();
     this.state = {
-      loading: true,
       products: [],
     };
   }
   async componentDidMount() {
-    const { fetchOrders, products } = this.props;
-    await fetchOrders();
-    this.state.products = products;
-    this.state.loading = false;
+    const { fetchProductInventory } = this.props;
+    await fetchProductInventory();
+    this.setState({ products: this.props.products });
   }
   render() {
-    const { loading, products } = this.state;
-    return loading ? (
-      <h1>Loading</h1>
-    ) : (
+    const { products } = this.state;
+    return (
       <div>
         <h2>Inventory</h2>
-        <div>
-          <table>
-            <thead>
-              <tr>
-                <th>Id</th>
-                <th>Low-stock Item Name</th>
-                <th>QTY</th>
-              </tr>
-            </thead>
-            {products.length ? (
-              product.map((product) => (
-                <tbody>
-                  <tr>
-                    <td>{product.id}</td>
-                    <td>{product.name}</td>
-                    <td>{product.inventory}</td>
-                  </tr>
-                </tbody>
-              ))
-            ) : (
-              <tbody>
-                <tr>
-                  <td>{'none'}</td>
-                  <td>{'none'}</td>
-                  <td>{'none'}</td>
-                </tr>
-              </tbody>
-            )}
-          </table>
-        </div>
-        <div>
-          <Link to={`id/AdminConsole/all/inventory`}>Show Inventory</Link>
-        </div>
-        <div>
-          <Link to={`id/AdminConsole/add/product`}>Add Product</Link>
-        </div>
+        <hr className="heavy" />
+        <Row>
+          <strong>Id</strong>
+          <strong>Low-stock Item Name</strong>
+          <strong>QTY</strong>
+        </Row>
+        <hr />
+        <ul>
+          {products.length ? (
+            products.map((product) => (
+              <li key={product.id}>
+                <Row>
+                  <span>{product.id}</span>
+                  <span>{product.name}</span>
+                  <span>{product.inventory}</span>
+                </Row>
+              </li>
+            ))
+          ) : (
+            <li>
+              <Row>
+                <span>{'none'}</span>
+                <span>{'none'}</span>
+                <span>{'none'}</span>
+              </Row>
+            </li>
+          )}
+        </ul>
+        <Button>Show Inventory</Button>
+        <Button>Add Product</Button>
       </div>
     );
   }
 }
 
-//need product thunks that has inventory
 const mapStateToProps = (state) => {
-  let products;
-  try {
-    products = state.productInventory.products
-      .filter((product) => product.inventory <= 5)
-      .slice(2);
-  } catch {
-    products = [];
-  } finally {
-    return products;
-  }
+  const products = state.productInventory.products.filter((product) => {
+    return product.inventory <= 5;
+  });
+  if (products.length > 3) products.slice(2);
+  return {
+    products,
+  };
 };
 const mapDispatchToProps = (dispatch) => {
   return {

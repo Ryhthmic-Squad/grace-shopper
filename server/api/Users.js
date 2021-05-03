@@ -22,6 +22,15 @@ router.get('/:id', async (req, res, next) => {
 });
 
 // PUT /api/users/:id
+router.put('/:id', async (req, res, next) => {
+  try {
+    const user = await User.findByPk(req.params.campusId);
+    await user.destroy();
+    res.sendStatus(204);
+  } catch (er) {
+    next(er);
+  }
+});
 
 // DELETE /api/users/:id
 router.delete('/:id', async (req, res, next) => {

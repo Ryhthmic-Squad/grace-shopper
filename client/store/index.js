@@ -7,7 +7,7 @@ import productReviews from './product/productReviews';
 import productInventory from './product/productInventory';
 import userList from './user/userList';
 import orderList from './order/orderList';
-
+import updateUser from './user/userUpdate';
 const reducer = combineReducers({
   productList,
   productDetail,

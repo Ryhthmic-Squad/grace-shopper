@@ -7,7 +7,7 @@ export const setOrderList = (orderList) => ({
   type: SET_ORDER_LIST,
 });
 
-const fetchOrderList = () => {
+export const fetchOrderList = () => {
   return async (dispatch) => {
     try {
       const { data } = await axios.get('api/Orders');
