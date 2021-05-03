@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import UserDashboard from './UserDashboard';
 import { connect } from 'react-redux';
 import {
   HashRouter as Router,
@@ -10,6 +9,7 @@ import {
 } from 'react-router-dom';
 import AllProducts from './AllProducts';
 import MainNav from './MainNav';
+import FeaturedButton from '../components/styles/FeaturedButton';
 
 class Main extends Component {
   render() {
@@ -22,6 +22,9 @@ class Main extends Component {
             <Route component={AllProducts} path="/api/product/all" exact />
           </div>
           <hr />
+          <Link to="/api/product/all">
+            <FeaturedButton> Shop All Furniture </FeaturedButton>
+          </Link>
         </div>
       </Router>
     );

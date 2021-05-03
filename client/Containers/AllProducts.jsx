@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import fetchProductList from '../store/product/productList';
 
 class AllProducts extends Component {
   constructor(props) {
@@ -7,14 +9,17 @@ class AllProducts extends Component {
   }
   componentDidMount() {
     console.log('AllProducts component mounted!');
+    console.log('props is', this.props);
+    console.log('state is', this.state);
   }
   render() {
-    const { fetchProductList } = this.props;
+    // console.log(props);
+    const productList = this.props;
     return (
-      <div>
+      <div className="allProducts">
         <h1>All Products Page</h1>
         {/* <ul>
-          {this.props.map((product) => {
+          {productList.map((product) => {
             return (
               <li key={product.id}>
                 <Link to={`api/products/${product.id}`}>{product.name}</Link>
@@ -33,4 +38,11 @@ class AllProducts extends Component {
   }
 }
 
-export default AllProducts;
+const mapStateToProps = ({ productList }) => ({
+  productList,
+});
+const mapDispatchToProps = (dispatch) => ({
+  getProducts: () => dispatch(fetchProductList()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AllProducts);
