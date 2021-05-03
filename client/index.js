@@ -17,7 +17,7 @@ ReactDOM.render(
       <GlobalStyle />
       <Main />
       <Switch>
-        <Route exact path="/Login" component={Login} />
+        <Route exact path="/login" component={Login} />
         <Route exact path="/Admin/dashboard" component={AdminConsole} />
         <Route exact path="/Admin/view/users" component={AllUsers} />
         <Route exact path="/Admin/view/users/edit/:id" component={EditUser} />
