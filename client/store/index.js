@@ -4,7 +4,7 @@ import { createLogger } from 'redux-logger';
 import productList from './product/productList';
 import productDetail from './product/productDetail';
 import productReviews from './product/productReviews';
-import cartItems from './cart/cartItems';
+import cartProducts from './cart/cartProducts';
 import productPagination from './product/productPagination';
 import productFilters from './product/productFilters';
 
@@ -12,7 +12,7 @@ const reducer = combineReducers({
   productList,
   productDetail,
   productReviews,
-  cartItems,
+  cartProducts,
   productPagination,
   productFilters,
 });

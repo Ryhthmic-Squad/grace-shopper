@@ -16,11 +16,13 @@ Cart.init(
 // Verifies if the user id from header request matches with the req.params
 Cart.verifyByToken = async (user, reqId) => {
   try {
-    if (user.id === +reqId) {
-      const cart = Cart.findOne({ where: { userId: user.id } });
-      // Q: how do we know if we will get the right quantity of each product - use cartProducts table?
-      const cartItems = await cart.getProducts();
-      return cartItems;
+    if (user.id == reqId) {
+      const cart = await Cart.findOne({ where: { userId: user.id } });
+      let cartProducts = [];
+      if (cart) {
+        cartProducts = await cart.getProducts();
+      }
+      return cartProducts;
     }
     const error = Error('unauthorized access');
     error.status = 401;

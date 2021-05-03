@@ -24,9 +24,10 @@ router.get('/:id', async (req, res, next) => {
 });
 
 // GET /api/users/:id/cart
+// retrieves a cart's associated products from database
 router.get('/:id/cart', requireToken, async (req, res, next) => {
   try {
-    res.send(await Cart.byToken(req.user, req.params.id));
+    res.send(await Cart.verifyByToken(req.user, req.params.id));
   } catch (er) {
     next(er);
   }

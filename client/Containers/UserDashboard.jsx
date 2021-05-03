@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import axios from 'axios';
 import Login from './Login.jsx';
 import AdminConsole from './AdminConsole.jsx';
@@ -8,11 +9,12 @@ import Button from '../components/styles/Button';
 class UserDashboard extends Component {
   state = {
     auth: {},
+    cartProducts: [], // this should be in store
   };
 
   logout = () => {
     window.localStorage.removeItem('token');
-    this.setState({ auth: {} });
+    this.setState({ auth: {}, cartProducts: [] });
   };
 
   attemptTokenLogin = async () => {
@@ -23,9 +25,18 @@ class UserDashboard extends Component {
           authorization: token,
         },
       });
-      // for future referenc: {headers: { authorization: token }} may be required for loading user orders
-      this.setState({ auth });
+      const { data: cartProducts } = await axios.get(
+        `/api/users/${auth.id}/cart`,
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+      this.setState({ auth, cartProducts });
     }
+    // else generate guest token for user to he/she can build a temporary cart
+    // that cart can be persisted in a logged account whenever he/she/signs up
   };
   componentDidMount() {
     this.attemptTokenLogin();
@@ -37,7 +48,7 @@ class UserDashboard extends Component {
     this.attemptTokenLogin();
   };
   render() {
-    const { auth } = this.state;
+    const { auth, cartProducts } = this.state;
     const { signIn, logout } = this;
     if (!auth.id) {
       return <Login signIn={signIn} />;
@@ -45,6 +56,13 @@ class UserDashboard extends Component {
       return (
         <div>
           <h3>Welcome {auth.firstName}</h3>
+          <h3>Cart Products</h3>
+          {cartProducts.length &&
+            cartProducts.map((product) => (
+              <li>
+                {product.name},{product.cartProducts.quantity}
+              </li>
+            ))}
           {auth.isAdmin && <AdminConsole />}
           <Button onClick={logout}>Logout</Button>
         </div>
