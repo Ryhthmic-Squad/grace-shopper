@@ -20,8 +20,8 @@ class Main extends Component {
       <Router>
         <div>
           <Route component={MainNav} />
-          <Route component={AllProducts} path="/api/product/all" exact />
-          <Route component={UserDashboard} path="/api/login" exact />
+          <Route component={AllProducts} path="/products" exact />
+          <Route component={UserDashboard} path="/login" exact />
           <hr />
           <Link to="/api/product/all">
             <FeaturedButton> Shop All Furniture </FeaturedButton>
@@ -36,8 +36,4 @@ class Main extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  fetchProductList: () => dispatch(fetchProductList()),
-});
-
-export default connect(null, mapDispatchToProps)(Main);
+export default connect(null, null)(Main);
