@@ -15,7 +15,7 @@ class NewUsers extends Component {
   async componentDidMount() {
     const { fetchUsers } = this.props;
     await fetchUsers();
-    this.setState({ users: this.props.users, loading: false });
+    this.setState({ users: this.props.users });
   }
   handleClick = () => {
     //need to link to allusers in a different page

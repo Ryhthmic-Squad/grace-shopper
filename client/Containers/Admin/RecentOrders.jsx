@@ -14,7 +14,7 @@ class RecentOrders extends Component {
   async componentDidMount() {
     const { fetchOrders } = this.props;
     await fetchOrders();
-    this.setState({ orders: this.props.orders, loading: false });
+    this.setState({ orders: this.props.orders });
   }
   render() {
     const { orders } = this.state;
@@ -37,6 +37,7 @@ class RecentOrders extends Component {
           ) : (
             <li>
               <Row>
+                <span>{'none'}</span>
                 <span>{'none'}</span>
                 <span>{'none'}</span>
               </Row>

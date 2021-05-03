@@ -24,7 +24,6 @@ const initialState = {
 export default (state = initialState, action) => {
   const { type } = action;
   if (type === UPDATE_USER) {
-    console.log(users);
     return {
       users: state.users.map((user) =>
         user.id === action.user.id ? action.user : user

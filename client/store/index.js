@@ -10,7 +10,7 @@ import orderList from './order/orderList';
 import updateUser from './user/userUpdate';
 import productPagination from './product/productPagination';
 import productFilters from './product/productFilters';
-
+import productCreate from './product/productCreate';
 const reducer = combineReducers({
   productList,
   productDetail,
@@ -19,6 +19,7 @@ const reducer = combineReducers({
   userList,
   updateUser,
   orderList,
+  productCreate,
   productPagination,
   productFilters,
 });

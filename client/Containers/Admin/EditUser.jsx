@@ -28,12 +28,10 @@ class EditUser extends Component {
   }
   onChange = ({ target: { name, value } }) => {
     this.setState({ [name]: value });
-    console.log({ [name]: value });
   };
   onSubmit = (event) => {
     event.preventDefault();
     const { updateUser } = this.props;
-    console.log({ ...this.props.user, ...this.state });
     updateUser({ ...this.props.user, ...this.state });
   };
 
