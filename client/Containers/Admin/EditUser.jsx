@@ -40,7 +40,7 @@ class EditUser extends Component {
     return (
       <>
         <FormGroup onSubmit={onSubmit}>
-          <h2>Welcome Back!</h2>
+          <h2>Your Profile</h2>
           <Label>First Name:</Label>
           <Input value={firstName} onChange={onChange} name="firstName" />
           <Label>Last Name:</Label>
