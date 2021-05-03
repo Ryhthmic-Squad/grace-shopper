@@ -1,7 +1,7 @@
 // Seed file to add initial products and users to the database
 const {
   db,
-  models: { Product, User, Room },
+  models: { Product, User, Room, Cart },
 } = require('./index');
 const faker = require('faker');
 
@@ -50,7 +50,18 @@ const syncAndSeed = async () => {
         productInstances.map((product) => product.setRoom(room))
       );
     }
-
+    const user = await User.findOne({
+      where: { email: 'user@gmail.com' },
+    });
+    const testCart = await Cart.create({ userId: user.id });
+    const bed = await Product.findOne({
+      where: { name: 'Miro King Bed' },
+    });
+    const dresser = await Product.findOne({
+      where: { name: 'Niguel Dresser' },
+    });
+    await testCart.addProduct(bed, { through: { quantity: 1 } });
+    await testCart.addProduct(dresser, { through: { quantity: 2 } });
     console.log('products and users seeded into db');
     await db.close();
   } catch (er) {

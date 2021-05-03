@@ -31,6 +31,14 @@ const users = [
     lastName: 'Onyiri',
     isAdmin: true,
   },
+  {
+    email: 'user@gmail.com',
+    password: 'user_pw',
+    phoneNumber: '123-456-7890',
+    firstName: 'User',
+    lastName: 'Name',
+    isAdmin: false,
+  },
 ];
 
 module.exports = { users };
