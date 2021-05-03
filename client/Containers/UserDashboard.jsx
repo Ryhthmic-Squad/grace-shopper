@@ -4,20 +4,22 @@ import axios from 'axios';
 import Login from './Login.jsx';
 import AdminConsole from './AdminConsole.jsx';
 import Button from '../components/styles/Button';
+import { fetchCartProducts, resetCart } from '../store/cart/cartProducts';
 
 // Filter users based on 'isAdmin' attribute
 class UserDashboard extends Component {
   state = {
     auth: {},
-    cartProducts: [], // this should be in store
   };
 
   logout = () => {
     window.localStorage.removeItem('token');
-    this.setState({ auth: {}, cartProducts: [] });
+    this.setState({ auth: {} });
+    resetCart();
   };
 
   attemptTokenLogin = async () => {
+    const { fetchCartProducts } = this.props;
     const token = window.localStorage.getItem('token');
     if (token) {
       const { data: auth } = await axios.get('/api/auth', {
@@ -25,15 +27,8 @@ class UserDashboard extends Component {
           authorization: token,
         },
       });
-      const { data: cartProducts } = await axios.get(
-        `/api/users/${auth.id}/cart`,
-        {
-          headers: {
-            authorization: token,
-          },
-        }
-      );
-      this.setState({ auth, cartProducts });
+      fetchCartProducts(auth.id, token);
+      this.setState({ auth });
     }
     // else generate guest token for user to he/she can build a temporary cart
     // that cart can be persisted in a logged account whenever he/she/signs up
@@ -48,7 +43,8 @@ class UserDashboard extends Component {
     this.attemptTokenLogin();
   };
   render() {
-    const { auth, cartProducts } = this.state;
+    const { auth } = this.state;
+    const { cartProducts } = this.props;
     const { signIn, logout } = this;
     if (!auth.id) {
       return <Login signIn={signIn} />;
@@ -71,4 +67,17 @@ class UserDashboard extends Component {
   }
 }
 
-export default UserDashboard;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchCartProducts: (id, token) => dispatch(fetchCartProducts(id, token)),
+    resetCart: () => dispatch(resetCart()),
+  };
+};
+
+const mapStateToProps = (state) => {
+  return {
+    cartProducts: state.cartProducts,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserDashboard);
