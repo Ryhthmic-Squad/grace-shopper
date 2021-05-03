@@ -7,7 +7,7 @@ export const MainNavDiv = styled.nav`
   font-size: 1rem;
   font-family: Raleway, sans-serif;
   font-weight: bold;
-  line-height: 1.5;
+  line-height: 1.0;
   color: white;
   background-color: black;
   border: none;
