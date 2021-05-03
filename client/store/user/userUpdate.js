@@ -10,18 +10,25 @@ export const updateUser = (user) => ({
 export const updateUserData = (user) => {
   return async (dispatch) => {
     try {
-      const data = (await axios.put(`/api/users/${user.id}`, student)).data;
-      dispatch(updateStudent(data));
+      console.log('in thunks', user);
+      const data = (await axios.put(`/api/users/${user.id}`, user)).data;
+      dispatch(updateUser(data));
     } catch (er) {
       console.log(er);
     }
   };
 };
 const initialState = {
-  user: [],
+  users: [],
 };
 export default (state = initialState, action) => {
-  const { type, user } = action;
-  if (type === UPDATE_USER) return { user: user };
-  else return state;
+  const { type } = action;
+  if (type === UPDATE_USER) {
+    console.log(users);
+    return {
+      users: state.users.map((user) =>
+        user.id === action.user.id ? action.user : user
+      ),
+    };
+  } else return state;
 };
