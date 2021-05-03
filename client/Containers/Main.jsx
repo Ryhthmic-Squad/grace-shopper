@@ -21,6 +21,7 @@ class Main extends Component {
         <div>
           <Route component={MainNav} />
           <Route component={AllProducts} path="/api/product/all" exact />
+          <Route component={UserDashboard} path="/api/login" exact />
           <hr />
           <Link to="/api/product/all">
             <FeaturedButton> Shop All Furniture </FeaturedButton>

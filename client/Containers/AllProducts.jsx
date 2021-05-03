@@ -18,8 +18,8 @@ class AllProducts extends Component {
     return (
       <div className="allProducts">
         <h1>All Products Page</h1>
-        {/* <ul>
-          {productList.map((product) => {
+        <ul>
+          {/* {productList.map((product) => {
             return (
               <li key={product.id}>
                 <Link to={`api/products/${product.id}`}>{product.name}</Link>
@@ -31,8 +31,8 @@ class AllProducts extends Component {
                 ></img>
               </li>
             );
-          })}
-        </ul> */}
+          })} */}
+        </ul>
       </div>
     );
   }
