@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Login from './Login';
-import AdminConsole from './AdminConsole';
+import Login from './Login.jsx';
+import AdminConsole from './AdminConsole.jsx';
 import Button from '../components/styles/Button';
 
 // Filter users based on 'isAdmin' attribute

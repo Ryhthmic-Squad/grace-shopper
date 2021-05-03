@@ -1,5 +1,5 @@
 import axios from 'axios';
-// import store from '../index';
+import { setProductPagination } from './productPagination';
 
 export const SET_PRODUCT_LIST = 'SET_PRODUCT_LIST';
 
@@ -8,51 +8,38 @@ export const setProductList = (productList) => ({
   type: SET_PRODUCT_LIST,
 });
 
-// fetchProductList is a thunk that needs a product id, as well as page, size
-// and sort parameters. You can optionally provide type, style and room filters
-// to get a targeted list of products. This will grab a chunk of paginated
-// products from the backend /api/products route.
-export const fetchProductList = ({ page, size, sort, type, style, room }) => {
-  return async (dispatch) => {
-    const optionalParameters = [type, style, room].filter(
-      (param) => param !== null
-    );
-    let query = `/api/products?page=${page}&size=${size}&sort=${sort}`;
-    if (optionalParameters.length) {
-      query = [query, optionalParameters.join('&')].join('&');
+// fetchProductList is a thunk that grabs products from our backend paginated
+// route /api/products and attaches relevant queries from productPagination and
+// productFilters stored in state
+export const fetchProductList = () => {
+  return async (dispatch, getState) => {
+    const { productPagination, productFilters } = getState();
+    let query = [];
+    for (const paramKey in productPagination) {
+      if (productPagination[paramKey] !== '' && paramKey !== 'maxPage') {
+        query.push(`${paramKey}=${productPagination[paramKey]}`); //ex. page=1
+      }
     }
+    for (const paramKey in productFilters) {
+      if (productFilters[paramKey] !== '') {
+        query.push(`${paramKey}=${productFilters[paramKey]}`);
+      }
+    }
+    query = query.join('&');
+    console.log(query);
     try {
       const {
         data: { maxPage, products },
-      } = await axios.get(query);
-      dispatch(
-        setProductList({
-          products,
-          maxPage,
-          page,
-          size,
-          sort,
-          type,
-          style,
-          room,
-        })
-      );
+      } = await axios.get(`/api/products?${query}`);
+      dispatch(setProductList(products));
+      dispatch(setProductPagination({ ...productPagination, maxPage }));
     } catch (err) {
       console.error(err);
     }
   };
 };
 
-const initialState = {
-  products: [],
-  maxPage: 0,
-  page: 1,
-  size: 6,
-  sort: 'name',
-  type: null,
-  style: null,
-  room: null,
-};
+const initialState = [];
 
 export default (state = initialState, action) => {
   const { type, productList } = action;
