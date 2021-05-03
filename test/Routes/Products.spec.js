@@ -17,7 +17,7 @@ describe('GET /api/products with queries', () => {
     const offset = 0,
       limit = 2;
     const { count, rows } = await Product.findAndCountAll({
-      order: ['name'],
+      order: [['name', 'DESC']],
       offset,
       limit,
     });
@@ -32,7 +32,7 @@ describe('GET /api/products with queries', () => {
   test('Filter by type', async () => {
     const type = 'bed';
     const { count, rows } = await Product.findAndCountAll({
-      order: ['name'],
+      order: [['name', 'DESC']],
       where: { type },
     });
     const {
@@ -46,7 +46,7 @@ describe('GET /api/products with queries', () => {
   test('Filter by style', async () => {
     const style = 'contemporary';
     const { count, rows } = await Product.findAndCountAll({
-      order: ['name'],
+      order: [['name', 'DESC']],
       where: { style },
     });
     const {
@@ -60,7 +60,7 @@ describe('GET /api/products with queries', () => {
   test('Filter by room', async () => {
     const room = await Room.findOne({ where: { name: 'dining' } });
     const { count, rows } = await Product.findAndCountAll({
-      order: ['name'],
+      order: [['name', 'DESC']],
       where: { roomId: room.id },
     });
     const {
