@@ -8,13 +8,19 @@ import productInventory from './product/productInventory';
 import userList from './user/userList';
 import orderList from './order/orderList';
 import updateUser from './user/userUpdate';
+import productPagination from './product/productPagination';
+import productFilters from './product/productFilters';
+
 const reducer = combineReducers({
   productList,
   productDetail,
   productReviews,
   productInventory,
   userList,
+  updateUser,
   orderList,
+  productPagination,
+  productFilters,
 });
 
 const middleware = applyMiddleware(
