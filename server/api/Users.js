@@ -33,22 +33,28 @@ router.get('/:id/cart', requireToken, async (req, res, next) => {
   }
 });
 
-// PUT /api/users/:id - Not needed for requirements
+// PUT /api/users/:id
+router.put('/:id', async (req, res, next) => {
+  try {
+    const user = await User.findByPk(req.params.id);
+    res.status(200).send(await user.update(req.body));
+  } catch (er) {
+    next(er);
+  }
+});
 
-// DELETE /api/users/:id - Not needed for requirements
-// router.delete('/:id', async (req, res, next) => {
-//   try {
-//     const user = await User.findByPk(req.params.id);
-//     await user.destroy();
-//     res.sendStatus(204);
-//   } catch (er) {
-//     next(er);
-//   }
-// });
+// DELETE /api/users/:id
+router.delete('/:id', async (req, res, next) => {
+  try {
+    const user = await User.findByPk(req.params.id);
+    await user.destroy();
+    res.sendStatus(204);
+  } catch (er) {
+    next(er);
+  }
+});
 
 // POST /api/users
-// Create a new user from login
-// If there's time if new user gets saved with hashed password
 router.post('/', async (req, res, next) => {
   try {
     res.status(201).send(await User.create(req.body));
