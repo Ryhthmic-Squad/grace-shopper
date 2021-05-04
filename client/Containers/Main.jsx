@@ -23,7 +23,7 @@ class Main extends Component {
           <Route component={AllProducts} path="/products" exact />
           <Route component={UserDashboard} path="/login" exact />
           <hr />
-          <Link to="/api/product/all">
+          <Link to="/products">
             <FeaturedButton> Shop All Furniture </FeaturedButton>
           </Link>
 

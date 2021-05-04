@@ -2,6 +2,12 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import fetchProductList from '../store/product/productList';
+import {
+  ProductCard,
+  ProductGrid,
+  ProductInfo,
+  ProductImg,
+} from '../components/styles/ProductCard';
 
 class AllProducts extends Component {
   constructor(props) {
@@ -17,22 +23,23 @@ class AllProducts extends Component {
     const productList = this.props;
     return (
       <div className="allProducts">
-        <h1>All Products Page</h1>
-        <ul>
-          {/* {productList.map((product) => {
+        <h1>All Furniture </h1>
+        <ProductGrid>
+          {this.props.productList.map((product) => {
             return (
-              <li key={product.id}>
-                <Link to={`api/products/${product.id}`}>{product.name}</Link>
-                <img
-                  className="image"
-                  height="100"
-                  width="100"
-                  src={product.imageURL}
-                ></img>
-              </li>
+              <ProductCard key={product.id}>
+                <ProductImg>
+                  <img display="block" width="150rem" src={product.imageUrl} />
+                </ProductImg>
+                <hr />
+                <ProductInfo>
+                  <Link to={`/products/${product.id}`}>{product.name}</Link>
+                  <h5> ${product.price}</h5>
+                </ProductInfo>
+              </ProductCard>
             );
-          })} */}
-        </ul>
+          })}
+        </ProductGrid>
       </div>
     );
   }
