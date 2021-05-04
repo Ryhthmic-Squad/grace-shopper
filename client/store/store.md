@@ -13,7 +13,7 @@ store = {
     maxPage: 1,
     page: 1,
     size: 6,
-    sort: [['name','DESC']],
+    sort: [['name', 'DESC']],
   },
   productReviews: [],
   reviewPagination: {
@@ -22,5 +22,5 @@ store = {
     size: 6,
     sort: [['rating', 'DESC']],
   },
-}
+};
 ```

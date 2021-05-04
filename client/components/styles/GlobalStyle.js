@@ -8,7 +8,7 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Raleway', sans-serif;
   }
   h1{
-    font-size: 3rem;
+    font-size: 2rem;
   }
   h2{
     font-size: 2rem;
@@ -23,12 +23,9 @@ const GlobalStyle = createGlobalStyle`
   }
   hr {
     height: 1px;
-    background: black
+    background: black;
   }
-  ul {
-      list-style: none;
-      padding-left: 0;
-  }​
+ 
 `;
 
 export default GlobalStyle;
