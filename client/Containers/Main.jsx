@@ -11,24 +11,20 @@ import {
 } from 'react-router-dom';
 import AllProducts from './AllProducts';
 import MainNav from './MainNav';
-import FeaturedButton from '../components/styles/FeaturedButton';
+import HomePage from '../Containers/HomePage';
 
 class Main extends Component {
   render() {
     const { fetchProductList } = this.props;
+    console.log('Main', this.props);
     return (
       <Router>
-        <div>
-          <Route component={MainNav} />
+        <MainNav />
+        <Route component={HomePage} path="/" exact />
+        <div id="container">
+          {/* <Route component={MainNav} /> */}
           <Route component={AllProducts} path="/products" exact />
           <Route component={UserDashboard} path="/login" exact />
-          <hr />
-          <Link to="/api/product/all">
-            <FeaturedButton> Shop All Furniture </FeaturedButton>
-          </Link>
-
-          <hr />
-          <hr className="heavy" />
           <TestProductList />
         </div>
       </Router>
