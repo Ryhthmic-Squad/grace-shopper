@@ -24,7 +24,7 @@ export const RESET_PAGINATION = 'RESET_PAGINATION';
 export const resetPagination = () => ({ type: RESET_PAGINATION });
 
 const initialState = {
-  maxPage: 0,
+  maxPage: 1,
   page: 1,
   size: 6,
   sort: 'name,ASC',
