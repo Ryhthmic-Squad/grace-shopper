@@ -13,6 +13,7 @@ import AllProducts from './AllProducts';
 import MainNav from './MainNav';
 import FeaturedButton from '../components/styles/FeaturedButton';
 import LandingPage from '../components/styles/LandingPage.js';
+import HomePage from '../Containers/HomePage';
 
 class Main extends Component {
   render() {
@@ -20,19 +21,19 @@ class Main extends Component {
     return (
       <Router>
         <MainNav />
-        <LandingPage>
-          <div>
-            {/* <Route component={MainNav} /> */}
-            <Route component={AllProducts} path="/products" exact />
-            <Route component={UserDashboard} path="/login" exact />
-            <hr />
-            <Link to="/products">
-              <FeaturedButton> Shop All Furniture </FeaturedButton>
-            </Link>
-            <hr />
-            <TestProductList />
-          </div>
-        </LandingPage>
+
+        <div>
+          {/* <Route component={MainNav} /> */}
+          <Route component={AllProducts} path="/products" exact />
+          <Route component={UserDashboard} path="/login" exact />
+          <Route component={HomePage} path="/" exact />
+          <hr />
+          <Link to="/products">
+            <FeaturedButton> Shop All Furniture </FeaturedButton>
+          </Link>
+          <hr />
+          <TestProductList />
+        </div>
       </Router>
     );
   }
