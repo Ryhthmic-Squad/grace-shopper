@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import UserDashboard from './UserDashboard.jsx';
 import { connect } from 'react-redux';
-import TestProductList from './TestForProductList.jsx';
 import {
   HashRouter as Router,
   Route,
@@ -11,14 +10,19 @@ import {
 } from 'react-router-dom';
 import AllProducts from './AllProducts';
 import MainNav from './MainNav';
+<<<<<<< HEAD
 import FeaturedButton from '../components/styles/FeaturedButton';
 import LandingPage from '../components/styles/LandingPage.js';
+=======
+>>>>>>> main
 import HomePage from '../Containers/HomePage';
 
 class Main extends Component {
   render() {
     const { fetchProductList } = this.props;
+    console.log('Main', this.props);
     return (
+<<<<<<< HEAD
       <Router>
         <MainNav />
 
@@ -35,6 +39,19 @@ class Main extends Component {
           <TestProductList />
         </div>
       </Router>
+=======
+      <>
+        <Router>
+          <MainNav />
+          <Route component={HomePage} path="/" exact />
+          <div id="container">
+            {/* <Route component={MainNav} /> */}
+            <Route component={AllProducts} path="/products" exact />
+            <Route component={UserDashboard} path="/login" exact />
+          </div>
+        </Router>
+      </>
+>>>>>>> main
     );
   }
 }

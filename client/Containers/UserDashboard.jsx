@@ -7,6 +7,8 @@ import Button from '../components/styles/Button';
 import { fetchCartProducts, resetCart } from '../store/cart/cartProducts';
 
 // Filter users based on 'isAdmin' attribute
+// move auth to store
+// if initial state of cartProducts is empth and someone adds a product, create a new cart and store it in Local Storage
 class UserDashboard extends Component {
   state = {
     auth: {},
@@ -61,7 +63,11 @@ class UserDashboard extends Component {
                 <img display="block" width="150rem" src={product.imageUrl} />
               </li>
             ))}
+<<<<<<< HEAD
           {auth.isAdmin && <AdminConsole />}
+=======
+          {!auth.isAdmin && <AdminConsole />}
+>>>>>>> main
           <Button onClick={logout}>Logout</Button>
         </div>
       );
