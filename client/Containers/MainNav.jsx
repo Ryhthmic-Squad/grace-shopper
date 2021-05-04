@@ -11,19 +11,17 @@ class MainNav extends Component {
           className="search-input"
           placeholder="Search here..."
         />
-        <Link to="/" className="text-link">
-          <a id="logo" className="nav">
-            A Space Apart{' '}
-          </a>
+        <Link id="logo" to="/" className="text-link">
+          A Space Apart
         </Link>
         <Link to="/login" className="text-link">
-          <a className="nav">Login </a>
+          Login
         </Link>
         {
           //the above will lead to the user dashboard login component(welcome back! or im new here!)
         }
         <Link to="/cart" className="text-link">
-          <a className="cart">Cart</a>{' '}
+          Cart
         </Link>
       </MainNavDiv>
     );

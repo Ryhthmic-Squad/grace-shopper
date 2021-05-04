@@ -46,12 +46,12 @@ const GlobalStyle = createGlobalStyle`
     color: inherit;
     text-decoration: inherit;
   }
-  a #logo {
+  #logo {
     font-family: 'Raleway', sans-serif;
     font-size: 2rem;
     padding: 0 15rem;
   }
-  a > .nav {
+  main-nav > * {
    align-text: baseline;
   }
 `;
