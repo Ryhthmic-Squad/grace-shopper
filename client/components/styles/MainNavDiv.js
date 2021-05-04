@@ -16,10 +16,3 @@ export const MainNavDiv = styled.nav`
   padding: 1.75rem;
   font-family: 'Raleway', sans-serif;
 `;
-
-// export const InnerNavDiv = styled.div`
-//   display: block;
-//   background-color: black;
-//   align-items: center;
-//   justify-content: center;
-// `;

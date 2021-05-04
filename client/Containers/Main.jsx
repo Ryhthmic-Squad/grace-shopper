@@ -3,7 +3,7 @@ import UserDashboard from './UserDashboard.jsx';
 import { connect } from 'react-redux';
 import TestProductList from './TestForProductList.jsx';
 import {
-  HashRouter as Router,
+  BrowserRouter as Router,
   Route,
   Switch,
   Link,
@@ -18,16 +18,17 @@ class Main extends Component {
     const { fetchProductList } = this.props;
     console.log('Main', this.props);
     return (
-      <Router>
-        <MainNav />
-        <Route component={HomePage} path="/" exact />
-        <div id="container">
-          {/* <Route component={MainNav} /> */}
-          <Route component={AllProducts} path="/products" exact />
-          <Route component={UserDashboard} path="/login" exact />
-          <TestProductList />
-        </div>
-      </Router>
+      <>
+        <Router>
+          <MainNav />
+          <Route component={HomePage} path="/" exact />
+          <div id="container">
+            {/* <Route component={MainNav} /> */}
+            <Route component={AllProducts} path="/products" exact />
+            <Route component={UserDashboard} path="/login" exact />
+          </div>
+        </Router>
+      </>
     );
   }
 }

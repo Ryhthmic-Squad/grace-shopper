@@ -3,6 +3,7 @@ import { createGlobalStyle } from 'styled-components';
 const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
+    padding: 0;
   }
   #container {
     margin-top: 10rem;
@@ -31,7 +32,7 @@ const GlobalStyle = createGlobalStyle`
     background-image: url('landingPage.jpg');
     background-size: cover;
     background-position: center;
-    height: 110vh;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;

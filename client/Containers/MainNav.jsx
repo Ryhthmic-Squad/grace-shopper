@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Router, Link } from 'react-router-dom';
 import { MainNavDiv } from '../components/styles/MainNavDiv';
 
 class MainNav extends Component {
