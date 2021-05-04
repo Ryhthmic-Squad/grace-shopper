@@ -45,6 +45,7 @@ class RecentOrders extends Component {
           )}
         </ul>
         <Button>Show All Orders</Button>
+        <Link to={'/AdminConsole/orders'}>Show All Orders</Link>
       </div>
     );
   }

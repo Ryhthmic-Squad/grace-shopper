@@ -48,7 +48,7 @@ class NewUsers extends Component {
           )}
         </ul>
         <Button onClick={handleClick}>Show All Users</Button>
-        <Link to={'/Admin/view/users'}>Show All Users</Link>
+        <Link to={'/AdminConsole/users'}>Show All Users</Link>
       </div>
     );
   }

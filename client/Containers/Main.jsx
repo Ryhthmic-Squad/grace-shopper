@@ -2,17 +2,10 @@ import React, { Component } from 'react';
 import UserDashboard from './UserDashboard.jsx';
 import { connect } from 'react-redux';
 import TestProductList from './TestForProductList.jsx';
-import {
-  HashRouter as Router,
-  Route,
-  Switch,
-  Link,
-  useParams,
-} from 'react-router-dom';
+import { HashRouter as Router, Route, Link, useParams } from 'react-router-dom';
 import AllProducts from './AllProducts';
 import MainNav from './MainNav';
 import FeaturedButton from '../components/styles/FeaturedButton';
-
 class Main extends Component {
   render() {
     const { fetchProductList } = this.props;

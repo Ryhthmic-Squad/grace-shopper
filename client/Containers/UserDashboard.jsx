@@ -5,7 +5,7 @@ import Login from './Login.jsx';
 import AdminConsole from '../Containers/Admin/AdminConsole';
 import Button from '../components/styles/Button';
 import { fetchCartProducts, resetCart } from '../store/cart/cartProducts';
-
+import { HashRouter as Router, Route, Link, useParams } from 'react-router-dom';
 // Filter users based on 'isAdmin' attribute
 class UserDashboard extends Component {
   state = {
@@ -50,20 +50,23 @@ class UserDashboard extends Component {
       return <Login signIn={signIn} />;
     } else {
       return (
-        <div>
-          <h3>Welcome {auth.firstName}</h3>
-          <h3>Cart Products</h3>
-          {cartProducts.length &&
-            cartProducts.map((product) => (
-              <li>
-                {product.name},{product.cartProducts.quantity}
-                <br />
-                <img display="block" width="150rem" src={product.imageUrl} />
-              </li>
-            ))}
-          {auth.isAdmin && <AdminConsole />}
-          <Button onClick={logout}>Logout</Button>
-        </div>
+        <Router>
+          <Route component={AdminConsole} path="/AdminConsole" exact />
+          <div>
+            <h3>Welcome {auth.firstName}</h3>
+            <h3>Cart Products</h3>
+            {cartProducts.length &&
+              cartProducts.map((product) => (
+                <li>
+                  {product.name},{product.cartProducts.quantity}
+                  <br />
+                  <img display="block" width="150rem" src={product.imageUrl} />
+                </li>
+              ))}
+            {auth.isAdmin && <AdminConsole />}
+            <Button onClick={logout}>Logout</Button>
+          </div>
+        </Router>
       );
     }
   }

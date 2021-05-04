@@ -74,4 +74,4 @@ const mapDispatchToProps = (dispatch) => {
     fetchOrders: () => dispatch(fetchOrderList()),
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(RecentOrders);
+export default connect(mapStateToProps, mapDispatchToProps)(AllOrders);
