@@ -37,11 +37,21 @@ import { fetchProductList } from '../store/product/productList';
 
 const FilterSortBar = styled.div`
   display: flex;
-  justify-content: space-between;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
   background: black;
-  width: calc(100%);
+  width: calc(100% - 0.5rem);
   border-radius: 0 0 0.5rem 0.5rem;
   color: white;
+  padding: 0 0.5rem 0.5rem 0;
+`;
+
+const AllFilterContainer = styled.div`
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
 `;
 
 const FilterContainer = styled.div`
@@ -49,11 +59,11 @@ const FilterContainer = styled.div`
 `;
 
 const FilterLabel = styled.label`
-  padding: 1em 0 1em 1em;
+  padding: 0.5rem 0 0.5rem 0.5rem;
 `;
 
 const FilterSelect = styled.select`
-  margin: 1em;
+  margin: 0.5rem;
 `;
 
 const FilterSortControl = () => {
@@ -83,58 +93,93 @@ const FilterSortControl = () => {
     history.push(`/productsTest${query}`);
     getProducts(query);
   };
+  const paginate = (options) => {
+    // options: { page?: INT, size?: INT, sort?: STRING }
+    for (const key in productPagination) {
+      if (options[key]) productPagination[key] = options[key];
+    }
+    const query = buildProductQuery({ productFilters, productPagination });
+    history.push(`/products${query}`);
+    getProducts(query);
+  };
   return (
     <FilterSortBar>
-      {[
-        [
-          'room',
+      <FilterContainer>
+        <FilterLabel>SORT</FilterLabel>
+        <FilterSelect
+          value={productPagination.sort}
+          onChange={(ev) => paginate({ page: 1, sort: ev.target.value })}
+        >
+          <option value={'name,ASC'}>Name, A-Z</option>
+          <option value={'name,DESC'}>Name, Z-A</option>
+          <option value={'price,DESC'}>Price, High to Low</option>
+          <option value={'price,ASC'}>Price, Low to High</option>
+        </FilterSelect>
+      </FilterContainer>
+      <FilterContainer>
+        <FilterLabel>SIZE</FilterLabel>
+        <FilterSelect
+          value={productPagination.size}
+          onChange={(ev) => paginate({ page: 1, size: ev.target.value * 1 })}
+        >
+          <option value="6">6 per Page</option>
+          <option value="12">12 per Page</option>
+          <option value="18">18 per Page</option>
+          <option value="24">24 per Page</option>
+        </FilterSelect>
+      </FilterContainer>
+      <AllFilterContainer>
+        {[
           [
-            ['bedroom', 'Bedroom'],
-            ['living', 'Living'],
-            ['dining', 'Dining'],
-            ['bathroom', 'Bathroom'],
-            ['', 'None'],
+            'room',
+            [
+              ['bedroom', 'Bedroom'],
+              ['living', 'Living'],
+              ['dining', 'Dining'],
+              ['bathroom', 'Bathroom'],
+              ['', 'None'],
+            ],
           ],
-        ],
-        [
-          'style',
           [
-            ['contemporary', 'Contemporary'],
-            ['modern', 'Modern'],
-            ['transitional', 'Transitional'],
-            ['', 'None'],
+            'style',
+            [
+              ['contemporary', 'Contemporary'],
+              ['modern', 'Modern'],
+              ['transitional', 'Transitional'],
+              ['', 'None'],
+            ],
           ],
-        ],
-        [
-          'type',
           [
-            ['bed', 'Beds'],
-            ['dresser', 'Dressers'],
-            ['nightstand', 'Nightstands'],
-            ['', 'None'],
+            'type',
+            [
+              ['bed', 'Beds'],
+              ['dresser', 'Dressers'],
+              ['nightstand', 'Nightstands'],
+              ['', 'None'],
+            ],
           ],
-        ],
-      ].map((val, idx) => {
-        const [selectLabel, options] = val;
-        return (
-          <FilterContainer key={idx}>
-            <FilterLabel>{selectLabel.toUpperCase()}</FilterLabel>
-            <FilterSelect
-              value={productFilters[selectLabel]}
-              onChange={(ev) => filter({ [selectLabel]: ev.target.value })}
-            >
-              {options.map((option, idx) => {
-                const [newOpt, label] = option;
-                return (
-                  <option key={idx} value={newOpt}>
-                    {label}
-                  </option>
-                );
-              })}
-            </FilterSelect>
-          </FilterContainer>
-        );
-      })}
+        ].map((val, idx) => {
+          const [selectLabel, options] = val;
+          return (
+            <FilterContainer key={idx}>
+              <FilterLabel>{selectLabel.toUpperCase()}</FilterLabel>
+              <FilterSelect
+                value={productFilters[selectLabel]}
+                onChange={(ev) => filter({ [selectLabel]: ev.target.value })}
+              >
+                {options.map((option, idx) => {
+                  const [newOpt, label] = option;
+                  return (
+                    <option key={idx} value={newOpt}>
+                      {label}
+                    </option>
+                  );
+                })}
+              </FilterSelect>
+            </FilterContainer>
+          );
+        })}
+      </AllFilterContainer>
       <Button onClick={() => filter({ clear: true })}>Clear All Filters</Button>
     </FilterSortBar>
   );

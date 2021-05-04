@@ -25,9 +25,7 @@ class Main extends Component {
           <Route>
             <hr />
             <Link
-              to={
-                '/productsTest?page=1&size=6&sort=name,ASC&type=&style=&room='
-              }
+              to={'/products?page=1&size=6&sort=name,ASC&type=&style=&room='}
             >
               <FeaturedButton> Shop All Furniture </FeaturedButton>
             </Link>

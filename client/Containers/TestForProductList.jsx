@@ -38,23 +38,27 @@ class TestProductList extends Component {
       location: { search },
     } = this.props;
     const { page, size, sort, type, style, room } = getProductQueries(search);
-    setPagination({
+    const newPagination = {
       ...productPagination,
       page: page ? page * 1 : 1,
       size: size ? size * 1 : 6,
       sort: sort ? sort : 'name,ASC',
-    });
-    setFilters({
+    };
+    setPagination(newPagination);
+    const newFilters = {
       ...productFilters,
       type: type ? type : '',
       style: style ? style : '',
       room: room ? room : '',
+    };
+    setFilters(newFilters);
+    const query = buildProductQuery({
+      productFilters: newFilters,
+      productPagination: newPagination,
     });
-    const query = buildProductQuery({ productFilters, productPagination });
     getProducts(query);
   };
   componentDidUpdate = (prevProps) => {
-    console.log('component updated');
     const {
       location: { search: prevSearch },
     } = prevProps;
@@ -68,19 +72,24 @@ class TestProductList extends Component {
     } = this.props;
     if (prevSearch !== search) {
       const { page, size, sort, type, style, room } = getProductQueries(search);
-      setPagination({
+      const newPagination = {
         ...productPagination,
         page: page ? page * 1 : 1,
         size: size ? size * 1 : 6,
         sort: sort ? sort : 'name,ASC',
-      });
-      setFilters({
+      };
+      setPagination(newPagination);
+      const newFilters = {
         ...productFilters,
         type: type ? type : '',
         style: style ? style : '',
         room: room ? room : '',
+      };
+      setFilters(newFilters);
+      const query = buildProductQuery({
+        productFilters: newFilters,
+        productPagination: newPagination,
       });
-      const query = buildProductQuery({ productFilters, productPagination });
       getProducts(query);
     }
   };

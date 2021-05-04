@@ -44,7 +44,8 @@ const PageOptionContainer = styled.div`
 
 const PageOption = styled.div`
   padding: 1em;
-  color: ${(props) => (props.operable ? 'white' : 'gray')};
+  color: ${(props) =>
+    props.operable ? 'white' : props.current ? '#ffda08' : 'gray'};
   cursor: ${(props) => (props.operable ? 'pointer' : 'default')};
 `;
 
@@ -64,7 +65,7 @@ const PaginationControl = ({ top }) => {
       if (options[key]) productPagination[key] = options[key];
     }
     const query = buildProductQuery({ productFilters, productPagination });
-    history.push(`/productsTest${query}`);
+    history.push(`/products${query}`);
     getProducts(query);
   };
 
@@ -100,6 +101,7 @@ const PaginationControl = ({ top }) => {
               <PageOption
                 key={pageOption}
                 operable={currPageCheck}
+                current={!currPageCheck}
                 onClick={() => {
                   if (currPageCheck) paginate({ page: pageOption });
                 }}
