@@ -10,11 +10,6 @@ import {
 } from 'react-router-dom';
 import AllProducts from './AllProducts';
 import MainNav from './MainNav';
-<<<<<<< HEAD
-import FeaturedButton from '../components/styles/FeaturedButton';
-import LandingPage from '../components/styles/LandingPage.js';
-=======
->>>>>>> main
 import HomePage from '../Containers/HomePage';
 
 class Main extends Component {
@@ -22,24 +17,6 @@ class Main extends Component {
     const { fetchProductList } = this.props;
     console.log('Main', this.props);
     return (
-<<<<<<< HEAD
-      <Router>
-        <MainNav />
-
-        <div>
-          {/* <Route component={MainNav} /> */}
-          <Route component={AllProducts} path="/products" exact />
-          <Route component={UserDashboard} path="/login" exact />
-          <Route component={HomePage} path="/" exact />
-          <hr />
-          <Link to="/products">
-            <FeaturedButton> Shop All Furniture </FeaturedButton>
-          </Link>
-          <hr />
-          <TestProductList />
-        </div>
-      </Router>
-=======
       <>
         <Router>
           <MainNav />
@@ -51,7 +28,6 @@ class Main extends Component {
           </div>
         </Router>
       </>
->>>>>>> main
     );
   }
 }

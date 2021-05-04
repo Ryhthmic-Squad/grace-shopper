@@ -63,11 +63,7 @@ class UserDashboard extends Component {
                 <img display="block" width="150rem" src={product.imageUrl} />
               </li>
             ))}
-<<<<<<< HEAD
-          {auth.isAdmin && <AdminConsole />}
-=======
           {!auth.isAdmin && <AdminConsole />}
->>>>>>> main
           <Button onClick={logout}>Logout</Button>
         </div>
       );

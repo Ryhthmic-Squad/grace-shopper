@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-import React from 'react';
-import LandingPage from '../components/styles/LandingPage';
-
-const HomePage = () => {
-  return <LandingPage>test</LandingPage>;
-=======
 import { Link } from 'react-router-dom';
 import FeaturedButton from '../components/styles/FeaturedButton';
 import React from 'react';
@@ -24,7 +17,6 @@ const HomePage = (props) => {
       </header>
     </LandingPage>
   );
->>>>>>> main
 };
 
 export default HomePage;
