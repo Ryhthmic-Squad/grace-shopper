@@ -34,7 +34,7 @@ router.put('/:id', async (req, res, next) => {
 // DELETE /api/users/:id
 router.delete('/:id', async (req, res, next) => {
   try {
-    const user = await User.findByPk(req.params.campusId);
+    const user = await User.findByPk(req.params.id);
     await user.destroy();
     res.sendStatus(204);
   } catch (er) {
