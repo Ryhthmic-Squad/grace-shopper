@@ -90,7 +90,7 @@ const FilterSortControl = () => {
       productFilters,
       productPagination: { ...productPagination, page: 1 },
     });
-    history.push(`/productsTest${query}`);
+    history.push(`/products${query}`);
     getProducts(query);
   };
   const paginate = (options) => {
