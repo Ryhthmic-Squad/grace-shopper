@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import UserDashboard from './UserDashboard.jsx';
 import { connect } from 'react-redux';
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Route,
   Switch,
   Link,
