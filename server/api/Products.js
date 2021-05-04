@@ -4,6 +4,13 @@ const {
 const router = require('express').Router();
 
 // Select all products
+router.post('/all', async (req, res, next) => {
+  try {
+    res.status(201).send(await Product.create(req.body));
+  } catch (err) {
+    next(err);
+  }
+});
 
 router.get('/all', async (req, res, next) => {
   try {

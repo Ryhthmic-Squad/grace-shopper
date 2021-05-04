@@ -175,7 +175,7 @@ const products = {
     },
     {
       name: 'Cooper Wing Bed',
-      inventory: 10,
+      inventory: 1,
       height: 54,
       width: 88,
       depth: 87.5,
