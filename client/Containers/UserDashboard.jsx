@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import axios from 'axios';
 import Login from './Login.jsx';
 import AdminConsole from '../Containers/Admin/AdminConsole';
 import Button from '../components/styles/Button';
+import { fetchCartProducts, resetCart } from '../store/cart/cartProducts';
 
 // Filter users based on 'isAdmin' attribute
 class UserDashboard extends Component {
@@ -11,11 +13,13 @@ class UserDashboard extends Component {
   };
 
   logout = () => {
+    this.props.resetCart();
     window.localStorage.removeItem('token');
     this.setState({ auth: {} });
   };
 
   attemptTokenLogin = async () => {
+    const { fetchCartProducts } = this.props;
     const token = window.localStorage.getItem('token');
     if (token) {
       const { data: auth } = await axios.get('/api/auth', {
@@ -23,9 +27,11 @@ class UserDashboard extends Component {
           authorization: token,
         },
       });
-      // for future referenc: {headers: { authorization: token }} may be required for loading user orders
+      fetchCartProducts(auth.id, token);
       this.setState({ auth });
     }
+    // else generate guest token for user to he/she can build a temporary cart
+    // that cart can be persisted in a logged account whenever he/she/signs up
   };
   componentDidMount() {
     this.attemptTokenLogin();
@@ -38,6 +44,7 @@ class UserDashboard extends Component {
   };
   render() {
     const { auth } = this.state;
+    const { cartProducts } = this.props;
     const { signIn, logout } = this;
     if (!auth.id) {
       return <Login signIn={signIn} />;
@@ -45,6 +52,15 @@ class UserDashboard extends Component {
       return (
         <div>
           <h3>Welcome {auth.firstName}</h3>
+          <h3>Cart Products</h3>
+          {cartProducts.length &&
+            cartProducts.map((product) => (
+              <li>
+                {product.name},{product.cartProducts.quantity}
+                <br />
+                <img display="block" width="150rem" src={product.imageUrl} />
+              </li>
+            ))}
           {auth.isAdmin && <AdminConsole />}
           <Button onClick={logout}>Logout</Button>
         </div>
@@ -53,4 +69,17 @@ class UserDashboard extends Component {
   }
 }
 
-export default UserDashboard;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchCartProducts: (id, token) => dispatch(fetchCartProducts(id, token)),
+    resetCart: () => dispatch(resetCart()),
+  };
+};
+
+const mapStateToProps = (state) => {
+  return {
+    cartProducts: state.cartProducts,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserDashboard);
