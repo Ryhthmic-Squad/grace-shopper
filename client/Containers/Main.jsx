@@ -15,22 +15,22 @@ import FeaturedButton from '../components/styles/FeaturedButton';
 
 class Main extends Component {
   render() {
-    const { fetchProductList } = this.props;
     return (
       <Router>
-        <div>
-          <Route component={MainNav} />
+        <MainNav />
+        <Switch>
           <Route component={AllProducts} path="/products" exact />
           <Route component={UserDashboard} path="/login" exact />
-          <hr />
-          <Link to="/api/product/all">
-            <FeaturedButton> Shop All Furniture </FeaturedButton>
-          </Link>
-
-          <hr />
-          <hr className="heavy" />
-          <TestProductList />
-        </div>
+          <Route>
+            <hr />
+            <Link
+              to={'/products?page=1&size=6&sort=name,ASC&room=&style=&type='}
+            >
+              <FeaturedButton> Shop All Furniture </FeaturedButton>
+            </Link>
+            <hr />
+          </Route>
+        </Switch>
       </Router>
     );
   }

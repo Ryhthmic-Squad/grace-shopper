@@ -11,22 +11,21 @@ export const setProductList = (productList) => ({
 // fetchProductList is a thunk that grabs products from our backend paginated
 // route /api/products and attaches relevant queries from productPagination and
 // productFilters stored in state
-export const fetchProductList = () => {
+export const fetchProductList = (history) => {
   return async (dispatch, getState) => {
     const { productPagination, productFilters } = getState();
     let query = [];
     for (const paramKey in productPagination) {
-      if (productPagination[paramKey] !== '' && paramKey !== 'maxPage') {
+      if (paramKey !== 'maxPage') {
         query.push(`${paramKey}=${productPagination[paramKey]}`); //ex. page=1
       }
     }
     for (const paramKey in productFilters) {
-      if (productFilters[paramKey] !== '') {
-        query.push(`${paramKey}=${productFilters[paramKey]}`);
-      }
+      query.push(`${paramKey}=${productFilters[paramKey]}`);
     }
     query = query.join('&');
     console.log(query);
+    history.push(`/products?${query}`);
     try {
       const {
         data: { maxPage, products },

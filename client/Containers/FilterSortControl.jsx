@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { resetPagination } from '../store/product/productPagination';
 import {
@@ -10,10 +11,7 @@ import {
   clearFilters,
 } from '../store/product/productFilters';
 
-const mapStateToProps = ({ productFilters }, ownProps) => ({
-  productFilters,
-  ownProps,
-});
+const mapStateToProps = ({ productFilters }) => ({ productFilters });
 
 const mapDispatchToProps = (dispatch) => ({
   filter: (option) => {
@@ -48,18 +46,14 @@ const FilterContainer = styled.div`
 `;
 
 const FilterLabel = styled.label`
-  padding: 1em;
+  padding: 1em 0 1em 1em;
 `;
 
 const FilterSelect = styled.select`
-  margin: 0.5em;
+  margin: 1em;
 `;
 
 class FilterSortControl extends Component {
-  componentDidMount = () => {
-    const { ownProps } = this.props;
-    console.log(ownProps);
-  };
   render = () => {
     const { productFilters, filter } = this.props;
     return (
