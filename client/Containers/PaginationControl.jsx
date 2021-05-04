@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import {
+import productPagination, {
   setProductPagination,
   nextPage,
   prevPage,
@@ -9,30 +10,32 @@ import {
   sizePage,
   sortPage,
 } from '../store/product/productPagination';
+import buildProductQuery from '../components/utils/buildProductQuery';
+import { fetchProductList } from '../store/product/productList';
 
-const mapStateToProps = ({ productPagination }) => ({ productPagination });
+// const mapStateToProps = ({ productPagination }) => ({ productPagination });
 
-const mapDispatchToProps = (dispatch) => ({
-  setPagination: (productPagination) =>
-    dispatch(setProductPagination(productPagination)),
-  paginationFuncs: {
-    nextPage: () => dispatch(nextPage()),
-    prevPage: () => dispatch(prevPage()),
-    goToPage: (page) => dispatch(goToPage(page)),
-    sizePage: (size) => {
-      dispatch(sizePage(size));
-      dispatch(goToPage(1));
-    },
-    sortPage: (sort) => dispatch(sortPage(sort)),
-  },
-});
+// const mapDispatchToProps = (dispatch) => ({
+//   setPagination: (productPagination) =>
+//     dispatch(setProductPagination(productPagination)),
+//   paginationFuncs: {
+//     nextPage: () => dispatch(nextPage()),
+//     prevPage: () => dispatch(prevPage()),
+//     goToPage: (page) => dispatch(goToPage(page)),
+//     sizePage: (size) => {
+//       dispatch(sizePage(size));
+//       dispatch(goToPage(1));
+//     },
+//     sortPage: (sort) => dispatch(sortPage(sort)),
+//   },
+// });
 
 const PaginationBar = styled.div`
   display: flex;
   justify-content: space-between;
   background: black;
   width: calc(100%);
-  border-radius: 1em;
+  border-radius: ${(props) => (props.top ? '0.5rem 0.5rem 0 0' : '0.5rem')};
 `;
 
 const PageOptionContainer = styled.div`
@@ -45,73 +48,87 @@ const PageOption = styled.div`
   cursor: ${(props) => (props.operable ? 'pointer' : 'default')};
 `;
 
-class PaginationControl extends Component {
-  render = () => {
-    const {
-      productPagination: { maxPage, page, size, sort },
-      paginationFuncs: { nextPage, prevPage, goToPage, sizePage, sortPage },
-    } = this.props;
-    const [sortBy, sortDirection] = sort.split(',');
-    return (
-      <PaginationBar>
-        <PageOptionContainer>
-          <PageOption
-            operable={page > 1}
-            onClick={() => {
-              if (page > 1) goToPage(1);
-            }}
-          >
-            First
-          </PageOption>
-          <PageOption
-            operable={page > 1}
-            onClick={() => {
-              if (page > 1) prevPage();
-            }}
-          >
-            Previous
-          </PageOption>
-        </PageOptionContainer>
-        <PageOptionContainer>
-          {Array(maxPage)
-            .fill('')
-            .map((val, idx) => {
-              const pageOption = idx + 1;
-              const currPageCheck = page !== pageOption;
-              return (
-                <PageOption
-                  key={pageOption}
-                  operable={currPageCheck}
-                  onClick={() => {
-                    if (currPageCheck) goToPage(pageOption);
-                  }}
-                >
-                  {pageOption}
-                </PageOption>
-              );
-            })}
-        </PageOptionContainer>
-        <PageOptionContainer>
-          <PageOption
-            operable={page < maxPage}
-            onClick={() => {
-              if (page < maxPage) nextPage();
-            }}
-          >
-            Next
-          </PageOption>
-          <PageOption
-            operable={page < maxPage}
-            onClick={() => {
-              if (page < maxPage) goToPage(maxPage);
-            }}
-          >
-            Last
-          </PageOption>
-        </PageOptionContainer>
-      </PaginationBar>
-    );
+const PaginationControl = ({ top }) => {
+  const { productFilters, productPagination } = useSelector(
+    ({ productFilters, productPagination }) => ({
+      productFilters,
+      productPagination,
+    })
+  );
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const getProducts = (query) => dispatch(fetchProductList(query));
+  const paginate = (options) => {
+    // options: { page?: INT, size?: INT, sort?: STRING }
+    for (const key in productPagination) {
+      if (options[key]) productPagination[key] = options[key];
+    }
+    const query = buildProductQuery({ productFilters, productPagination });
+    history.push(`/productsTest${query}`);
+    getProducts(query);
   };
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(PaginationControl);
+  const { maxPage, page, size, sort } = productPagination;
+  const [sortBy, sortDirection] = sort.split(',');
+  return (
+    <PaginationBar top={top}>
+      <PageOptionContainer>
+        <PageOption
+          operable={page > 1}
+          onClick={() => {
+            if (page > 1) paginate({ page: 1 });
+          }}
+        >
+          First
+        </PageOption>
+        <PageOption
+          operable={page > 1}
+          onClick={() => {
+            if (page > 1) paginate({ page: page - 1 });
+          }}
+        >
+          Previous
+        </PageOption>
+      </PageOptionContainer>
+      <PageOptionContainer>
+        {Array(maxPage)
+          .fill('')
+          .map((val, idx) => {
+            const pageOption = idx + 1;
+            const currPageCheck = page !== pageOption;
+            return (
+              <PageOption
+                key={pageOption}
+                operable={currPageCheck}
+                onClick={() => {
+                  if (currPageCheck) paginate({ page: pageOption });
+                }}
+              >
+                {pageOption}
+              </PageOption>
+            );
+          })}
+      </PageOptionContainer>
+      <PageOptionContainer>
+        <PageOption
+          operable={page < maxPage}
+          onClick={() => {
+            if (page < maxPage) paginate({ page: page + 1 });
+          }}
+        >
+          Next
+        </PageOption>
+        <PageOption
+          operable={page < maxPage}
+          onClick={() => {
+            if (page < maxPage) paginate({ page: maxPage });
+          }}
+        >
+          Last
+        </PageOption>
+      </PageOptionContainer>
+    </PaginationBar>
+  );
+};
+
+export default PaginationControl;

@@ -1,204 +1,106 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import styled from 'styled-components';
 import { fetchProductList } from '../store/product/productList';
-import {
-  setProductPagination,
-  nextPage,
-  prevPage,
-  goToPage,
-  sizePage,
-  sortPage,
-  resetPagination,
-} from '../store/product/productPagination';
-import {
-  setProductFilters,
-  filterByType,
-  filterByStyle,
-  filterByRoom,
-  clearFilters,
-} from '../store/product/productFilters';
-import Button from '../components/styles/Button';
+import { setProductFilters } from '../store/product/productFilters';
+import { setProductPagination } from '../store/product/productPagination';
 import PaginationControl from './PaginationControl';
 import FilterSortControl from './FilterSortControl';
+import getProductQueries from '../components/utils/getProductQueries';
+import buildProductQuery from '../components/utils/buildProductQuery';
 
 // This page needs productList, productPagination and
 // productFilters from the store
-const mapStateToProps = ({
+const mapStateToProps = (
+  { productList, productPagination, productFilters },
+  { location }
+) => ({
   productList,
   productPagination,
   productFilters,
-}) => ({
-  productList,
-  productPagination,
-  productFilters,
+  location,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  // The getProducts() method dispatches the fetchProductList () thunk, which
-  // will update the productList in store  based on current pagination and
-  // filters.
-  getProducts: () => dispatch(fetchProductList()),
-  // The setPagination() method dispatches the setProductPagination() action
-  // creator, allowing us to set all productPagination attributes (maxPage,
-  // page, size, and sort) at once.
+  getProducts: (query) => dispatch(fetchProductList(query)),
   setPagination: (productPagination) =>
     dispatch(setProductPagination(productPagination)),
-  // The paginationFuncs object contains various methods for manipulating the
-  // pagination, described individually below.
-  paginationFuncs: {
-    // nextPage() dispatches the nextPage() action creator, which increments
-    // the page by one. This should only be available to the user when the
-    // current page is less than the maxPage.
-    nextPage: () => dispatch(nextPage()),
-    // prevPage() dispatches the prevPage() action creator, which decrements
-    // the page by one. This should only be available to the user when the
-    // current page is greater than 1.
-    prevPage: () => dispatch(prevPage()),
-    // goToPage() dispatches the goToPage() action creator, which sets the
-    // current page to a specific value. The `page` parameter should only be
-    // an integer. This should only be able to reach actual pages, between 1
-    // and maxPage, inclusive.
-    goToPage: (page) => dispatch(goToPage(page)),
-    // sizePage() dispatches the sizePage() action creator, which changes how
-    // many results appear on the page (default 6). The `size` parameter
-    // should be an integer between 1 and the maxPage, inclusive, unless you
-    // want all products, then passing in an empty string will get all
-    // products in the database.
-    sizePage: (size) => {
-      dispatch(sizePage(size));
-      dispatch(goToPage(1));
-    },
-    // sortPage() dispatches the sortPage() action creator, which changes how
-    // results are ordered. The `sort` parameter should be a string with the
-    // sequelize attribute you want to sort by and either DESC (for descending
-    // sort) or ASC (for ascending sort) separated by a comma (e.g. 'name,DESC')
-    sortPage: (sort) => dispatch(sortPage(sort)),
-  },
-  // The setFilters() method dispatches the setProductFilters() action
-  // creator, allowing us to set all productFilter attributes (type, style,
-  // and room) at once.
   setFilters: (productFilters) => dispatch(setProductFilters(productFilters)),
-  // The filter() method dispatches various filter action creators, depending
-  // on your specifications.
-  filter: (option) => {
-    // The `options` parameter should be an object with optional `type`,
-    // `style`, `room`, and `clear` properties.
-    const { type, style, room, clear } = option;
-    // `type`, `style`, and `room` should each be a string, if given,
-    // corresponding to the filter you want to apply; an empty string will
-    // clear that filter.
-    if (typeof type === 'string') {
-      dispatch(filterByType(type));
-    }
-    if (typeof style === 'string') {
-      dispatch(filterByStyle(style));
-    }
-    if (typeof room === 'string') {
-      dispatch(filterByRoom(room));
-    }
-    // And if you want to clear every filter, passing in `clear: true` will remove all filters.
-    if (clear) {
-      dispatch(clearFilters());
-    }
-    // Once the filter() method dispatches all relevant filter action creators, it resets the
-    // pagination on the page.
-    dispatch(resetPagination());
-  },
 });
-
-// used some styled components just to get the display for this test page appearing nicely
-const TestArea = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-const TestChild = styled.div`
-  width: calc(100% / 3);
-  padding: 1em;
-`;
-const ButtonRow = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-`;
 
 class TestProductList extends Component {
   componentDidMount = () => {
-    // On first render, use the getProducts method to retrieve all products
-    const { getProducts } = this.props;
-    getProducts();
-  };
-
-  // Every render, we need to check if the pagination or filter properties
-  // have changed, to see if we need to refetch products
-  componentDidUpdate = (prevProps) => {
-    // First, destructure the previous version of productPagination and
-    // productFilters from the prevProps object, naming them prevPagination
-    // and prevFilters, respectively
     const {
-      productPagination: prevPagination,
-      productFilters: prevFilters,
+      productPagination,
+      setPagination,
+      productFilters,
+      setFilters,
+      getProducts,
+      location: { search },
+    } = this.props;
+    const { page, size, sort, type, style, room } = getProductQueries(search);
+    setPagination({
+      ...productPagination,
+      page: page ? page * 1 : 1,
+      size: size ? size * 1 : 6,
+      sort: sort ? sort : 'name,ASC',
+    });
+    setFilters({
+      ...productFilters,
+      type: type ? type : '',
+      style: style ? style : '',
+      room: room ? room : '',
+    });
+    const query = buildProductQuery({ productFilters, productPagination });
+    getProducts(query);
+  };
+  componentDidUpdate = (prevProps) => {
+    console.log('component updated');
+    const {
+      location: { search: prevSearch },
     } = prevProps;
-    // Then, destructure the current versions of productPagination and
-    // productFilters from the current props object. Also, grab the
-    // getProducts method.
-    const { productPagination, productFilters, getProducts } = this.props;
-    // Use a needProductRefresh boolean to determin later if we need to
-    // refetch the productList
-    let needProductRefresh = false;
-    for (const key in prevPagination) {
-      // Loop over the properties (maxPage, page, size, sort) of the
-      // prevPagination object
-      if (prevPagination[key] !== productPagination[key]) {
-        // If any fail to match between the prevProps and current props
-        // version, set needProductRefresh to true and break from the loop.
-        needProductRefresh = true;
-        break;
-      }
-    }
-    for (const key in prevFilters) {
-      // Loop over the properties (type, style, room) of the prevFilters object
-      if (prevFilters[key] !== productFilters[key]) {
-        // If any fail to match between the prevProps and current props
-        // version, set needProductRefresh to true and break from the loop.
-        needProductRefresh = true;
-        break;
-      }
-    }
-    if (needProductRefresh) {
-      // If needProductRefresh is true, it means the current pagination or
-      // filter props do not match the previous versions, so we need to
-      // refetch all relevant products
-      getProducts();
+    const {
+      productFilters,
+      setFilters,
+      productPagination,
+      setPagination,
+      getProducts,
+      location: { search },
+    } = this.props;
+    if (prevSearch !== search) {
+      const { page, size, sort, type, style, room } = getProductQueries(search);
+      setPagination({
+        ...productPagination,
+        page: page ? page * 1 : 1,
+        size: size ? size * 1 : 6,
+        sort: sort ? sort : 'name,ASC',
+      });
+      setFilters({
+        ...productFilters,
+        type: type ? type : '',
+        style: style ? style : '',
+        room: room ? room : '',
+      });
+      const query = buildProductQuery({ productFilters, productPagination });
+      getProducts(query);
     }
   };
 
   render = () => {
-    // Destructure various properties and methods from props, provided by our
-    // mapStateToProps and mapDispatchToProps connections
-    const {
-      // grab the productList from props to list the current products
-      productList,
-    } = this.props;
+    const { productList } = this.props;
     return (
       <>
         <h2>Pagination &amp; Filter Test</h2>
-        <PaginationControl></PaginationControl>
+        <PaginationControl top></PaginationControl>
         <FilterSortControl></FilterSortControl>
-        <TestChild>
-          <ul>
-            {/* Lists all the products currently in the store with their
-              name and price we can see the pagination, sorting, filtering and
-            sizing in action */}
-            {productList.map(({ id, name, price }) => {
-              return (
-                <li key={id}>
-                  {name}, ${price}
-                </li>
-              );
-            })}
-          </ul>
-        </TestChild>
+        <ul>
+          {productList.map(({ id, name, price }) => {
+            return (
+              <li key={id}>
+                {name}, ${price}
+              </li>
+            );
+          })}
+        </ul>
         <PaginationControl></PaginationControl>
       </>
     );

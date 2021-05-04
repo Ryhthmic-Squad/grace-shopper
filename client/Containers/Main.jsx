@@ -20,11 +20,14 @@ class Main extends Component {
         <MainNav />
         <Switch>
           <Route component={AllProducts} path="/products" exact />
+          <Route component={TestProductList} path="/productsTest" exact />
           <Route component={UserDashboard} path="/login" exact />
           <Route>
             <hr />
             <Link
-              to={'/products?page=1&size=6&sort=name,ASC&room=&style=&type='}
+              to={
+                '/productsTest?page=1&size=6&sort=name,ASC&type=&style=&room='
+              }
             >
               <FeaturedButton> Shop All Furniture </FeaturedButton>
             </Link>
