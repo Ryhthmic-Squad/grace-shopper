@@ -17,11 +17,7 @@ class SingleProduct extends Component {
       <div>
         <h3> Product Name </h3>
         <h5> Product Description............ </h5>
-        <img
-          display="block"
-          width="250rem"
-          src="https://bernhardt.com/sites/default/files/product/351-044A.jpg"
-        />
+        <img display="block" width="250rem" src={product.imageURL} />
         <h4> $100 </h4>
 
         <h6> Add to Cart </h6>
