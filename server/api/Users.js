@@ -5,8 +5,9 @@ const router = require('express').Router();
 const { requireToken } = require('./Utils');
 // add require by token middleware
 
-// GET /api/users
-router.get('/', async (req, res, next) => {
+// GET /api/users/all
+// add requireAdminToken util
+router.get('/all', requireAdminToken, async (req, res, next) => {
   try {
     res.send(await User.findAll());
   } catch (er) {
@@ -14,10 +15,11 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-// GET /api/users/:id
-router.get('/:id', async (req, res, next) => {
+// GET /api/users
+router.get('/', requireUserToken, async (req, res, next) => {
+  const { user } = req;
   try {
-    res.status(201).send(await User.findByPk(req.params.id));
+    res.status(201).send(user);
   } catch (er) {
     next(er);
   }

@@ -5,8 +5,21 @@ import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import AllProducts from './AllProducts';
 import MainNav from './MainNav';
 import HomePage from '../Containers/HomePage';
+import { fetchAuth } from '../store/auth/auth.js';
+
+const mapDispatchToProps = (dispatch) => ({
+  initAuth: () => dispatch(fetchAuth({ email: null, password: null })),
+});
 
 class Main extends Component {
+  componentDidMount = () => {
+    const { initAuth } = this.props;
+    const token = window.localStorage.getItem('token');
+    if (!token) {
+      initAuth();
+    }
+  };
+
   render() {
     return (
       <>
@@ -23,4 +36,4 @@ class Main extends Component {
   }
 }
 
-export default connect(null, null)(Main);
+export default connect(null, mapDispatchToProps)(Main);

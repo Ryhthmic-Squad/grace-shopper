@@ -1,8 +1,8 @@
 const {
-  models: { User },
+  models: { User, Cart },
 } = require('../db/index');
 
-const requireToken = async (req, res, next) => {
+const requireUserToken = async (req, res, next) => {
   try {
     const token = req.headers.authorization;
     const user = await User.verifyByToken(token); // tries to find token/user on header
@@ -13,4 +13,15 @@ const requireToken = async (req, res, next) => {
   }
 };
 
-module.exports = { requireToken };
+const requireCartToken = async (req, res, next) => {
+  try {
+    const token = req.headers.authorization;
+    const cart = await Cart.verifyByToken(token);
+    req.cart = cart;
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { requireUserToken, requireCartToken };

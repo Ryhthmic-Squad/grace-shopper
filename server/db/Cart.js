@@ -17,14 +17,20 @@ Cart.init(
 // Verifies if the user id from header request matches with the req.params
 Cart.verifyByToken = async (user, reqId) => {
   try {
-    if (user.id == reqId) {
-      const cart = await Cart.findOne({ where: { userId: user.id } });
-      let cartProducts = [];
-      if (cart) {
-        cartProducts = await cart.getProducts();
-      }
-      return cartProducts;
+    const { cartId } = jwt.verify(token, process.env.JWT);
+    const cart = await Cart.findByPk(cartId);
+
+    if (cart) {
+      return cart;
     }
+    // if (user.id == reqId) {
+    //   const cart = await Cart.findOne({ where: { userId: user.id } });
+    //   let cartProducts = [];
+    //   if (cart) {
+    //     cartProducts = await cart.getProducts();
+    //   }
+    //   return cartProducts;
+    // }
     const error = Error('unauthorized access');
     error.status = 401;
     throw error;

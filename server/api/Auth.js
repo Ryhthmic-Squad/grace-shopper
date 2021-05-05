@@ -2,7 +2,7 @@ const {
   models: { User },
 } = require('../db/index');
 const router = require('express').Router();
-const { requireToken } = require('./Utils');
+const { requireUserToken } = require('./Utils');
 
 // POST /api/auth
 // client sends credentials as a payload to this route
@@ -20,7 +20,7 @@ router.post('/', async (req, res, next) => {
 
 // GET /api/auth
 // assumes that the authorization header has been set on the request and it uses that to verify the user by its token. For convenience, we'll send this token back with a header, which verifies payload and header have not been altered
-router.get('/', requireToken, async (req, res, next) => {
+router.get('/', requireUserToken, async (req, res, next) => {
   try {
     res.send(req.user);
   } catch (err) {

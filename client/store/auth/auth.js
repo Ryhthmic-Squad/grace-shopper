@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 export const SET_AUTH = 'SET_AUTH';
 
 export const setAuth = (auth) => ({
@@ -8,7 +10,9 @@ export const setAuth = (auth) => ({
 export const fetchAuth = (credentials) => {
   return async (dispatch) => {
     try {
-      let { data: token } = await axios.post('/api/auth', credentials);
+      let { data } = await axios.post('/api/auth', credentials);
+      const { token } = data;
+      window.localStorage.setItem('token', token);
       dispatch(setAuth(token));
     } catch (err) {
       console.error(err);
@@ -16,6 +20,12 @@ export const fetchAuth = (credentials) => {
   };
 };
 
-export default auth;
+const initialState = {};
+
+export default (state = initialState, action) => {
+  const { type, auth } = action;
+  if (type === SET_AUTH) return auth;
+  return state;
+};
 
 //resume on reducer
