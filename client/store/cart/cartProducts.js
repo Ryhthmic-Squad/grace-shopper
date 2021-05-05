@@ -5,24 +5,14 @@ export const REMOVE_PRODUCT = 'REMOVE_PRODUCT';
 export const INCREASE_QTY = 'INCREASE_QTY';
 export const DESCREASE_QTY = 'DECREASE_QTY';
 export const RESET_CART = 'RESET_CART';
-<<<<<<< HEAD
-=======
 export const ADD_PRODUCT = 'ADD_PRODUCT';
->>>>>>> main
 
 export const setCartProducts = (cartProducts) => ({
   type: SET_CART_PRODUCTS,
   cartProducts,
 });
 
-<<<<<<< HEAD
-export const resetCartProducts = () => ({
-  type: RESET_CART,
-  cartProducts: [],
-});
-=======
 // How to deal with low-inventory
->>>>>>> main
 
 // fetchCartProducts is a thunk that needs a userId to get all products associated with a cart.
 export const fetchCartProducts = (id, token) => {
@@ -40,22 +30,17 @@ export const fetchCartProducts = (id, token) => {
   };
 };
 
-<<<<<<< HEAD
-=======
 export const resetCartProducts = () => ({
   type: RESET_CART,
   cartProducts: [],
 });
 
->>>>>>> main
 export const resetCart = () => {
   return (dispatch) => {
     dispatch(resetCartProducts());
   };
 };
 
-<<<<<<< HEAD
-=======
 export const addProduct = (products) => ({
   type: ADD_PRODUCT,
   cartProducts: [...products],
@@ -77,7 +62,6 @@ export const addProduct = (products) => ({
 //   }
 // };
 
->>>>>>> main
 const initialState = [];
 
 export default (state = initialState, action) => {

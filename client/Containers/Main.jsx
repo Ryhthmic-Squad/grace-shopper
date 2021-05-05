@@ -11,6 +11,7 @@ import {
 import AllProducts from './AllProducts';
 import MainNav from './MainNav';
 import HomePage from '../Containers/HomePage';
+import SingleProduct from './SingleProduct';
 
 class Main extends Component {
   render() {
@@ -25,6 +26,7 @@ class Main extends Component {
             {/* <Route component={MainNav} /> */}
             <Route component={AllProducts} path="/products" exact />
             <Route component={UserDashboard} path="/login" exact />
+            <Route component={SingleProduct} path="/products/:id" exact />
           </div>
         </Router>
       </>

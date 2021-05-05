@@ -16,10 +16,8 @@ class AllProducts extends Component {
   componentDidMount() {
     console.log('AllProducts component mounted!');
     console.log('props is', this.props);
-    console.log('state is', this.state);
   }
   render() {
-    // console.log(props);
     const productList = this.props;
     return (
       <div className="allProducts">
