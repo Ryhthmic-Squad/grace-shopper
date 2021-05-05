@@ -10,7 +10,8 @@ export const MainNavDiv = styled.nav`
   color: white;
   background-color: black;
   border: none;
-  position: fixed;
+  position: -webkit-sticky;
+  position: sticky;
   top: 0;
   width: 100%;
   padding: 1.75rem;
