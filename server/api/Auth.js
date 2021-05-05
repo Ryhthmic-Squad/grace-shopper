@@ -10,7 +10,9 @@ const { requireToken } = require('./Utils');
 router.post('/', async (req, res, next) => {
   try {
     //console.log('-----> POST ROUTE, req.body', req.body);
-    res.send({ token: await User.authentication(req.body) });
+    const { email, password } = req.body;
+    const token = await User.authentication({ email, password });
+    res.send({ token });
   } catch (err) {
     next(err);
   }

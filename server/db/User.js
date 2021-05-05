@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const { DataTypes, Model } = require('sequelize');
 const db = require('./db');
+const Cart = require('./Cart');
 
 class User extends Model {}
 User.init(
@@ -78,21 +79,32 @@ User.authentication = async function ({ email, password }) {
   // console.log('-----> User.authentication, CREDENTIALS', email, password);
   const user = await User.findOne({ where: { email } });
   // console.log('-----> User.authentication, USER', user);
-  if (user && (await bcrypt.compare(password, user.password))) {
-    const token = jwt.sign({ id: user.id }, process.env.JWT);
-    // console.log('-----> User.authentication: token', token);
+  if (user) {
+    const passwordCheck = await bcrypt.compare(password, user.password);
+    if (passwordCheck) {
+      const token = jwt.sign(
+        { userId: user.id, cartId: user.cartId },
+        process.env.JWT
+      );
+      // console.log('-----> User.authentication: token', token);
+      return token;
+    } else {
+      const error = Error('bad credentials');
+      error.status = 401;
+      throw error;
+    }
+  } else {
+    const cart = Cart.create();
+    const token = jwt.sign({ cartId: cart.id }, process.env.JWT);
     return token;
   }
-  const error = Error('bad credentials');
-  error.status = 401;
-  throw error;
 };
 
 // Verifies user
 User.verifyByToken = async function (token) {
   try {
-    const { id } = jwt.verify(token, process.env.JWT);
-    const user = await User.findByPk(id);
+    const { userId } = jwt.verify(token, process.env.JWT);
+    const user = await User.findByPk(userId);
     // check if user exists
     if (user) {
       return user;
