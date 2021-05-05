@@ -5,7 +5,8 @@ import Login from './Login.jsx';
 import AdminConsole from '../Containers/Admin/AdminConsole';
 import Button from '../components/styles/Button';
 import { fetchCartProducts, resetCart } from '../store/cart/cartProducts';
-
+import { HashRouter as Router, Route, Link, useParams } from 'react-router-dom';
+import UserConsole from './User/UserConsole.jsx';
 // Filter users based on 'isAdmin' attribute
 // move auth to store
 // if initial state of cartProducts is empth and someone adds a product, create a new cart and store it in Local Storage
@@ -63,7 +64,8 @@ class UserDashboard extends Component {
                 <img display="block" width="150rem" src={product.imageUrl} />
               </li>
             ))}
-          {!auth.isAdmin && <AdminConsole />}
+          {auth.isAdmin && <AdminConsole />}
+          {!auth.isAdmin && <UserConsole />}
           <Button onClick={logout}>Logout</Button>
         </div>
       );

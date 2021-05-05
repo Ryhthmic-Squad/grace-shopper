@@ -3,9 +3,8 @@ import { connect } from 'react-redux';
 import { fetchProductInventory } from '../../store/product/productInventory';
 import { Row } from '../../components/styles/AdminConsole';
 import Button from '../../components/styles/Button';
-import { HashRouter as Router, Route, Link } from 'react-router-dom';
 
-class Inventory extends Component {
+class AllInventory extends Component {
   constructor() {
     super();
     this.state = {
@@ -25,11 +24,11 @@ class Inventory extends Component {
         <hr className="heavy" />
         <Row>
           <strong>Id</strong>
-          <strong>Low-stock Item Name</strong>
+          <strong>Item Name</strong>
           <strong>QTY</strong>
         </Row>
         <hr />
-        <Row>
+        <ul>
           {products.length ? (
             products.map((product) => (
               <Row key={product.id}>
@@ -45,21 +44,14 @@ class Inventory extends Component {
               <span>{'none'}</span>
             </Row>
           )}
-        </Row>
-        <Button>Show Inventory</Button>
-        <Link to={'/AdminConsole/inventory'}>Show All Inventory</Link>
-        <Button>Add Product</Button>
-        <Link to={'/AdminConsole/addproduct'}>Add Product</Link>
+        </ul>
       </div>
     );
   }
 }
 
 const mapStateToProps = (state) => {
-  const products = state.productInventory.products.filter((product) => {
-    return product.inventory <= 5;
-  });
-  if (products.length > 3) products.slice(2);
+  const products = state.productInventory.products;
   return {
     products,
   };
@@ -69,4 +61,4 @@ const mapDispatchToProps = (dispatch) => {
     fetchProductInventory: () => dispatch(fetchProductInventory()),
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(Inventory);
+export default connect(mapStateToProps, mapDispatchToProps)(AllInventory);

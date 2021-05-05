@@ -19,7 +19,7 @@ class AllOrders extends Component {
     const { orders } = this.state;
     return (
       <div>
-        <h2>Recent Orders</h2>
+        <h2>All Orders</h2>
         <Row>
           <strong>Id</strong>
           <strong>Status</strong>
@@ -29,19 +29,17 @@ class AllOrders extends Component {
         <ul>
           {orders.length ? (
             orders.map((order) => (
-              <li key={order.id}>
+              <Row key={order.id}>
                 <span>{order.status}</span>
                 <span>{order.date}</span>
-              </li>
+              </Row>
             ))
           ) : (
-            <li>
-              <Row>
-                <span>{'none'}</span>
-                <span>{'none'}</span>
-                <span>{'none'}</span>
-              </Row>
-            </li>
+            <Row>
+              <span>{'none'}</span>
+              <span>{'none'}</span>
+              <span>{'none'}</span>
+            </Row>
           )}
         </ul>
       </div>
@@ -74,4 +72,4 @@ const mapDispatchToProps = (dispatch) => {
     fetchOrders: () => dispatch(fetchOrderList()),
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(RecentOrders);
+export default connect(mapStateToProps, mapDispatchToProps)(AllOrders);
