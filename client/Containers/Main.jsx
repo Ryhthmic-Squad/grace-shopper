@@ -15,7 +15,6 @@ import SingleProduct from './SingleProduct';
 
 class Main extends Component {
   render() {
-    const { fetchProductList } = this.props;
     console.log('Main', this.props);
     return (
       <>
@@ -26,7 +25,7 @@ class Main extends Component {
             {/* <Route component={MainNav} /> */}
             <Route component={AllProducts} path="/products" exact />
             <Route component={UserDashboard} path="/login" exact />
-            <Route component={SingleProduct} path="/products/:id" exact />
+            <Route component={SingleProduct} path="/products/1" exact />
           </div>
         </Router>
       </>

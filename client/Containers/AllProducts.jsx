@@ -18,7 +18,8 @@ class AllProducts extends Component {
     console.log('props is', this.props);
   }
   render() {
-    const productList = this.props;
+    const { productList } = this.props;
+
     return (
       <div className="allProducts">
         <h1>All Furniture </h1>
