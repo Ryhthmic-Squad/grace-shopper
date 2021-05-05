@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import UserDashboard from './UserDashboard.jsx';
 import { connect } from 'react-redux';
-import TestProductList from './TestForProductList.jsx';
 import {
   HashRouter as Router,
   Route,

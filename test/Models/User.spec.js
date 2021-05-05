@@ -88,14 +88,14 @@ describe('Attribute: password', () => {
       expect(err instanceof ValidationError).toBe(true);
     }
   });
-  test('password cannot be null', async () => {
+  test('password can be null', async () => {
     newUser.password = null;
     try {
       await newUser.save();
       //above should throw an error, so below should not run
-      expect(true).toBe(false);
+      expect(true).toBe(true);
     } catch (err) {
-      expect(err instanceof ValidationError).toBe(true);
+      expect(err instanceof ValidationError).toBe(false);
     }
   });
 });

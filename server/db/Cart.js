@@ -10,6 +10,7 @@ Cart.init(
       primaryKey: true,
     },
   },
+  // for long-term use delete if there isn't an associated user or was created at a certain time period
   { sequelize: db, modelName: 'carts' }
 );
 
