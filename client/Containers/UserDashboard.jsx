@@ -1,36 +1,34 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
+//import axios from 'axios';
 import Login from './Login.jsx';
 import AdminConsole from '../Containers/Admin/AdminConsole';
 import Button from '../components/styles/Button';
 import { fetchCartProducts, resetCart } from '../store/cart/cartProducts';
+import { resetToken, fetchToken } from '../store/auth/token';
+import { fetchAuth, resetAuth } from '../store/auth/auth';
 
 // Filter users based on 'isAdmin' attribute
 // move auth to store
 // if initial state of cartProducts is empth and someone adds a product, create a new cart and store it in Local Storage
 class UserDashboard extends Component {
-  state = {
-    auth: {},
-  };
-
   logout = () => {
-    this.props.resetCart();
+    const { resetAuth, resetCart } = this.props;
+    resetAuth();
+    resetCart();
+    resetToken();
     window.localStorage.removeItem('token');
-    this.setState({ auth: {} });
   };
 
   attemptTokenLogin = async () => {
-    const { fetchCartProducts } = this.props;
+    const { fetchAuth, fetchCartProducts, auth } = this.props;
     const token = window.localStorage.getItem('token');
+    // FETCH AUTH
+    console.log('-----> 2 attemptTokenLogin', token);
     if (token) {
-      const { data: auth } = await axios.get('/api/auth', {
-        headers: {
-          authorization: token,
-        },
-      });
-      fetchCartProducts(auth.id, token);
-      this.setState({ auth });
+      await fetchAuth(token);
+      console.log('-----> 3 attemptTokenLogin', auth);
+      await fetchCartProducts(auth.id, token);
     }
     // else generate guest token for user to he/she can build a temporary cart
     // that cart can be persisted in a logged account whenever he/she/signs up
@@ -39,14 +37,17 @@ class UserDashboard extends Component {
     this.attemptTokenLogin();
   }
   signIn = async (credentials) => {
-    let response = await axios.post('/api/auth', credentials);
-    const { token } = response.data;
-    window.localStorage.setItem('token', token);
+    console.log('-----> 1 signIn', credentials);
+    // since guest user token is generated you must remove it when logging in as an authorized user
+    // window.localStorage.removeItem('token'); // may be not needed bc new token will place current one?
+    // let response = await axios.post('/api/auth', credentials);
+    // const { token } = response.data;
+    fetchToken(credentials);
+    // window.localStorage.setItem('token', token);
     this.attemptTokenLogin();
   };
   render() {
-    const { auth } = this.state;
-    const { cartProducts } = this.props;
+    const { cartProducts, auth } = this.props;
     const { signIn, logout } = this;
     if (!auth.id) {
       return <Login signIn={signIn} />;
@@ -63,7 +64,7 @@ class UserDashboard extends Component {
                 <img display="block" width="150rem" src={product.imageUrl} />
               </li>
             ))}
-          {!auth.isAdmin && <AdminConsole />}
+          {auth.isAdmin && <AdminConsole />}
           <Button onClick={logout}>Logout</Button>
         </div>
       );
@@ -73,14 +74,20 @@ class UserDashboard extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    fetchAuth: (token) => dispatch(fetchAuth(token)),
+    fetchToken: (credentials) => dispatch(fetchToken(credentials)),
     fetchCartProducts: (id, token) => dispatch(fetchCartProducts(id, token)),
     resetCart: () => dispatch(resetCart()),
+    resetToken: () => dispatch(resetToken()),
+    resetAuth: () => dispatch(resetAuth()),
   };
 };
 
 const mapStateToProps = (state) => {
   return {
     cartProducts: state.cartProducts,
+    auth: state.auth,
+    token: state.token,
   };
 };
 

@@ -4,6 +4,7 @@ const { DataTypes, Model } = require('sequelize');
 const db = require('./db');
 const Cart = require('./Cart');
 
+// allow null email & password?
 class User extends Model {}
 User.init(
   {
@@ -76,17 +77,19 @@ User.addHook('beforeSave', async function (user) {
 
 // generates token for user & adds signature on the backend
 User.authentication = async function ({ email, password }) {
-  // console.log('-----> User.authentication, CREDENTIALS', email, password);
+  console.log('-----> 1 User.authentication');
   const user = await User.findOne({ where: { email } });
-  // console.log('-----> User.authentication, USER', user);
   if (user) {
     const passwordCheck = await bcrypt.compare(password, user.password);
     if (passwordCheck) {
-      const token = jwt.sign(
-        { userId: user.id, cartId: user.cartId },
-        process.env.JWT
-      );
-      // console.log('-----> User.authentication: token', token);
+      //get cart id via sequelize since user properties does not include cartId
+      const cart = await Cart.findOne({ where: { userId: user.id } });
+      console.log('-----> 2 User.authentication', cart);
+      let token;
+      if (cart) {
+        token = jwt.sign({ userId: user.id, cartId: cart.id }, process.env.JWT);
+      }
+      token = jwt.sign({ userId: user.id, cartId: null }, process.env.JWT);
       return token;
     } else {
       const error = Error('bad credentials');
@@ -115,6 +118,24 @@ User.verifyByToken = async function (token) {
     throw error;
   } catch (ex) {
     // if a token that is not sized correctly this sends the correct error message
+    const error = Error('bad credentials');
+    error.status = 401;
+    throw error;
+  }
+};
+
+// Verifies user
+User.verifyByTokenIfAdmin = async function (token) {
+  try {
+    const { userId } = jwt.verify(token, process.env.JWT);
+    const user = await User.findByPk(userId);
+    if (user.isAdmin) {
+      return user;
+    }
+    const error = Error('unauthorized for admin privileges');
+    error.status = 401;
+    throw error;
+  } catch (ex) {
     const error = Error('bad credentials');
     error.status = 401;
     throw error;

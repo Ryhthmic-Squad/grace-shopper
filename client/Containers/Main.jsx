@@ -5,10 +5,14 @@ import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import AllProducts from './AllProducts';
 import MainNav from './MainNav';
 import HomePage from '../Containers/HomePage';
-import { fetchAuth } from '../store/auth/auth.js';
+import { fetchToken } from '../store/auth/token.js';
 
 const mapDispatchToProps = (dispatch) => ({
-  initAuth: () => dispatch(fetchAuth({ email: null, password: null })),
+  initAuth: () => dispatch(fetchToken({ email: null, password: null })),
+});
+
+const mapStateToProps = (state) => ({
+  token: state.token,
 });
 
 class Main extends Component {
@@ -36,4 +40,4 @@ class Main extends Component {
   }
 }
 
-export default connect(null, mapDispatchToProps)(Main);
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
