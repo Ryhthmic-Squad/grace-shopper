@@ -25,6 +25,9 @@ class NewUsers extends Component {
     const { users } = this.state;
     return (
       <div>
+        <Router>
+          <Route component={AllUsers} exact path="/AdminConsole/users" />
+        </Router>
         <h2>New Users</h2>
         <hr className="heavy" />
 

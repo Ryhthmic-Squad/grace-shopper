@@ -12,7 +12,8 @@ import updateUser from './user/userUpdate';
 import productPagination from './product/productPagination';
 import productFilters from './product/productFilters';
 import productCreate from './product/productCreate';
-
+import orderHistory from './order/orderUser';
+import reviewUsers from './reviews/reviewUsers';
 const reducer = combineReducers({
   cartProducts,
   productList,
@@ -25,6 +26,8 @@ const reducer = combineReducers({
   productCreate,
   productPagination,
   productFilters,
+  orderHistory,
+  reviewUsers,
 });
 
 const middleware = applyMiddleware(

@@ -20,7 +20,6 @@ class AllUsers extends Component {
     const { users } = this.state;
     return (
       <Router>
-        <Route path="/AdminConsole/users/edit:id" component={EditUser} />
         <div>
           <h2>All Users</h2>
           <Row>

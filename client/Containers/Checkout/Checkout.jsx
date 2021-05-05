@@ -1,27 +1,37 @@
-import React, { Component } from 'react';
-import StripeCheckout from 'react-stripe-checkout';
+import React from 'react';
 
-export default class Checkout extends Component {
-  onToken = (token, addresses) => {
-    // TODO: Send the token information and any other
-    // relevant information to your payment process
-    // server, wait for the response, and update the UI
-    // accordingly. How this is done is up to you. Using
-    // XHR, fetch, or a GraphQL mutation is typical.
+import { loadStripe } from '@stripe/stripe-js';
+// Make sure to call `loadStripe` outside of a component’s render to avoid
+// recreating the `Stripe` object on every render.
+
+const stripePromise = loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
+function Checkout() {
+  const handleClick = async (event) => {
+    // Get Stripe.js instance
+    const stripe = await stripePromise;
+
+    // Call your backend to create the Checkout Session
+    const response = await fetch('/create-checkout-session', {
+      method: 'POST',
+    });
+
+    const session = await response.json();
+
+    // When the customer clicks on the button, redirect them to Checkout.
+    const result = await stripe.redirectToCheckout({
+      sessionId: session.id,
+    });
+
+    if (result.error) {
+      // If `redirectToCheckout` fails due to a browser or network
+      // error, display the localized error message to your customer
+      // using `result.error.message`.
+    }
   };
-
-  render() {
-    return (
-      <StripeCheckout
-        amount="500"
-        billingAddress
-        description="Awesome Product"
-        locale="auto"
-        name="YourDomain.tld"
-        stripeKey="pk_test_TYooMQauvdEDq54NiTphI7jx"
-        token={this.onToken}
-        zipCode
-      />
-    );
-  }
+  return (
+    <button role="link" onClick={handleClick}>
+      Checkout
+    </button>
+  );
 }
+export default Checkout;

@@ -4,6 +4,7 @@ import { fetchOrderList } from '../../store/order/orderList';
 import { Row } from '../../components/styles/AdminConsole';
 import Button from '../../components/styles/Button';
 import { HashRouter as Router, Route, Link, useParams } from 'react-router-dom';
+import AllOrders from './AllOrders';
 class RecentOrders extends Component {
   constructor() {
     super();
@@ -20,6 +21,9 @@ class RecentOrders extends Component {
     const { orders } = this.state;
     return (
       <div>
+        <Router>
+          <Route component={AllOrders} path="/AdminConsole/orders" />
+        </Router>
         <h2>Recent Orders</h2>
         <hr className="heavy" />
         <Row>
