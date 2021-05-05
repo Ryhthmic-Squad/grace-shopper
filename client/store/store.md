@@ -10,7 +10,7 @@ store = {
   },
   productList: [],
   productPagination: {
-    maxPage: 0,
+    maxPage: 1,
     page: 1,
     size: 6,
     sort: [['name', 'DESC']],
