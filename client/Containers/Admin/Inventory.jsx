@@ -5,7 +5,7 @@ import { Row } from '../../components/styles/AdminConsole';
 import Button from '../../components/styles/Button';
 import { HashRouter as Router, Route, Link } from 'react-router-dom';
 import AddProduct from './AddProduct';
-import EditUser from './EditUser';
+import AllInventory from './AllInventory';
 
 class Inventory extends Component {
   constructor() {
@@ -24,7 +24,7 @@ class Inventory extends Component {
     return (
       <Router>
         <Route component={AddProduct} path="AdminConsole/addproduct" />
-        <Route component={EditUser} path="AdminConsole/inventory" />
+        <Route component={AllInventory} path="AdminConsole/inventory" />
         <div>
           <h2>Inventory</h2>
           <hr className="heavy" />
@@ -34,27 +34,23 @@ class Inventory extends Component {
             <strong>QTY</strong>
           </Row>
           <hr />
-          <ul>
+          <Row>
             {products.length ? (
               products.map((product) => (
-                <li key={product.id}>
-                  <Row>
-                    <span>{product.id}</span>
-                    <span>{product.name}</span>
-                    <span>{product.inventory}</span>
-                  </Row>
-                </li>
+                <Row key={product.id}>
+                  <span>{product.id}</span>
+                  <span>{product.name}</span>
+                  <span>{product.inventory}</span>
+                </Row>
               ))
             ) : (
-              <li>
-                <Row>
-                  <span>{'none'}</span>
-                  <span>{'none'}</span>
-                  <span>{'none'}</span>
-                </Row>
-              </li>
+              <Row>
+                <span>{'none'}</span>
+                <span>{'none'}</span>
+                <span>{'none'}</span>
+              </Row>
             )}
-          </ul>
+          </Row>
           <Button>Show Inventory</Button>
           <Link to={'/AdminConsole/inventory'}>Show All Inventory</Link>
           <Button>Add Product</Button>

@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchUserList } from '../../store/user/userList';
 import { Row } from '../../components/styles/AdminConsole';
-import { Link } from 'react-router-dom';
+import { Link, HashRouter as Router, Route } from 'react-router-dom';
 import Button from '../../components/styles/Button';
-
+import AllUsers from './AllUsers';
 class NewUsers extends Component {
   constructor() {
     super();
@@ -26,27 +26,27 @@ class NewUsers extends Component {
     return (
       <div>
         <h2>New Users</h2>
+        <hr className="heavy" />
+
         <Row>
           <strong>Name</strong>
           <strong>Sign-up Date</strong>
         </Row>
-        <ul>
+        <Row>
           {users.length ? (
             users.map((user) => (
-              <li key={user.id}>
-                <Row>
-                  <span>{user.fullName}</span>
-                  <span>{user.createdAt.slice(0, 10)}</span>
-                </Row>
-              </li>
+              <Row key={user.id}>
+                <span>{user.fullName}</span>
+                <span>{user.createdAt.slice(0, 10)}</span>
+              </Row>
             ))
           ) : (
-            <li>
+            <Row>
               <span>{'none'}</span>
               <span>{'none'}</span>
-            </li>
+            </Row>
           )}
-        </ul>
+        </Row>
         <Button onClick={handleClick}>Show All Users</Button>
         <Link to={'/AdminConsole/users'}>Show All Users</Link>
       </div>

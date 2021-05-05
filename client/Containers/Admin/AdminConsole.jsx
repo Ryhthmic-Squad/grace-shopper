@@ -12,7 +12,6 @@ class AdminConsole extends Component {
   render() {
     return (
       <Router>
-        <Route component={AllUsers} path="/AdminConsole/users" exact />
         <Route component={AllInventory} path="/AdminConsole/inventory" exact />
         <Route component={AllOrders} path="/AdminConsole/orders" exact />
         <Route component={AddProduct} path="/AdminConsole/addproduct" exact />

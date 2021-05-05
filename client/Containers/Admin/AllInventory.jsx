@@ -31,26 +31,20 @@ class AllInventory extends Component {
         <ul>
           {products.length ? (
             products.map((product) => (
-              <li key={product.id}>
-                <Row>
-                  <span>{product.id}</span>
-                  <span>{product.name}</span>
-                  <span>{product.inventory}</span>
-                </Row>
-              </li>
+              <Row key={product.id}>
+                <span>{product.id}</span>
+                <span>{product.name}</span>
+                <span>{product.inventory}</span>
+              </Row>
             ))
           ) : (
-            <li>
-              <Row>
-                <span>{'none'}</span>
-                <span>{'none'}</span>
-                <span>{'none'}</span>
-              </Row>
-            </li>
+            <Row>
+              <span>{'none'}</span>
+              <span>{'none'}</span>
+              <span>{'none'}</span>
+            </Row>
           )}
         </ul>
-        <Button>Show Inventory</Button>
-        <Button>Add Product</Button>
       </div>
     );
   }

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { FormGroup, Label, Input } from '../../components/styles/Forms';
 import FeaturedButton from '../../components/styles/FeaturedButton';
 import { connect } from 'react-redux';
-import { productCreate } from '../../store/product/productCreate';
+import { createProduct } from '../../store/product/productCreate';
 
 class AddProduct extends Component {
   state = {
@@ -48,7 +48,7 @@ class AddProduct extends Component {
     return (
       <>
         <FormGroup onSubmit={onSubmit}>
-          <h2>Your Profile</h2>
+          <h2>Add Product</h2>
           <Label>Name:</Label>
           <Input value={name} onChange={onChange} name="name" />
           <Label>Inventory:</Label>
@@ -82,7 +82,7 @@ class AddProduct extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    createProduct: (product) => dispatch(productCreate(product)),
+    createProduct: (product) => dispatch(createProduct(product)),
   };
 };
 export default connect(null, mapDispatchToProps)(AddProduct);

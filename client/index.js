@@ -14,10 +14,6 @@ ReactDOM.render(
     <Provider store={store}>
       <GlobalStyle />
       <Main />
-      <Switch>
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/AdminConsole" component={AdminConsole} />
-      </Switch>
     </Provider>
   </Router>,
   document.getElementById('root')

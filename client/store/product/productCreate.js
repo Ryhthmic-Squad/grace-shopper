@@ -22,7 +22,7 @@ const initialState = {
   products: [],
 };
 export default (state = initialState, action) => {
-  const { type, product } = action;
+  const { type, products } = action;
   if (type === CREATE_PRODUCT)
     return {
       products: state.products.concat(action.product),

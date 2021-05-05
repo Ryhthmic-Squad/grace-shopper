@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { fetchOrderList } from '../../store/order/orderList';
 import { Row } from '../../components/styles/AdminConsole';
 import Button from '../../components/styles/Button';
-
+import { HashRouter as Router, Route, Link, useParams } from 'react-router-dom';
 class RecentOrders extends Component {
   constructor() {
     super();
@@ -21,29 +21,28 @@ class RecentOrders extends Component {
     return (
       <div>
         <h2>Recent Orders</h2>
+        <hr className="heavy" />
         <Row>
           <strong>Name</strong>
           <strong>Order Date</strong>
         </Row>
         <hr />
-        <ul>
+        <Row>
           {orders.length ? (
             orders.map((order) => (
-              <li key={order.id}>
+              <Row key={order.id}>
                 <span>{order.name}</span>
                 <span>{order.date}</span>
-              </li>
+              </Row>
             ))
           ) : (
-            <li>
-              <Row>
-                <span>{'none'}</span>
-                <span>{'none'}</span>
-                <span>{'none'}</span>
-              </Row>
-            </li>
+            <Row>
+              <span>{'none'}</span>
+              <span>{'none'}</span>
+              <span>{'none'}</span>
+            </Row>
           )}
-        </ul>
+        </Row>
         <Button>Show All Orders</Button>
         <Link to={'/AdminConsole/orders'}>Show All Orders</Link>
       </div>
