@@ -10,6 +10,7 @@ const GlobalStyle = createGlobalStyle`
   }
   * {
     font-family: 'Merriweather', serif;
+    font-size: 1rem;
   }
   h1, h2, h3, strong {
     font-family: 'Raleway', sans-serif;

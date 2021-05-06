@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import UserDashboard from './UserDashboard.jsx';
 import { connect } from 'react-redux';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import AllProducts from './AllProducts.jsx';
 import MainNav from './MainNav.jsx';
 import HomePage from '../Containers/HomePage.jsx';
-import AuthTest from './AuthTest.jsx';
+import UserDashboard from './UserDashboard';
 import Cart from './Cart/Cart.jsx';
 
 import { setToken, fetchToken } from '../store/auth/token.js';
@@ -44,7 +43,7 @@ class Main extends Component {
       fetchToken({ visitor: true });
     }
     if (prevToken !== token) {
-      fetchAuth(token); // don't want this to fire for visitors?
+      fetchAuth(token);
       fetchCartProducts(token);
     }
   };
@@ -57,7 +56,7 @@ class Main extends Component {
           <Switch>
             <Route component={HomePage} path="/" exact />
             <Route component={AllProducts} path="/products" exact />
-            <Route component={AuthTest} path="/login" exact />
+            <Route component={UserDashboard} path="/login" exact />
             <Route component={Cart} path="/cart" exact />
           </Switch>
         </Router>

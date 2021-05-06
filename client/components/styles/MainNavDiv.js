@@ -15,3 +15,12 @@ export const MainNavDiv = styled.nav`
   padding: 1.75rem;
   font-family: 'Raleway', sans-serif;
 `;
+
+export const Admin = styled.span`
+  display: flex;
+  justify-content: space-between;
+  font-size: 1rem;
+  font-weight: bold;
+  line-height: 1;
+  color: gray;
+`;
