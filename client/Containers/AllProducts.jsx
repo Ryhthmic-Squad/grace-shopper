@@ -36,9 +36,6 @@ class AllProducts extends Component {
     super(props);
   }
   componentDidMount() {
-    // console.log('AllProducts component mounted!');
-    // console.log('props is', this.props);
-    // console.log('state is', this.state);
     const {
       productPagination,
       setPagination,
