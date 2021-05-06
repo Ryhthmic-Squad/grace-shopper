@@ -8,7 +8,6 @@ import DeleteButton from '../../components/styles/DeleteButton';
 import { updateCartProduct } from '../../store/cart/cart';
 
 const ProductCard = ({ product, updateCartProduct }) => {
-  console.log(product);
   const totalPriceOfItem = product.cartProducts.quantity * product.price;
   return (
     <>

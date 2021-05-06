@@ -1,13 +1,29 @@
 import React from 'react';
 import FeaturedButton from '../../components/styles/FeaturedButton';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
+// need a checkout thunk that converts carts to orders
 
-const SummaryCard = styled.div`
-  background: #e5e5e5;
-  padding: 1rem 2rem 2rem 2rem;
-`;
+const mapStateToProps = (state) => {
+  return {
+    cart: state.cart,
+  };
+};
 
-const Summary = () => {
+const Summary = ({ cart }) => {
+  let { products } = cart;
+  products = products || [];
+
+  const orderTotal = () => {
+    if (!products.length) return 0;
+    if (products.length === 1)
+      return products[0].cartProducts.quantity * products[0].price;
+    return products.reduce(
+      (a, b) =>
+        a.cartProducts.quantity * a.price + b.cartProducts.quantity * b.price
+    );
+  };
+
   return (
     <SummaryCard>
       <h3>Cart Summary</h3>
@@ -15,7 +31,7 @@ const Summary = () => {
         <tbody>
           <tr>
             <td>Merchandise</td>
-            <td>$1650.00</td>
+            <td>${orderTotal()}</td>
           </tr>
           <tr>
             <td>Estimated Tax</td>
@@ -31,7 +47,7 @@ const Summary = () => {
         <tbody>
           <tr>
             <td>Estimated Order Total</td>
-            <td>$1650.00</td>
+            <td>${orderTotal()}</td>
           </tr>
         </tbody>
       </table>
@@ -40,4 +56,9 @@ const Summary = () => {
   );
 };
 
-export default Summary;
+const SummaryCard = styled.div`
+  background: #e5e5e5;
+  padding: 1rem 2rem 2rem 2rem;
+`;
+
+export default connect(mapStateToProps, null)(Summary);

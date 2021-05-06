@@ -4,6 +4,12 @@ import ProductCard from './ProductCard';
 import Summary from './Summary';
 import styled from 'styled-components';
 
+const mapStateToProps = (state) => {
+  return {
+    cart: state.cart,
+  };
+};
+
 class Cart extends Component {
   itemCount = () => {
     let {
@@ -53,11 +59,5 @@ export const Child = styled.div`
   flex-grow: 2;
   padding-right: 2rem;
 `;
-
-const mapStateToProps = (state) => {
-  return {
-    cart: state.cart,
-  };
-};
 
 export default connect(mapStateToProps, null)(Cart);
