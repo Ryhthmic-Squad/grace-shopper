@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { fetchUserList } from '../../store/user/userList';
 import { Row } from '../../components/styles/AdminConsole';
 import { HashRouter as Router, Route, Link } from 'react-router-dom';
-import EditUser from './EditUser';
+import Button from '../../components/styles/Button';
 class AllUsers extends Component {
   constructor() {
     super();
@@ -28,6 +28,7 @@ class AllUsers extends Component {
             <strong>isAdmin</strong>
             <strong>Phone Number</strong>
           </Row>
+          <hr />
           <ul>
             {users.length ? (
               users.map((user) => (
@@ -36,7 +37,13 @@ class AllUsers extends Component {
                   <span>{user.email}</span>
                   <span>{user.isAdmin}</span>
                   <span>{user.phoneNumber}</span>
-                  <Link to={`/AdminConsole/users/edit/${user.id}`}>Edit</Link>
+                  <Button
+                    onClick={() => {
+                      window.location = `#/AdminConsole/users/edit/${user.id}`;
+                    }}
+                  >
+                    Edit
+                  </Button>
                 </Row>
               ))
             ) : (
