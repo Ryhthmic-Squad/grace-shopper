@@ -76,20 +76,36 @@ User.addHook('beforeSave', async function (user) {
 });
 
 // generates token for user & adds signature on the backend
-User.authentication = async function ({ email, password }) {
+User.authentication = async function ({ email, password, visitor }) {
+  if (visitor) {
+    const cart = await Cart.create();
+    const guestToken = jwt.sign({ cartId: cart.id }, process.env.JWT);
+    return guestToken;
+  }
   console.log('-----> 1 User.authentication');
-  const user = await User.findOne({ where: { email } });
+  const user = await User.findOne({
+    where: { email },
+    include: Cart,
+  });
+  console.log('-----> User found? ', user);
   if (user) {
     const passwordCheck = await bcrypt.compare(password, user.password);
     if (passwordCheck) {
       //get cart id via sequelize since user properties does not include cartId
-      const cart = await Cart.findOne({ where: { userId: user.id } });
+      const { cart } = user;
       console.log('-----> 2 User.authentication', cart);
-      let token;
-      if (cart) {
-        token = jwt.sign({ userId: user.id, cartId: cart.id }, process.env.JWT);
-      }
-      token = jwt.sign({ userId: user.id, cartId: null }, process.env.JWT);
+      // let token;
+      // if (cart) {
+      //   token = jwt.sign(
+      //     { userId: user.id, cartId: user.cart.id },
+      //     process.env.JWT
+      //   );
+      // } else {
+      // }
+      const token = jwt.sign(
+        { userId: user.id, cartId: cart.id },
+        process.env.JWT
+      );
       return token;
     } else {
       const error = Error('bad credentials');
@@ -97,9 +113,6 @@ User.authentication = async function ({ email, password }) {
       throw error;
     }
   } else {
-    const cart = Cart.create();
-    const token = jwt.sign({ cartId: cart.id }, process.env.JWT);
-    return token;
   }
 };
 
@@ -141,5 +154,11 @@ User.verifyByTokenIfAdmin = async function (token) {
     throw error;
   }
 };
+
+User.afterCreate(async (user) => {
+  const cart = await Cart.create();
+  await user.setCart(cart);
+  console.log(cart.userId === user.id);
+});
 
 module.exports = User;
