@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 export const SET_AUTH = 'SET_AUTH';
 
 export const setAuth = (auth) => ({
@@ -5,17 +7,36 @@ export const setAuth = (auth) => ({
   auth,
 });
 
-export const fetchAuth = (credentials) => {
+export const fetchAuth = (token) => {
   return async (dispatch) => {
     try {
-      let { data: token } = await axios.post('/api/auth', credentials);
-      dispatch(setAuth(token));
+      const { data } = await axios.get('/api/users', {
+        headers: {
+          authorization: token,
+        },
+      });
+      console.log('----->fetchAuth', data);
+      dispatch(setAuth(data));
     } catch (err) {
       console.error(err);
     }
   };
 };
 
-export default auth;
+export const RESET_AUTH = 'RESET_AUTH';
 
-//resume on reducer
+export const resetAuth = () => ({
+  type: RESET_AUTH,
+  auth: {},
+});
+
+const initialState = {};
+
+export default (state = initialState, action) => {
+  const { type, auth } = action;
+  if (type === SET_AUTH) return auth;
+  if (type === RESET_AUTH) {
+    console.log('-----> Auth reducer', auth);
+  }
+  return state;
+};
