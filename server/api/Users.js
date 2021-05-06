@@ -7,10 +7,8 @@ const {
   requireAdminToken,
   requireUserToken,
 } = require('./Utils');
-// add require by token middleware
 
 // GET /api/users/all
-// add requireAdminToken util
 router.get('/all', requireAdminToken, async (req, res, next) => {
   try {
     res.send(await User.findAll());

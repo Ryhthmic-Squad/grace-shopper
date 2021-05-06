@@ -8,6 +8,7 @@ import HomePage from '../Containers/HomePage';
 import { setToken, fetchToken } from '../store/auth/token.js';
 import { fetchCartProducts } from '../store/cart/cartProducts';
 import { fetchAuth } from '../store/auth/auth.js';
+import AuthTest from './AuthTest.jsx';
 
 const mapStateToProps = ({ auth, token, cartProducts }) => ({
   auth,
@@ -54,7 +55,7 @@ class Main extends Component {
           <Switch>
             <Route component={HomePage} path="/" exact />
             <Route component={AllProducts} path="/products" exact />
-            <Route component={UserDashboard} path="/login" exact />
+            <Route component={AuthTest} path="/login" exact />
           </Switch>
         </Router>
       </>

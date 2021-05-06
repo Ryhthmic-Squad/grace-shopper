@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchAuth } from '../store/auth/auth';
-import { setToken, fetchToken } from '../store/auth/token';
+import { fetchAuth, resetAuth } from '../store/auth/auth';
+import { setToken, fetchToken, resetToken } from '../store/auth/token';
 import { fetchCartProducts } from '../store/cart/cartProducts';
 
 const mapStateToProps = ({ auth, token, cartProducts }) => ({
@@ -14,6 +14,8 @@ const mapDispatchToProps = (dispatch) => ({
   fetchToken: (credentials) => dispatch(fetchToken(credentials)),
   setToken: (token) => dispatch(setToken(token)),
   fetchCartProducts: (token) => dispatch(fetchCartProducts(token)),
+  resetAuth: () => dispatch(resetAuth()),
+  resetToken: () => dispatch(resetToken()),
 });
 
 class AuthTest extends Component {
@@ -34,20 +36,31 @@ class AuthTest extends Component {
     console.log(token);
   };
 
+  logOut = () => {
+    const { resetAuth, resetToken } = this.props;
+    window.localStorage.removeItem('token');
+    resetAuth();
+    resetToken();
+  };
+
   render = () => {
-    const { token, cartProducts, fetchToken } = this.props;
+    const { auth, token, cartProducts, fetchToken } = this.props;
+    const { logOut } = this;
     return (
       <div>
         <h1>Auth Test</h1>
         <p>This is our token: {token}</p>
         <p>This is our cart: {JSON.stringify(cartProducts)}</p>
-        <button
-          onClick={() =>
-            fetchToken({ email: 'user@gmail.com', password: 'user_pw' })
-          }
-        >
-          Login
-        </button>
+        {!auth.email && (
+          <button
+            onClick={() =>
+              fetchToken({ email: 'user@gmail.com', password: 'user_pw' })
+            }
+          >
+            Login
+          </button>
+        )}
+        {auth.email && <button onClick={logOut}>Log Out</button>}
       </div>
     );
   };

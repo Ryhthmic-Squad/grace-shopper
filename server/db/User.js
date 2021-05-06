@@ -158,7 +158,7 @@ User.verifyByTokenIfAdmin = async function (token) {
 User.afterCreate(async (user) => {
   const cart = await Cart.create();
   await user.setCart(cart);
-  console.log(cart.userId === user.id);
+  //console.log(cart.userId === user.id);
 });
 
 module.exports = User;

@@ -13,7 +13,6 @@ export const MainNavDiv = styled.nav`
   position: -webkit-sticky;
   position: sticky;
   top: 0;
-  width: 100%;
   padding: 1.75rem;
   font-family: 'Raleway', sans-serif;
 `;

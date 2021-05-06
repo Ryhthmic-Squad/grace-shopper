@@ -12,7 +12,7 @@ class MainNav extends Component {
           placeholder="Search here..."
         />
         <Link id="logo" to="/" className="text-link">
-          A Space Apart
+          A&nbsp;Space&nbsp;Apart
         </Link>
         <Link to="/login" className="text-link">
           Login
