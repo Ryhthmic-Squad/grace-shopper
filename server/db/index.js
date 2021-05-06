@@ -27,7 +27,7 @@ Order.belongsToMany(Product, { through: OrderProduct });
 Product.belongsToMany(Order, { through: OrderProduct });
 
 //Users can only have a single cart associated with their account
-User.hasOne(Cart);
+User.hasOne(Cart, { foreignKey: 'userId' });
 Cart.belongsTo(User, { foreignKey: 'userId' });
 
 //Users can have many addresses associated with their account

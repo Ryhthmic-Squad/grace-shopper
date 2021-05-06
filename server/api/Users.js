@@ -2,11 +2,16 @@ const {
   models: { User, Cart },
 } = require('../db/index');
 const router = require('express').Router();
-const { requireToken } = require('./Utils');
+const {
+  requireCartToken,
+  requireAdminToken,
+  requireUserToken,
+} = require('./Utils');
 // add require by token middleware
 
-// GET /api/users
-router.get('/', async (req, res, next) => {
+// GET /api/users/all
+// add requireAdminToken util
+router.get('/all', requireAdminToken, async (req, res, next) => {
   try {
     res.send(await User.findAll());
   } catch (er) {
@@ -14,10 +19,12 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-// GET /api/users/:id
-router.get('/:id', async (req, res, next) => {
+// GET /api/users
+router.get('/', requireUserToken, async (req, res, next) => {
+  const { user } = req;
   try {
-    res.status(201).send(await User.findByPk(req.params.id));
+    console.log('----->GET/ api/users', user);
+    res.send(user);
   } catch (er) {
     next(er);
   }
@@ -25,9 +32,11 @@ router.get('/:id', async (req, res, next) => {
 
 // GET /api/users/:id/cart
 // retrieves a cart's associated products from database
-router.get('/:id/cart', requireToken, async (req, res, next) => {
+router.get('/:id/cart', requireCartToken, async (req, res, next) => {
+  const { cart } = req;
+  console.log('requireCartToken', cart);
   try {
-    res.send(await Cart.verifyByToken(req.user, req.params.id));
+    res.send(cart);
   } catch (er) {
     next(er);
   }
