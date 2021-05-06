@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { SingleProductCard } from '../components/styles/SingleProductCard';
 import productInventory from '../store/product/productInventory';
+import productDetail, {
+  fetchProductDetail,
+} from '../store/product/productDetail';
+import states from '../../server/db/states';
 
 class SingleProduct extends Component {
   constructor(props) {
@@ -9,20 +13,33 @@ class SingleProduct extends Component {
   }
   componentDidMount() {
     console.log('singleProduct mounted!');
+    const { getProductDetail } = this.props;
+    getProductDetail();
+    console.log(this.props);
   }
+  componentDidUpdate() {}
 
   render() {
-    console.log('single prod props is', this.props);
+    const { productDetail } = this.props;
     return (
-      <div>
-        <h3> Product Name </h3>
-        <h5> Product Description............ </h5>
-        <img display="block" width="250rem" src={product.imageURL} />
-        <h4> $100 </h4>
+      // <div>
+      //   {' '}
+      //   single product rendered
+      //   <h1>{productDetail.name}</h1>
+      // </div>
 
+      <div>
+        <h2> {productDetail.name} </h2>
+        <h5> {productDetail.description} </h5>
+        <img display="block" width="250rem" src={productDetail.imageUrl} />
+        <h4> $ {productDetail.price} </h4>
         <h6> Add to Cart </h6>
-        <button onClick={() => (product.cartId = user.cartId)}> + </button>
-        <button onClick={() => (product.cartId = null)}> - </button>
+        {productDetail.availability ? (
+          <button> Add to Cart </button>
+        ) : (
+          'Out of stock '
+        )}
+
         <hr />
         <div>Reviews below</div>
       </div>
@@ -34,22 +51,45 @@ class SingleProduct extends Component {
     );
   }
 }
-const mapStateToProps = ({ productList }) => ({
-  productList,
-});
-const mapDispatchToProps = (dispatch) => ({
-  getProducts: () => dispatch(fetchProductList()),
-});
+
+// const mapStateToProps = (state, ownProps) => {
+//   const { productDetail } = state;
+//   const {
+//     history,
+//     match: {
+//       params: { id },
+//     },
+//   } = ownProps;
+//   return { productDetail, id, history };
+// };
 
 // const mapStateToProps = (state, otherProps) => {
-//   const product = state.productList.find(
-//     (product) => product.id === props.match.params.id * 1
-//   );
-//   return {
-//     product: product,
-//   };
+//   const product = state.productList.find((product) => {
+//     product.id === props.match.params.id * 1;
+//   });
+//   return product;
 // };
+const mapStateToProps = (state, otherProps) => {
+  const { productDetail } = state;
+  // const product = state.productList.find(
+  //   (product) => product.id === props.match.params.id * 1
+  // );
+  return {
+    productDetail,
+  };
+};
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  const {
+    match: {
+      params: { id },
+    },
+  } = ownProps;
+  return {
+    getProductDetail: () => dispatch(fetchProductDetail(id)),
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleProduct);
 
-//add in 'added to cart! message
+// //add in 'added to cart! message

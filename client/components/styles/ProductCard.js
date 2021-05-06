@@ -10,12 +10,12 @@ export const ProductGrid = styled.section`
 export const ProductCard = styled.div`
   flex-grow: 1;
   flex-basis: 30%;
-  display: flex;
-  flex-direction: column;
-  border: solid;
-  border-color: black;
-  flex-wrap: wrap;
-  align-items: center;
+  a {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+  }
 `;
 //ugly borders are just here to help me visualize. i will remove :)
 

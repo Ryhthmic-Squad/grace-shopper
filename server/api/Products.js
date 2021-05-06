@@ -125,7 +125,7 @@ router.get('/Byroom/:room/:style', async (req, res, next) => {
 
 // Single product
 
-router.get('/Byid/:id', async (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
   try {
     const product = await Product.findByPk(req.params.id);
     res.status(200).send(product);

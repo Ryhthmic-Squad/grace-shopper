@@ -6,6 +6,7 @@ import { setProductPagination } from '../store/product/productPagination';
 import { setProductFilters } from '../store/product/productFilters';
 import PaginationControl from './PaginationControl';
 import FilterSortControl from './FilterSortControl';
+import SingleProduct from '../Containers/SingleProduct';
 import getProductQueries from '../components/utils/getProductQueries';
 import buildProductQuery from '../components/utils/buildProductQuery';
 import {
@@ -109,7 +110,6 @@ class AllProducts extends Component {
     const { productList } = this.props;
     return (
       <div className="allProducts">
-        <h1>All Products Page</h1>
         <PaginationControl top></PaginationControl>
         <FilterSortControl></FilterSortControl>
         <div className="allProducts">
@@ -118,18 +118,20 @@ class AllProducts extends Component {
             {this.props.productList.map((product) => {
               return (
                 <ProductCard key={product.id}>
-                  <ProductImg>
-                    <img
-                      display="block"
-                      width="150rem"
-                      src={product.imageUrl}
-                    />
-                  </ProductImg>
-                  <hr />
-                  <ProductInfo>
-                    <Link to={`/products/${product.id}`}>{product.name}</Link>
-                    <h5> ${product.price}</h5>
-                  </ProductInfo>
+                  <Link to={`/products/${product.id}`}>
+                    <ProductImg>
+                      <img
+                        display="block"
+                        width="150rem"
+                        src={product.imageUrl}
+                      />
+                    </ProductImg>
+                    <hr />
+                    <ProductInfo>
+                      <h4> {product.name} </h4>
+                      <h5> ${product.price}</h5>
+                    </ProductInfo>
+                  </Link>
                 </ProductCard>
               );
             })}

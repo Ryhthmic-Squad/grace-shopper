@@ -21,12 +21,11 @@ class Main extends Component {
         <Router>
           <MainNav />
           <Route component={HomePage} path="/" exact />
-          <div id="container">
-            {/* <Route component={MainNav} /> */}
-            <Route component={AllProducts} path="/products" exact />
-            <Route component={UserDashboard} path="/login" exact />
-            <Route component={SingleProduct} path="/products/:1" exact />
-          </div>
+
+          {/* <Route component={MainNav} /> */}
+          <Route component={AllProducts} path="/products" exact />
+          <Route component={UserDashboard} path="/login" exact />
+          <Route component={SingleProduct} path="/products/:id" exact />
         </Router>
       </>
     );
