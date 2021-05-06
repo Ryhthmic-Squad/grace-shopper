@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { fetchCartProducts } from '../cart/cartProducts';
+import { fetchCartProducts } from '../cart/cart';
 
 export const SET_TOKEN = 'SET_TOKEN';
 export const RESET_TOKEN = 'RESET_TOKEN';

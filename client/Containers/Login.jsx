@@ -16,7 +16,7 @@ class Login extends Component {
     event.preventDefault();
     const { email, password } = this.state;
 
-    this.props.signIn({
+    this.props.logIn({
       email,
       password,
     });

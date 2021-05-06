@@ -32,7 +32,7 @@ router.get('/', requireUserToken, async (req, res, next) => {
 // retrieves a cart's associated products from database
 router.get('/:id/cart', requireCartToken, async (req, res, next) => {
   const { cart } = req;
-  console.log('requireCartToken', cart);
+  // console.log('requireCartToken', cart);
   try {
     res.send(cart);
   } catch (er) {

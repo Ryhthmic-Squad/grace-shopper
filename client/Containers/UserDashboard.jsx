@@ -8,7 +8,7 @@ import {
   fetchCartProducts,
   resetCart,
   updateCartProduct,
-} from '../store/cart/cartProducts';
+} from '../store/cart/cart';
 import { resetToken, fetchToken } from '../store/auth/token';
 import { fetchAuth, resetAuth } from '../store/auth/auth';
 

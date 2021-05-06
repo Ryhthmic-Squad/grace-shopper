@@ -2,12 +2,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchAuth, resetAuth } from '../store/auth/auth';
 import { setToken, fetchToken, resetToken } from '../store/auth/token';
-import { fetchCartProducts } from '../store/cart/cartProducts';
+import { fetchCartProducts, resetCart } from '../store/cart/cart';
 
-const mapStateToProps = ({ auth, token, cartProducts }) => ({
+import Login from './Login';
+import Button from '../components/styles/Button';
+import AdminConsole from '../Containers/Admin/AdminConsole';
+
+const mapStateToProps = ({ auth, token, cart }) => ({
   auth,
   token,
-  cartProducts,
+  cart,
 });
 const mapDispatchToProps = (dispatch) => ({
   fetchAuth: (token) => dispatch(fetchAuth(token)),
@@ -16,6 +20,7 @@ const mapDispatchToProps = (dispatch) => ({
   fetchCartProducts: (token) => dispatch(fetchCartProducts(token)),
   resetAuth: () => dispatch(resetAuth()),
   resetToken: () => dispatch(resetToken()),
+  resetCart: () => dispatch(resetCart()),
 });
 
 class AuthTest extends Component {
@@ -37,30 +42,29 @@ class AuthTest extends Component {
   };
 
   logOut = () => {
-    const { resetAuth, resetToken } = this.props;
+    const { resetAuth, resetToken, resetCart } = this.props;
     window.localStorage.removeItem('token');
     resetAuth();
     resetToken();
+    resetCart();
+  };
+
+  logIn = (credentials) => {
+    const { fetchToken } = this.props;
+    fetchToken(credentials);
   };
 
   render = () => {
-    const { auth, token, cartProducts, fetchToken } = this.props;
-    const { logOut } = this;
+    const { auth } = this.props;
+    const { logOut, logIn } = this;
     return (
       <div>
-        <h1>Auth Test</h1>
+        {/* <h1>Auth Test</h1>
         <p>This is our token: {token}</p>
-        <p>This is our cart: {JSON.stringify(cartProducts)}</p>
-        {!auth.email && (
-          <button
-            onClick={() =>
-              fetchToken({ email: 'user@gmail.com', password: 'user_pw' })
-            }
-          >
-            Login
-          </button>
-        )}
-        {auth.email && <button onClick={logOut}>Log Out</button>}
+        <p>This is our cart: {JSON.stringify(cart)}</p> */}
+        {!auth.email && <Login logIn={logIn} />}
+        {auth.isAdmin && <AdminConsole />}
+        {auth.email && <Button onClick={logOut}>Log Out</Button>}
       </div>
     );
   };

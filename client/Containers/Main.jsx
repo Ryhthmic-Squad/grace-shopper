@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import UserDashboard from './UserDashboard.jsx';
 import { connect } from 'react-redux';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
-import AllProducts from './AllProducts';
-import MainNav from './MainNav';
-import HomePage from '../Containers/HomePage';
-import { setToken, fetchToken } from '../store/auth/token.js';
-import { fetchCartProducts } from '../store/cart/cartProducts';
-import { fetchAuth } from '../store/auth/auth.js';
+import AllProducts from './AllProducts.jsx';
+import MainNav from './MainNav.jsx';
+import HomePage from '../Containers/HomePage.jsx';
 import AuthTest from './AuthTest.jsx';
+import Cart from './Cart/Cart.jsx';
+
+import { setToken, fetchToken } from '../store/auth/token.js';
+import { fetchCartProducts } from '../store/cart/cart';
+import { fetchAuth } from '../store/auth/auth.js';
 
 const mapStateToProps = ({ auth, token, cartProducts }) => ({
   auth,
@@ -25,7 +27,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 class Main extends Component {
   componentDidMount = () => {
-    const { fetchToken, setToken, fetchCartProducts } = this.props;
+    const { fetchToken, setToken } = this.props;
     const token = window.localStorage.token;
     console.log(token);
     if (!token) {
@@ -56,6 +58,7 @@ class Main extends Component {
             <Route component={HomePage} path="/" exact />
             <Route component={AllProducts} path="/products" exact />
             <Route component={AuthTest} path="/login" exact />
+            <Route component={Cart} path="/cart" exact />
           </Switch>
         </Router>
       </>
