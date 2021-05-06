@@ -10,11 +10,11 @@ class Cart extends Component {
       cart: { products },
     } = this.props;
     products = products || [];
-    return !products.length
-      ? 0
-      : products.reduce(
-          (a, b) => a.cartProducts.quantity + b.cartProducts.quantity
-        );
+    if (!products.length) return 0;
+    if (products.length === 1) return products[0].cartProducts.quantity;
+    return products.reduce(
+      (a, b) => a.cartProducts.quantity + b.cartProducts.quantity
+    );
   };
 
   render() {
@@ -30,7 +30,7 @@ class Cart extends Component {
             <hr className="heavy"></hr>
             {products.length ? (
               products.map((product) => (
-                <ProductCard product={product} key={product.id} />
+                <ProductCard productId={product.id} key={product.id} />
               ))
             ) : (
               <></>

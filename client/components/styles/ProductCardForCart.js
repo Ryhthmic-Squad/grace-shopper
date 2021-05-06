@@ -13,12 +13,6 @@ export const Column = styled.div`
   align-content: flex-start;
 `;
 
-export const X = styled.a`
-  font-family: 'Raleway', sans-serif;
-  font-size: 5rem;
-  padding: 0;
-`;
-
 export const Input = styled.input`
   padding: 0.75rem;
   background: #e4e4e4;
