@@ -67,7 +67,7 @@ describe('Order and Product associations', () => {
         material: 'felt',
         color: 'red',
         imageUrl: 'test.png',
-        price: 1.11,
+        price: 1,
         description: 'product 1',
         type: 'bed',
         style: 'contemporary',
@@ -81,7 +81,7 @@ describe('Order and Product associations', () => {
         material: 'felt',
         color: 'red',
         imageUrl: 'test.png',
-        price: 2.22,
+        price: 2,
         description: 'product 2',
         type: 'bed',
         style: 'contemporary',
@@ -95,7 +95,7 @@ describe('Order and Product associations', () => {
         material: 'felt',
         color: 'red',
         imageUrl: 'test.png',
-        price: 3.33,
+        price: 3,
         description: 'product 3',
         type: 'bed',
         style: 'contemporary',
@@ -108,7 +108,9 @@ describe('Order and Product associations', () => {
   });
   test('Orders can have Products', async () => {
     try {
-      await newOrder.addProduct(products[0], { through: { quantity: 1 } });
+      await newOrder.addProduct(products[0], {
+        through: { quantity: 1, price: products[0].price },
+      });
     } catch (err) {
       console.error(err);
       expect(true).toBe(false);
@@ -118,7 +120,9 @@ describe('Order and Product associations', () => {
   });
   test('Orders note the quantity of each Product', async () => {
     try {
-      await newOrder.addProduct(products[0], { through: { quantity: 7 } });
+      await newOrder.addProduct(products[0], {
+        through: { quantity: 7, price: products[0].price },
+      });
     } catch (err) {
       console.error(err);
       expect(true).toBe(false);
