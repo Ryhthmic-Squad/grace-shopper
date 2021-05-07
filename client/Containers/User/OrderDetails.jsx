@@ -4,11 +4,11 @@ import { Row } from '../../components/styles/AdminConsole';
 import Button from '../../components/styles/Button';
 import { fetchUserOrders } from '../../store/order/orderUser';
 import axios from 'axios';
-class YourRecentOrders extends Component {
+class OrderDetails extends Component {
   constructor() {
     super();
     this.state = {
-      orderHistory: [],
+      products: [],
     };
   }
   async componentDidMount() {
@@ -20,25 +20,25 @@ class YourRecentOrders extends Component {
           authorization: token,
         },
       });
-      await fetchOrders(auth.id);
+      await fetchProducts(auth.id);
     }
     this.setState({ orderHistory: this.props.orders });
   }
 
   render() {
-    const { orderHistory } = this.state;
+    const { products } = this.state;
     return (
       <div>
         <h2>Order History</h2>
         <hr className="heavy" />
         <Row>
-          <strong>Order Id</strong>
-          <strong>Date</strong>
-          <strong>Status</strong>
+          <strong>Id</strong>
+          <strong>Products</strong>
+          <strong>QTY</strong>
           <strong>Details</strong>
         </Row>
         <Row>
-          {orderHistory.length ? (
+          {products.length ? (
             orderHistory.map((order) => (
               <Row key={order.id}>
                 <span>{order.id}</span>
@@ -46,7 +46,7 @@ class YourRecentOrders extends Component {
                 <span>{order.status}</span>
                 <Button
                   onClick={() => {
-                    window.location = `#/user/orders/${order.id}`;
+                    window.location = `#/users/orders/${order.id}`;
                   }}
                 >
                   Show Order Details
@@ -61,32 +61,29 @@ class YourRecentOrders extends Component {
             </Row>
           )}
         </Row>
+        <Button
+          onClick={() => {
+            window.location = '#/users/orders';
+          }}
+        >
+          Show All Orders
+        </Button>
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => {
-  const orders = state.orderHistory.orders
-    .sort(
-      (order1, order2) =>
-        new Date(order1.createdAt.slice(0, 10)) -
-        new Date(order2.createdAt.slice(0, 10))
-    )
-    .map((order) => {
-      return {
-        date: order.createdAt.slice(0, 10),
-        id: order.id,
-        status: order.status,
-      };
-    });
+const mapStateToProps = (state, OwnProps) => {
+  const orders = state.orderHistory.orders.find(
+    (order) => order.id === OwnProps.match.params.id
+  );
   return {
     orders,
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchOrders: (id) => dispatch(fetchUserOrders(id)),
+    fetchProducts: (id) => dispatch(fetchUserOrders(id)),
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(YourRecentOrders);
+export default connect(mapStateToProps, mapDispatchToProps)(OrderDetails);

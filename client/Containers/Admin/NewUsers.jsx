@@ -37,7 +37,7 @@ class NewUsers extends Component {
           <strong>Sign-up Date</strong>
         </Row>
         <hr />
-        <Row>
+        <ul>
           {users.length ? (
             users.map((user) => (
               <Row key={user.id}>
@@ -51,7 +51,7 @@ class NewUsers extends Component {
               <span>{'none'}</span>
             </Row>
           )}
-        </Row>
+        </ul>
         <Button
           onClick={() => {
             window.location = '#/AdminConsole/users';

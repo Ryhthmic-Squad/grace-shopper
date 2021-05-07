@@ -10,7 +10,6 @@ export const updateUser = (user) => ({
 export const updateUserData = (user) => {
   return async (dispatch) => {
     try {
-      console.log('in thunks', user);
       const data = (await axios.put(`/api/users/${user.id}`, user)).data;
       dispatch(updateUser(data));
     } catch (er) {

@@ -2,7 +2,9 @@ const path = require('path');
 const express = require('express');
 const app = express();
 const morgan = require('morgan');
-
+const stripe = require('stripe')(
+  'sk_test_51InzHlFBTivT4al2MJRUcHa2MkZhq0EijAg3UWMK6RRLwGgfXyald98EmiG9zy6FYhSH1dF5QSpYDHAh41arM9ra00ZtMATlKa'
+);
 //Body parsing middleware
 
 app.use(express.json());

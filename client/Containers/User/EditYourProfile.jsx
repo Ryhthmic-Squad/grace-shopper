@@ -4,7 +4,7 @@ import FeaturedButton from '../../components/styles/FeaturedButton';
 import { connect } from 'react-redux';
 import { updateUserData } from '../../store/user/userUpdate';
 import { fetchUserList } from '../../store/user/userList';
-
+import axios from 'axios';
 class EditYourProfile extends Component {
   state = {
     firstName: '',
@@ -15,25 +15,26 @@ class EditYourProfile extends Component {
   };
   async componentDidMount() {
     const token = window.localStorage.getItem('token');
+    let authorized;
     if (token) {
       const { data: auth } = await axios.get('/api/auth', {
         headers: {
           authorization: token,
         },
       });
-      this.setState({ auth });
+      authorized = auth;
     }
     const { fetchUsers } = this.props;
     await fetchUsers();
+    const user = this.props.users.find((user) => user.id === authorized.id);
     this.setState({
-      firstName: this.props.user.firstName,
-      lastName: this.props.user.lastName,
-      email: this.props.user.email,
-      password: this.props.user.password,
-      phoneNumber: this.props.user.phoneNumber,
-      isAdmin: this.props.user.isAdmin,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      phoneNumber: user.phoneNumber,
     });
   }
+
   onChange = ({ target: { name, value } }) => {
     this.setState({ [name]: value });
   };
@@ -41,6 +42,7 @@ class EditYourProfile extends Component {
     event.preventDefault();
     const { updateUser } = this.props;
     updateUser({ ...this.props.user, ...this.state });
+    window.location = '#/login';
   };
 
   render() {
@@ -66,12 +68,11 @@ class EditYourProfile extends Component {
     );
   }
 }
-const mapStateToProps = (state, OwnProps) => {
-  const user = state.userList.users.find(
-    (user) => user.id == OwnProps.match.params.id
-  );
+const mapStateToProps = (state) => {
+  const users = state.userList.users;
+
   return {
-    user,
+    users,
   };
 };
 const mapDispatchToProps = (dispatch) => {

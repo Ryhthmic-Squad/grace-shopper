@@ -21,7 +21,6 @@ class EditUser extends Component {
       firstName: this.props.user.firstName,
       lastName: this.props.user.lastName,
       email: this.props.user.email,
-      password: this.props.user.password,
       phoneNumber: this.props.user.phoneNumber,
       isAdmin: this.props.user.isAdmin,
     });
@@ -33,6 +32,7 @@ class EditUser extends Component {
     event.preventDefault();
     const { updateUser } = this.props;
     updateUser({ ...this.props.user, ...this.state });
+    window.location = '#/AdminConsole/users';
   };
 
   render() {
@@ -60,7 +60,12 @@ class EditUser extends Component {
           <Label>Password:</Label>
           <Input value={password} onChange={onChange} name="password" />
           <Label>isAdmin:</Label>
-          <Input value={isAdmin} onChange={onChange} name="password" />
+          <Input
+            type="slider"
+            value={isAdmin}
+            onChange={onChange}
+            name="isAdmin"
+          />
           <FeaturedButton>Submit</FeaturedButton>
         </FormGroup>
       </>

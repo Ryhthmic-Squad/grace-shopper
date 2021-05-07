@@ -12,7 +12,10 @@ import AllInventory from './Admin/AllInventory.jsx';
 import EditUser from './Admin/EditUser.jsx';
 import AddProduct from './Admin/AddProduct.jsx';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
-
+import YourRecentOrders from './User/YourRecentOrders.jsx';
+import EditYourProfile from './User/EditYourProfile.jsx';
+import OrderDetails from './User/OrderDetails.jsx';
+import YourReviews from './User/YourReviews.jsx';
 class Main extends Component {
   render() {
     return (
@@ -42,6 +45,10 @@ class Main extends Component {
               path="/AdminConsole/addproduct"
               exact
             />
+            <Route component={EditYourProfile} path="/user/profile" exact />
+            <Route component={YourRecentOrders} path="/user/orders" exact />
+            <Route component={OrderDetails} path="/user/orders/:id" exact />
+            <Route component={YourReviews} path="/user/reviews" exact />
           </Switch>
         </Router>
       </>
