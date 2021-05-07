@@ -7,7 +7,6 @@ const {
   requireAdminToken,
   requireUserToken,
 } = require('./Utils');
-// add require by token middleware
 
 // GET /api/users/all returns all users if given a valid Admin token
 router.get('/all', requireAdminToken, async (req, res, next) => {

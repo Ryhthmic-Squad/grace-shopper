@@ -25,22 +25,26 @@ router.put('/', requireCartToken, async (req, res, next) => {
   const { productId, quantity } = req.body;
   try {
     const product = await Product.findOne({ where: { id: productId } });
-    // let cartProduct = await CartProduct.findOne({
-    //   where: { cartId: cart.id, productId },
-    // });
-    // console.log('current quantity: ', cartProduct.quantity);
-    // console.log('desired quantity: ', quantity);
     await cart.removeProduct(product);
     if (quantity) {
       await cart.addProduct(product, { through: { quantity } });
     }
-    // cartProduct = await CartProduct.findOne({
-    //   where: { cartId: cart.id, productId },
-    // });
-    // console.log('new quantity: ', cartProduct.quantity);
     cart = await Cart.findByPk(cart.id, { include: Product });
     res.send(cart);
   } catch (err) {
+    next(err);
+  }
+});
+
+// PUT /api/carts/clear - remove products
+router.put('/clear', requireCartToken, async (req, res, next) => {
+  try {
+    let { cart } = req;
+    await cart.setProducts([]);
+    cart = await Cart.findByPk(cart.id);
+    res.send(cart);
+  } catch (err) {
+    console.error(err);
     next(err);
   }
 });

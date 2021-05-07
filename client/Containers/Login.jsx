@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import { FormGroup, Label, Input } from '../components/styles/Forms';
 import FeaturedButton from '../components/styles/FeaturedButton';
+import { connect } from 'react-redux';
+import { fetchToken } from '../store/auth/token';
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchToken: (credentials) => dispatch(fetchToken(credentials)),
+});
 
 class Login extends Component {
   state = {
@@ -16,10 +22,15 @@ class Login extends Component {
     event.preventDefault();
     const { email, password } = this.state;
 
-    this.props.signIn({
+    this.logIn({
       email,
       password,
     });
+  };
+
+  logIn = (credentials) => {
+    const { fetchToken } = this.props;
+    fetchToken(credentials);
   };
 
   render() {
@@ -45,4 +56,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default connect(null, mapDispatchToProps)(Login);

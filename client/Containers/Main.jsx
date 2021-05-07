@@ -1,19 +1,23 @@
 import React, { Component } from 'react';
-import UserDashboard from './UserDashboard.jsx';
 import { connect } from 'react-redux';
 import {
   HashRouter as Router,
   Route,
   Switch,
-  Link,
-  useParams,
+  Redirect,
 } from 'react-router-dom';
 import AllProducts from './AllProducts';
 import MainNav from './MainNav';
 import HomePage from '../Containers/HomePage';
 import SingleProduct from './SingleProduct';
+import HomePage from '../Containers/HomePage.jsx';
+import UserDashboard from './UserDashboard';
+import Cart from './Cart/Cart.jsx';
+import Login from './Login.jsx';
+import SignUp from './SignUp.jsx';
+
 import { setToken, fetchToken } from '../store/auth/token.js';
-import { fetchCartProducts } from '../store/cart/cartProducts';
+import { fetchCartProducts } from '../store/cart/cart';
 import { fetchAuth } from '../store/auth/auth.js';
 
 const mapStateToProps = ({ auth, token, cartProducts }) => ({
@@ -31,7 +35,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 class Main extends Component {
   componentDidMount = () => {
-    const { fetchToken, setToken, fetchCartProducts } = this.props;
+    const { fetchToken, setToken } = this.props;
     const token = window.localStorage.token;
     console.log(token);
     if (!token) {
@@ -48,23 +52,33 @@ class Main extends Component {
       fetchToken({ visitor: true });
     }
     if (prevToken !== token) {
-      fetchAuth(token); // don't want this to fire for visitors?
+      fetchAuth(token);
       fetchCartProducts(token);
     }
   };
 
   render() {
     console.log('Main', this.props);
+    const { auth } = this.props;
     return (
       <>
         <Router>
           <MainNav />
-          <Route component={HomePage} path="/" exact />
-
-          {/* <Route component={MainNav} /> */}
-          <Route component={AllProducts} path="/products" exact />
-          <Route component={UserDashboard} path="/login" exact />
-          <Route component={SingleProduct} path="/products/:id" exact />
+          <Switch>
+            <Route component={HomePage} path="/" exact />
+            <Route component={AllProducts} path="/products" exact />
+            <Route component={SingleProduct} path="/products/:id" exact />
+            <Route path="/dashboard" exact>
+              {auth.email ? <UserDashboard /> : <Redirect to="/signup" />}
+            </Route>
+            <Route path="/signup" exact>
+              {!auth.email ? <SignUp /> : <Redirect to="/dashboard" />}
+            </Route>
+            <Route path="/login" exact>
+              {!auth.email ? <Login /> : <Redirect to="/dashboard" />}
+            </Route>
+            <Route component={Cart} path="/cart" exact />
+          </Switch>
         </Router>
       </>
     );
