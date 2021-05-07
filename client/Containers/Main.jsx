@@ -37,6 +37,10 @@ const mapDispatchToProps = (dispatch) => ({
   fetchCartProducts: (token) => dispatch(fetchCartProducts(token)),
 });
 
+import YourRecentOrders from './User/YourRecentOrders.jsx';
+import EditYourProfile from './User/EditYourProfile.jsx';
+import OrderDetails from './User/OrderDetails.jsx';
+import YourReviews from './User/YourReviews.jsx';
 class Main extends Component {
   componentDidMount = () => {
     const { fetchToken, setToken, fetchCartProducts } = this.props;
@@ -67,30 +71,46 @@ class Main extends Component {
       <>
         <Router>
           <MainNav />
-          <Route component={HomePage} path="/" exact />
-          <Route component={AllProducts} path="/products" exact />
-          <Route component={UserDashboard} path="/login" exact />
 
-          <Route component={Checkout} path="/checkout" exact />
-          <Route component={AllUsers} path="/AdminConsole/users" exact />
-          <Route component={AllOrders} path="/AdminConsole/orders" exact />
           <Route
             component={AllInventory}
             path="/AdminConsole/inventory"
             exact
           />
-          <Route
-            exact
-            path="/AdminConsole/users/edit/:id"
-            component={EditUser}
-          />
+
           <Route component={AddProduct} path="/AdminConsole/addproduct" exact />
-          <Route component={HomePage} path="/" exact />
 
           {/* <Route component={MainNav} /> */}
-          <Route component={AllProducts} path="/products" exact />
-          <Route component={UserDashboard} path="/login" exact />
+
           <Route component={SingleProduct} path="/products/:id" exact />
+          <Switch>
+            <Route component={HomePage} path="/" exact />
+            <Route component={AllProducts} path="/products" exact />
+            <Route component={UserDashboard} path="/login" exact />
+
+            <Route component={Checkout} path="/checkout" exact />
+            <Route component={AllUsers} path="/AdminConsole/users" exact />
+            <Route component={AllOrders} path="/AdminConsole/orders" exact />
+            <Route
+              component={AllInventory}
+              path="/AdminConsole/inventory"
+              exact
+            />
+            <Route
+              exact
+              path="/AdminConsole/users/edit/:id"
+              component={EditUser}
+            />
+            <Route
+              component={AddProduct}
+              path="/AdminConsole/addproduct"
+              exact
+            />
+            <Route component={EditYourProfile} path="/user/profile" exact />
+            <Route component={YourRecentOrders} path="/user/orders" exact />
+            <Route component={OrderDetails} path="/user/orders/:id" exact />
+            <Route component={YourReviews} path="/user/reviews" exact />
+          </Switch>
         </Router>
       </>
     );

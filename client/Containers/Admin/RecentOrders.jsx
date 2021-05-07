@@ -47,8 +47,13 @@ class RecentOrders extends Component {
             </Row>
           )}
         </Row>
-        <Button>Show All Orders</Button>
-        <Link to={'/AdminConsole/orders'}>Show All Orders</Link>
+        <Button
+          onClick={() => {
+            window.location = '#/AdminConsole/orders';
+          }}
+        >
+          Show All Orders
+        </Button>
       </div>
     );
   }

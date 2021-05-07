@@ -28,6 +28,7 @@ class NewUsers extends Component {
         <Router>
           <Route component={AllUsers} exact path="/AdminConsole/users" />
         </Router>
+
         <h2>New Users</h2>
         <hr className="heavy" />
 
@@ -35,7 +36,8 @@ class NewUsers extends Component {
           <strong>Name</strong>
           <strong>Sign-up Date</strong>
         </Row>
-        <Row>
+        <hr />
+        <ul>
           {users.length ? (
             users.map((user) => (
               <Row key={user.id}>
@@ -49,9 +51,14 @@ class NewUsers extends Component {
               <span>{'none'}</span>
             </Row>
           )}
-        </Row>
-        <Button onClick={handleClick}>Show All Users</Button>
-        <Link to={'/AdminConsole/users'}>Show All Users</Link>
+        </ul>
+        <Button
+          onClick={() => {
+            window.location = '#/AdminConsole/users';
+          }}
+        >
+          Show All Users
+        </Button>
       </div>
     );
   }

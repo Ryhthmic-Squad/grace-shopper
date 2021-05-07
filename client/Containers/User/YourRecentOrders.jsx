@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Row } from '../../components/styles/AdminConsole';
-import { Link, HashRouter as Router, Route } from 'react-router-dom';
 import Button from '../../components/styles/Button';
 import { fetchUserOrders } from '../../store/order/orderUser';
 import axios from 'axios';
@@ -25,12 +24,8 @@ class YourRecentOrders extends Component {
     }
     this.setState({ orderHistory: this.props.orders });
   }
-  handleClick = () => {
-    let dummy;
-  };
 
   render() {
-    const { handleClick } = this;
     const { orderHistory } = this.state;
     return (
       <div>
@@ -49,7 +44,13 @@ class YourRecentOrders extends Component {
                 <span>{order.id}</span>
                 <span>{order.createdAt.slice(0, 10)}</span>
                 <span>{order.status}</span>
-                <Link to={`/users/orders/${order.id}`}>Show Order Details</Link>
+                <Button
+                  onClick={() => {
+                    window.location = `#/user/orders/${order.id}`;
+                  }}
+                >
+                  Show Order Details
+                </Button>
               </Row>
             ))
           ) : (
@@ -60,8 +61,6 @@ class YourRecentOrders extends Component {
             </Row>
           )}
         </Row>
-        <Button onClick={handleClick}>Show All Orders</Button>
-        <Link to={'/users/orders'}>Show All Orders</Link>
       </div>
     );
   }

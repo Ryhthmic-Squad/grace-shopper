@@ -2,13 +2,10 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { Row, Spacer } from '../../components/styles/AdminConsole';
-import { Link, HashRouter as Router, Route } from 'react-router-dom';
 import Button from '../../components/styles/Button';
 import { fetchUserOrders } from '../../store/order/orderUser';
 import { fetchUserReviews } from '../../store/reviews/reviewUsers';
-import YourRecentOrders from './YourRecentOrders';
-import YourReviews from './YourReviews';
-import EditYourProfile from './EditYourProfile';
+
 class UserConsole extends Component {
   constructor() {
     super();
@@ -37,74 +34,89 @@ class UserConsole extends Component {
       reviewHistory: this.props.reviews,
     });
   }
-  handleClick() {
-    let dummy;
-  }
 
   render() {
-    const { handleClick } = this;
     const { auth, orderHistory, reviewHistory } = this.state;
     return (
-      <Router>
-        <div>
-          <Route component={YourRecentOrders} exact path="/user/orders" />
-          <Route component={YourReviews} exact path="/user/reviews" />
-          <Route component={EditYourProfile} exact path="/user/edit" />
-
-          <hr className="heavy" />
-          <h2>Order History</h2>
-          <Row>
-            <strong>Order Id</strong>
-            <strong>Date</strong>
-            <strong>Status</strong>
-          </Row>
-          <Row>
-            {orderHistory.length ? (
-              orderHistory.map((order) => (
-                <Row key={order.id}>
-                  <span>{order.id}</span>
-                  <span>{order.createdAt.slice(0, 10)}</span>
-                  <span>{order.status}</span>
-                </Row>
-              ))
-            ) : (
-              <Row>
-                <span>{'none'}</span>
-                <span>{'none'}</span>
-                <span>{'none'}</span>
+      <div>
+        <Button
+          onClick={() => {
+            window.location = '#/user/profile';
+          }}
+        >
+          Edit Your Profile
+        </Button>
+        <hr className="heavy" />
+        <h2>Order History</h2>
+        <Row>
+          <strong>Order Id</strong>
+          <strong>Date</strong>
+          <strong>Status</strong>
+          <strong>Details</strong>
+        </Row>
+        <Row>
+          {orderHistory.length ? (
+            orderHistory.map((order) => (
+              <Row key={order.id}>
+                <span>{order.id}</span>
+                <span>{order.createdAt.slice(0, 10)}</span>
+                <span>{order.status}</span>
+                <Button
+                  onClick={() => {
+                    window.location = `#/user/orders/${order.id}`;
+                  }}
+                >
+                  Show Order Details
+                </Button>
               </Row>
-            )}
-          </Row>
-          <Button onClick={handleClick}>Show All Orders</Button>
-          <Link to={'/user/orders'}>Show All Orders</Link>
-          <Spacer m={4} />
-          <h2>Reviews</h2>
-          <Row>
-            <strong>Review</strong>
-            <strong>Rating</strong>
-            <strong>Date</strong>
-          </Row>
-          <Row>
-            {reviewHistory.length ? (
-              reviewHistory.map((review) => (
-                <Row key={review.id}>
-                  <span>{review.text}</span>
-                  <span>{review.rating}</span>
-                  <span>{review.createdAt.slice(0, 10)}</span>
-                </Row>
-              ))
-            ) : (
-              <Row>
-                <span>{'none'}</span>
-                <span>{'none'}</span>
-                <span>{'none'}</span>
+            ))
+          ) : (
+            <Row>
+              <span>{'none'}</span>
+              <span>{'none'}</span>
+              <span>{'none'}</span>
+            </Row>
+          )}
+        </Row>
+        <Button
+          onClick={() => {
+            window.location = '#/user/orders';
+          }}
+        >
+          Show All Orders
+        </Button>
+        <Spacer m={4} />
+        <h2>Reviews</h2>
+        <Row>
+          <strong>Review</strong>
+          <strong>Rating</strong>
+          <strong>Date</strong>
+        </Row>
+        <Row>
+          {reviewHistory.length ? (
+            reviewHistory.map((review) => (
+              <Row key={review.id}>
+                <span>{review.text}</span>
+                <span>{review.rating}</span>
+                <span>{review.createdAt.slice(0, 10)}</span>
               </Row>
-            )}
-          </Row>
-          <Button onClick={handleClick}>Show All Reviews</Button>
-          <Link to={'/user/reviews'}>Show All Reviews</Link>
-        </div>
-      </Router>
+            ))
+          ) : (
+            <Row>
+              <span>{'none'}</span>
+              <span>{'none'}</span>
+              <span>{'none'}</span>
+            </Row>
+          )}
+        </Row>
+        <Button
+          onClick={() => {
+            window.location = '#/user/reviews';
+          }}
+        >
+          Show All Reviews
+        </Button>
+      </div>
     );
   }
 }

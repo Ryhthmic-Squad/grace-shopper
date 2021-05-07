@@ -46,10 +46,20 @@ class Inventory extends Component {
             </Row>
           )}
         </Row>
-        <Button>Show Inventory</Button>
-        <Link to={'/AdminConsole/inventory'}>Show All Inventory</Link>
-        <Button>Add Product</Button>
-        <Link to={'/AdminConsole/addproduct'}>Add Product</Link>
+        <Button
+          onClick={() => {
+            window.location = '#/AdminConsole/inventory';
+          }}
+        >
+          Show Inventory
+        </Button>
+        <Button
+          onClick={() => {
+            window.location = '#/AdminConsole/addproduct';
+          }}
+        >
+          Add Product
+        </Button>
       </div>
     );
   }

@@ -42,6 +42,7 @@ class YourReviews extends Component {
           <strong>Rating</strong>
           <strong>Date</strong>
         </Row>
+        <hr className="heavy" />
         <Row>
           {reviewHistory.length ? (
             reviewHistory.map((review) => (
@@ -49,6 +50,13 @@ class YourReviews extends Component {
                 <span>{review.text}</span>
                 <span>{review.rating}</span>
                 <span>{review.createdAt.slice(0, 10)}</span>
+                <Button
+                  onClick={() => {
+                    window.location = `#/products/${review.productId}`;
+                  }}
+                >
+                  Show All Reviews
+                </Button>
               </Row>
             ))
           ) : (
