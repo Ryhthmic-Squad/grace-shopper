@@ -18,7 +18,7 @@ const ProductCard = ({ cartProduct, updateCartProduct }) => {
       <ProductCardForCart>
         <Column>
           <h3>{name}</h3>
-          <img src={imageUrl} width="250rem" overflow="hidden" />
+          <img src={imageUrl} width="200rem" overflow="hidden" />
         </Column>
         <Column>
           <div>

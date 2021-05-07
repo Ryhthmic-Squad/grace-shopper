@@ -12,14 +12,12 @@ export const setCartProducts = (cartProducts) => ({
   cartProducts,
 });
 
-// How to deal with low-inventory
-
 // fetchCartProducts is a thunk that needs a userId to get all products associated with a cart.
 export const fetchCartProducts = () => {
   return async (dispatch, getState) => {
     try {
       const { token } = getState();
-      console.log('FROM: fetchCartProducts', token);
+      //console.log('FROM: fetchCartProducts', token);
       const { data: cartProducts } = await axios.get(`/api/carts`, {
         headers: {
           authorization: token,
