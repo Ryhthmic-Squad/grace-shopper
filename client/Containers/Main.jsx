@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
 import UserDashboard from './UserDashboard.jsx';
 import { connect } from 'react-redux';
-import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+import {
+  HashRouter as Router,
+  Route,
+  Switch,
+  Link,
+  useParams,
+} from 'react-router-dom';
 import AllProducts from './AllProducts';
 import MainNav from './MainNav';
 import HomePage from '../Containers/HomePage';
+import SingleProduct from './SingleProduct';
 import { setToken, fetchToken } from '../store/auth/token.js';
 import { fetchCartProducts } from '../store/cart/cartProducts';
 import { fetchAuth } from '../store/auth/auth.js';
@@ -47,15 +54,17 @@ class Main extends Component {
   };
 
   render() {
+    console.log('Main', this.props);
     return (
       <>
         <Router>
           <MainNav />
-          <Switch>
-            <Route component={HomePage} path="/" exact />
-            <Route component={AllProducts} path="/products" exact />
-            <Route component={UserDashboard} path="/login" exact />
-          </Switch>
+          <Route component={HomePage} path="/" exact />
+
+          {/* <Route component={MainNav} /> */}
+          <Route component={AllProducts} path="/products" exact />
+          <Route component={UserDashboard} path="/login" exact />
+          <Route component={SingleProduct} path="/products/:id" exact />
         </Router>
       </>
     );
