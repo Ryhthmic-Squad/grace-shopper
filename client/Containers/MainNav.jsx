@@ -29,11 +29,6 @@ class MainNav extends Component {
     const { auth } = this.props;
     return (
       <MainNavDiv className="main-nav">
-        <input
-          type="text"
-          className="search-input"
-          placeholder="Search here..."
-        />
         <Link id="logo" to="/" className="text-link">
           A&nbsp;Space&nbsp;Apart
         </Link>

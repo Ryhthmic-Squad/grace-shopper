@@ -40,10 +40,10 @@ const FilterSortBar = styled.div`
   flex-flow: row wrap;
   justify-content: center;
   align-items: center;
-  background: lightseagreen;
   width: calc(100% - 0.5rem);
-  color: white;
-  padding: 0 0.5rem 0.5rem 0;
+  background-color: #ffda08;
+  color: black;
+  padding: 0.5rem;
 `;
 
 const AllFilterContainer = styled.div`
@@ -100,7 +100,7 @@ const FilterSortControl = () => {
   return (
     <FilterSortBar>
       <FilterContainer>
-        <FilterLabel>SORT</FilterLabel>
+        <FilterLabel>Sort</FilterLabel>
         <FilterSelect
           value={productPagination.sort}
           onChange={(ev) => paginate({ page: 1, sort: ev.target.value })}
@@ -112,7 +112,7 @@ const FilterSortControl = () => {
         </FilterSelect>
       </FilterContainer>
       <FilterContainer>
-        <FilterLabel>SIZE</FilterLabel>
+        <FilterLabel>Size</FilterLabel>
         <FilterSelect
           value={productPagination.size}
           onChange={(ev) => paginate({ page: 1, size: ev.target.value * 1 })}
@@ -126,7 +126,7 @@ const FilterSortControl = () => {
       <AllFilterContainer>
         {[
           [
-            'room',
+            'Room',
             [
               ['bedroom', 'Bedroom'],
               ['living', 'Living'],
@@ -136,7 +136,7 @@ const FilterSortControl = () => {
             ],
           ],
           [
-            'style',
+            'Style',
             [
               ['contemporary', 'Contemporary'],
               ['modern', 'Modern'],
@@ -145,7 +145,7 @@ const FilterSortControl = () => {
             ],
           ],
           [
-            'type',
+            'Type',
             [
               ['bed', 'Beds'],
               ['dresser', 'Dressers'],
@@ -157,7 +157,7 @@ const FilterSortControl = () => {
           const [selectLabel, options] = val;
           return (
             <FilterContainer key={idx}>
-              <FilterLabel>{selectLabel.toUpperCase()}</FilterLabel>
+              <FilterLabel>{selectLabel}</FilterLabel>
               <FilterSelect
                 value={productFilters[selectLabel]}
                 onChange={(ev) => filter({ [selectLabel]: ev.target.value })}

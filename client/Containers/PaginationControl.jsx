@@ -33,9 +33,7 @@ import { fetchProductList } from '../store/product/productList';
 const PaginationBar = styled.div`
   display: flex;
   justify-content: space-between;
-  background: black;
   width: calc(100%);
-  border-radius: ${(props) => (props.top ? '0.5rem 0.5rem 0 0' : '0.5rem')};
 `;
 
 const PageOptionContainer = styled.div`
@@ -45,7 +43,7 @@ const PageOptionContainer = styled.div`
 const PageOption = styled.div`
   padding: 1em;
   color: ${(props) =>
-    props.operable ? 'white' : props.current ? '#ffda08' : 'gray'};
+    props.operable ? 'black' : props.current ? '#ffda08' : 'gray'};
   cursor: ${(props) => (props.operable ? 'pointer' : 'default')};
 `;
 

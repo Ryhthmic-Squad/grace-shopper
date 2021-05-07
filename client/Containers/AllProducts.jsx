@@ -134,6 +134,7 @@ class AllProducts extends Component {
             })}
           </ProductGrid>
         </div>
+        <hr />
         <PaginationControl></PaginationControl>
       </div>
     );
