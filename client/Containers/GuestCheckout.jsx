@@ -32,7 +32,7 @@ class GuestCheckout extends Component {
     try {
       await axios.post(
         '/api/users',
-        { firstName, lastName, email, phoneNumber, password: 'guest' },
+        { firstName, lastName, email, phoneNumber },
         { headers: { authorization: token } }
       );
     } catch (err) {

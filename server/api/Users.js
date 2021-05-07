@@ -74,13 +74,13 @@ router.post('/', requireCartToken, async (req, res, next) => {
       phoneNumber,
       password,
     };
-    console.log(1);
+    // console.log(1);
     console.log(email, firstName, lastName, phoneNumber, password);
     let user = await User.create(newUserDetails);
-    console.log(2);
+    // console.log(2);
     await user.setCart(cart);
-    console.log(3);
-    if (password && password !== 'guest') {
+    // console.log(3);
+    if (password) {
       await user.update({ password });
     }
     user = await User.findByPk(user.id, {
