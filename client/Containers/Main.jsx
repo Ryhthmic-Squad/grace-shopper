@@ -59,13 +59,12 @@ class Main extends Component {
       <>
         <Router>
           <MainNav />
-          <Switch>
-            <Route component={HomePage} path="/" exact />
+          <Route component={HomePage} path="/" exact />
 
-            <Route component={AllProducts} path="/products" exact />
-            <Route component={UserDashboard} path="/login" exact />
-            <Route component={SingleProduct} path="/products/:id" exact />
-          </Switch>
+          {/* <Route component={MainNav} /> */}
+          <Route component={AllProducts} path="/products" exact />
+          <Route component={UserDashboard} path="/login" exact />
+          <Route component={SingleProduct} path="/products/:id" exact />
         </Router>
       </>
     );
