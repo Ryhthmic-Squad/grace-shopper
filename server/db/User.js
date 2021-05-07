@@ -135,6 +135,7 @@ User.verifyByTokenIfAdmin = async function (token) {
     const user = await User.findByPk(userId, {
       attributes: { exclude: ['password'] },
     });
+
     if (user.isAdmin) {
       return user;
     }

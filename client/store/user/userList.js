@@ -10,7 +10,7 @@ export const setUserList = (userList) => ({
 export const fetchUserList = () => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.get('/api/users');
+      const { data } = await axios.get('/api/users/all');
       dispatch(setUserList(data));
     } catch (er) {
       console.log(er);

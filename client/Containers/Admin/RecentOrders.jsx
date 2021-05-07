@@ -67,11 +67,11 @@ const mapStateToProps = (state) => {
         new Date(user2.createdAt.slice(0, 10))
     )
     .map((order) => {
-      const user = state.users.find((user) => order.userId === user.id);
+      const user = state.userList.users.find((user) => order.userId == user.id);
       return {
         date: order.createdAt.slice(0, 10),
         id: order.id,
-        name: `${user.fullName}`,
+        name: user.fullName,
       };
     });
   if (orders.length > 3) orders.slice(2);

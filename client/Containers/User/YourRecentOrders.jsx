@@ -22,6 +22,7 @@ class YourRecentOrders extends Component {
       });
       await fetchOrders(auth.id);
     }
+    console.log('this props orders', this.props.orders);
     this.setState({ orderHistory: this.props.orders });
   }
 
