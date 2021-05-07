@@ -71,10 +71,9 @@ router.post('/', requireCartToken, async (req, res, next) => {
     const newUserDetails = { email, firstName, lastName, phoneNumber };
     newUserDetails.cartId = cart.id;
     let user = await User.create(newUserDetails);
+    await user.setCart(cart);
     if (password) {
-      console.log('setting password');
       await user.update({ password });
-      console.log('password set!');
     }
     user = await User.findByPk(user.id, {
       attributes: { exclude: ['password'] },

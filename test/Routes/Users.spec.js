@@ -81,9 +81,12 @@ describe('POST /api/users', () => {
       .post('/api/users')
       .send(newUser)
       .set('authorization', cartToken);
+    const cartAfterUserCreate = await Cart.findOne({
+      where: { id: newCart.id },
+    });
     expect(response.status).toBe(200);
     expect(response.body.fullName).toBe('Test Name');
-    expect(response.body.password).toBeUndefined();
+    expect(response.body.id).toBe(cartAfterUserCreate.userId);
   });
   test('creates a new user with an optional password', async () => {
     await User.destroy({ where: { email: 'test@gmail.com' } });
