@@ -152,7 +152,6 @@ User.verifyByTokenIfAdmin = async function (token) {
 User.afterCreate(async (user) => {
   const [cart] = await Cart.findOrCreate({ where: { userId: user.id } });
   await user.setCart(cart);
-  // console.log(cart.userId === user.id);
 });
 
 module.exports = User;

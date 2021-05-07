@@ -38,7 +38,7 @@ const syncAndSeed = async () => {
             depth: product.depth,
             material: product.material,
             color: product.color,
-            imageUrl: product.imagerUrl,
+            imageUrl: product.imageUrl,
             price: product.price,
             description: faker.lorem.paragraphs(3),
             type: product.type,

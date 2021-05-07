@@ -12,14 +12,12 @@ export const setCartProducts = (cartProducts) => ({
   cartProducts,
 });
 
-// How to deal with low-inventory
-
 // fetchCartProducts is a thunk that needs a userId to get all products associated with a cart.
 export const fetchCartProducts = () => {
   return async (dispatch, getState) => {
     try {
       const { token } = getState();
-      console.log('FROM: fetchCartProducts', token);
+      //console.log('FROM: fetchCartProducts', token);
       const { data: cartProducts } = await axios.get(`/api/carts`, {
         headers: {
           authorization: token,
@@ -44,10 +42,6 @@ export const updateCartProduct = ({ productId, quantity }) => {
           headers: {
             authorization: token,
           },
-          // body: {
-          //   productId,
-          //   quantity,
-          // },
         }
       );
       dispatch(setCartProducts(cartProducts));
@@ -63,8 +57,21 @@ export const resetCartProducts = () => ({
 });
 
 export const resetCart = () => {
-  return (dispatch) => {
-    dispatch(resetCartProducts());
+  return async (dispatch, getState) => {
+    const { token } = getState();
+    try {
+      const response = await axios.put('/api/carts/clear', null, {
+        headers: {
+          authorization: token,
+        },
+      });
+      console.log(response.data);
+      if (response.status === 200) {
+        dispatch(resetCartProducts());
+      }
+    } catch (err) {
+      console.error(err);
+    }
   };
 };
 
@@ -72,22 +79,6 @@ export const addProduct = (products) => ({
   type: ADD_PRODUCT,
   cartProducts: [...products],
 });
-
-// export const addProductAndCheckQty = async (id, qty) => {
-//   //logic
-//   try {
-//     const { data: selectedProduct } = await axios.get(
-//       `/api/products/Byid/${id}`
-//     );
-//     // send message on low inventory - will be done in component, different reducer file
-//     if (qty < selectedProduct.inventory)
-//       return (dispatch) => {
-//         dispatch(addProduct(product));
-//       };
-//   } catch (err) {
-//     console.error;
-//   }
-// };
 
 const initialState = [];
 

@@ -31,7 +31,8 @@ const GlobalStyle = createGlobalStyle`
   #showcase {
     background-image: url('landingPage.jpg');
     background-size: cover;
-    background-position: center;
+    background-position: -webkit-sticky;
+    background-position: sticky;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -51,6 +52,7 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Raleway', sans-serif;
     font-size: 2rem;
     padding: 0 15rem;
+    align-text: center;
   }
   main-nav > * {
    align-text: baseline;
