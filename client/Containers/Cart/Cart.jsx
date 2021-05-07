@@ -17,7 +17,6 @@ class Cart extends Component {
     } = this.props;
     cartProducts = cartProducts || [];
     if (!cartProducts.length) return 0;
-    if (cartProducts.length === 1) return cartProducts[0].quantity;
     return cartProducts.reduce((accum, item) => accum + item.quantity, 0);
   };
 
