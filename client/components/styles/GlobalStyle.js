@@ -51,7 +51,8 @@ const GlobalStyle = createGlobalStyle`
   #logo {
     font-family: 'Raleway', sans-serif;
     font-size: 2rem;
-    padding: 0 10rem;
+    padding: 0 15rem;
+    align-text: center;
   }
   main-nav > * {
    align-text: baseline;

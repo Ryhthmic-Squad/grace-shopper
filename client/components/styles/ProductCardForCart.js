@@ -5,12 +5,18 @@ export const ProductCardForCart = styled.div`
   justify-content: space-between;
   padding: 1rem 0;
   align-content: flex-start;
+  height: 15rem;
 `;
 
 export const Column = styled.div`
   display: flex;
   flex-direction: column;
   align-content: flex-start;
+  justify-content: space-between;
+  * {
+    display: flex;
+    flex-direction: row;
+  }
 `;
 
 export const Input = styled.input`

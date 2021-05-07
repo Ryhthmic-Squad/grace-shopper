@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const MainNavDiv = styled.nav`
   display: flex;
   justify-content: space-between;
+  justify-content: center;
   font-size: 1rem;
   font-weight: bold;
   line-height: 1;

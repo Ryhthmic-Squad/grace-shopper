@@ -5,6 +5,7 @@ import {
   Column,
 } from '../../components/styles/ProductCardForCart';
 import DeleteButton from '../../components/styles/DeleteButton';
+import IncrementButton from '../../components/styles/IncrementButton';
 import { updateCartProduct } from '../../store/cart/cart';
 
 const ProductCard = ({ product, updateCartProduct }) => {
@@ -17,9 +18,8 @@ const ProductCard = ({ product, updateCartProduct }) => {
           <img src={product.imageUrl} width="250rem" overflow="hidden" />
         </Column>
         <Column>
-          <p>{product.cartProducts.quantity}</p>
-          <span>
-            <button
+          <div>
+            <IncrementButton
               onClick={() => {
                 updateCartProduct({
                   productId: product.id,
@@ -28,8 +28,9 @@ const ProductCard = ({ product, updateCartProduct }) => {
               }}
             >
               +
-            </button>
-            <button
+            </IncrementButton>
+            <p>{product.cartProducts.quantity}</p>
+            <IncrementButton
               onClick={() => {
                 updateCartProduct({
                   productId: product.id,
@@ -38,8 +39,8 @@ const ProductCard = ({ product, updateCartProduct }) => {
               }}
             >
               -
-            </button>
-          </span>
+            </IncrementButton>
+          </div>
         </Column>
         <p>${product.price}</p>
         <Column>

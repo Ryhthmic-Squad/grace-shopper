@@ -42,7 +42,7 @@ class MainNav extends Component {
             Sign&nbsp;In
           </Link>
         )}
-        {auth.isAdmin && <Admin>Admin</Admin>}
+        {auth.isAdmin && <Admin>Admin</Admin>}&nbsp;&nbsp;&nbsp;
         {auth.email && (
           <Link to="/" className="text-link" onClick={this.logOut}>
             Sign&nbsp;Out
@@ -51,6 +51,7 @@ class MainNav extends Component {
         {
           //the above will lead to the user dashboard login component(welcome back! or im new here!)
         }
+        &nbsp;&nbsp;&nbsp;
         <Link to="/cart" className="text-link">
           Cart
         </Link>
