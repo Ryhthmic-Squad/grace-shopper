@@ -24,6 +24,8 @@ app.use('/api/orders', require('./api/Orders'));
 app.use('/api/users', require('./api/Users'));
 app.use('/api/auth', require('./api/Auth'));
 app.use('/create-checkout-session', require('./api/Stripe'));
+app.use('/api/carts', require('./api/Carts'));
+
 // Error hander
 
 app.use((er, req, res, next) => {

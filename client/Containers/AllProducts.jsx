@@ -6,9 +6,15 @@ import { setProductPagination } from '../store/product/productPagination';
 import { setProductFilters } from '../store/product/productFilters';
 import PaginationControl from './PaginationControl';
 import FilterSortControl from './FilterSortControl';
+import SingleProduct from '../Containers/SingleProduct';
 import getProductQueries from '../components/utils/getProductQueries';
 import buildProductQuery from '../components/utils/buildProductQuery';
-
+import {
+  ProductCard,
+  ProductGrid,
+  ProductInfo,
+  ProductImg,
+} from '../components/styles/ProductCard';
 const mapStateToProps = (
   { productList, productPagination, productFilters },
   { location }
@@ -30,9 +36,6 @@ class AllProducts extends Component {
     super(props);
   }
   componentDidMount() {
-    // console.log('AllProducts component mounted!');
-    // console.log('props is', this.props);
-    // console.log('state is', this.state);
     const {
       productPagination,
       setPagination,
@@ -104,24 +107,33 @@ class AllProducts extends Component {
     const { productList } = this.props;
     return (
       <div className="allProducts">
-        <h1>All Products Page</h1>
         <PaginationControl top></PaginationControl>
         <FilterSortControl></FilterSortControl>
-        <ul>
-          {productList.map((product) => {
-            return (
-              <li key={product.id}>
-                <Link to={`products/${product.id}`}>{product.name}</Link>
-                <img
-                  className="image"
-                  height="100"
-                  width="100"
-                  src={product.imageURL}
-                ></img>
-              </li>
-            );
-          })}
-        </ul>
+        <div className="allProducts">
+          <h1>All Furniture </h1>
+          <ProductGrid>
+            {this.props.productList.map((product) => {
+              return (
+                <ProductCard key={product.id}>
+                  <Link to={`/products/${product.id}`}>
+                    <ProductImg>
+                      <img
+                        display="block"
+                        width="150rem"
+                        src={product.imageUrl}
+                      />
+                    </ProductImg>
+                    <hr />
+                    <ProductInfo>
+                      <h4> {product.name} </h4>
+                      <h5> ${product.price}</h5>
+                    </ProductInfo>
+                  </Link>
+                </ProductCard>
+              );
+            })}
+          </ProductGrid>
+        </div>
         <PaginationControl></PaginationControl>
       </div>
     );

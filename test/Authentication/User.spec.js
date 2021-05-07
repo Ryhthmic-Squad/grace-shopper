@@ -1,20 +1,19 @@
 const { test } = require('@jest/globals');
 const jwt = require('jsonwebtoken');
 const {
-  models: { User },
+  models: { User, Cart },
 } = require('../../server/db/index');
 
 let userLogin;
 beforeEach(async () => {
   // Create and save an example user before each test.
-  userLogin = new User({
+  userLogin = await User.create({
     email: 'test@email.com',
     password: '1234',
     phoneNumber: '1234567890',
     firstName: 'Jane',
     lastName: 'Doe',
   });
-  await userLogin.save();
 });
 afterEach(async () => {
   // Delete the example user after each test to avoid unique constraint errors.
@@ -60,7 +59,11 @@ describe('Class Method: User.authentication', () => {
 describe('Class Method: User.verifyByToken', () => {
   describe('with a valid token', () => {
     test('returns a user', async () => {
-      const token = await jwt.sign({ id: userLogin.id }, process.env.JWT);
+      const {
+        id: userId,
+        cart: { id: cartId },
+      } = await User.findByPk(userLogin.id, { include: Cart });
+      const token = await jwt.sign({ userId, cartId }, process.env.JWT);
       const user = await User.verifyByToken(token);
       expect(user.fullName).toBe(userLogin.fullName);
     });
@@ -70,6 +73,7 @@ describe('Class Method: User.verifyByToken', () => {
     test('throws a 401', async () => {
       try {
         const token = await jwt.sign({ id: userLogin.id }, 'randomToken');
+
         await User.verifyByToken(token);
         throw 'invalid token';
       } catch (er) {

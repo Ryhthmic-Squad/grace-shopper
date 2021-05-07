@@ -2,7 +2,9 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const { DataTypes, Model } = require('sequelize');
 const db = require('./db');
+const Cart = require('./Cart');
 
+// allow null email & password?
 class User extends Model {}
 User.init(
   {
@@ -74,25 +76,42 @@ User.addHook('beforeSave', async function (user) {
 });
 
 // generates token for user & adds signature on the backend
-User.authentication = async function ({ email, password }) {
-  // console.log('-----> User.authentication, CREDENTIALS', email, password);
-  const user = await User.findOne({ where: { email } });
-  // console.log('-----> User.authentication, USER', user);
-  if (user && (await bcrypt.compare(password, user.password))) {
-    const token = jwt.sign({ id: user.id }, process.env.JWT);
-    // console.log('-----> User.authentication: token', token);
-    return token;
+User.authentication = async function ({ email, password, visitor }) {
+  if (visitor) {
+    const cart = await Cart.create();
+    const guestToken = jwt.sign({ cartId: cart.id }, process.env.JWT);
+    return guestToken;
   }
-  const error = Error('bad credentials');
-  error.status = 401;
-  throw error;
+  const user = await User.findOne({
+    where: { email },
+    include: Cart,
+  });
+  if (user) {
+    const passwordCheck = await bcrypt.compare(password, user.password);
+    if (passwordCheck) {
+      //get cart id via sequelize since user properties does not include cartId
+      const { cart } = user;
+      const token = jwt.sign(
+        { userId: user.id, cartId: cart.id },
+        process.env.JWT
+      );
+      return token;
+    } else {
+      const error = Error('bad credentials');
+      error.status = 401;
+      throw error;
+    }
+  } else {
+  }
 };
 
 // Verifies user
 User.verifyByToken = async function (token) {
   try {
-    const { id } = jwt.verify(token, process.env.JWT);
-    const user = await User.findByPk(id);
+    const { userId } = jwt.verify(token, process.env.JWT);
+    const user = await User.findByPk(userId, {
+      attributes: { exclude: ['password'] },
+    });
     // check if user exists
     if (user) {
       return user;
@@ -108,5 +127,31 @@ User.verifyByToken = async function (token) {
     throw error;
   }
 };
+
+// Verifies user
+User.verifyByTokenIfAdmin = async function (token) {
+  try {
+    const { userId } = jwt.verify(token, process.env.JWT);
+    const user = await User.findByPk(userId, {
+      attributes: { exclude: ['password'] },
+    });
+    if (user.isAdmin) {
+      return user;
+    }
+    const error = Error('unauthorized for admin privileges');
+    error.status = 401;
+    throw error;
+  } catch (ex) {
+    const error = Error('bad credentials');
+    error.status = 401;
+    throw error;
+  }
+};
+
+User.afterCreate(async (user) => {
+  const [cart] = await Cart.findOrCreate({ where: { userId: user.id } });
+  await user.setCart(cart);
+  // console.log(cart.userId === user.id);
+});
 
 module.exports = User;

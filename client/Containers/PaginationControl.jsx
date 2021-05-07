@@ -56,9 +56,7 @@ const PaginationControl = ({ top }) => {
       productPagination,
     })
   );
-  const dispatch = useDispatch();
   const history = useHistory();
-  const getProducts = (query) => dispatch(fetchProductList(query));
   const paginate = (options) => {
     // options: { page?: INT, size?: INT, sort?: STRING }
     for (const key in productPagination) {
@@ -66,11 +64,9 @@ const PaginationControl = ({ top }) => {
     }
     const query = buildProductQuery({ productFilters, productPagination });
     history.push(`/products${query}`);
-    getProducts(query);
   };
 
-  const { maxPage, page, size, sort } = productPagination;
-  const [sortBy, sortDirection] = sort.split(',');
+  const { maxPage, page } = productPagination;
   return (
     <PaginationBar top={top}>
       <PageOptionContainer>
@@ -92,10 +88,16 @@ const PaginationControl = ({ top }) => {
         </PageOption>
       </PageOptionContainer>
       <PageOptionContainer>
-        {Array(maxPage)
+        {/* Figure out how to limit this to just 10 closest pages */}
+        {Array(Math.min(9, maxPage))
           .fill('')
           .map((val, idx) => {
-            const pageOption = idx + 1;
+            const pageOption =
+              page <= 5
+                ? idx + 1
+                : page > maxPage - 5
+                ? idx + maxPage - 8
+                : idx + page - 4;
             const currPageCheck = page !== pageOption;
             return (
               <PageOption
