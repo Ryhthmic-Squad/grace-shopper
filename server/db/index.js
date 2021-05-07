@@ -37,6 +37,10 @@ Address.belongsTo(User);
 // CartProduct is a connection table that connects a product to an order and keeps a quantity:
 Cart.belongsToMany(Product, { through: CartProduct });
 Product.belongsToMany(Cart, { through: CartProduct });
+Cart.hasMany(CartProduct);
+CartProduct.belongsTo(Cart);
+Product.hasMany(CartProduct);
+CartProduct.belongsTo(Product);
 
 // Users can have many reviews, and products can have many reviews
 User.hasMany(Review);

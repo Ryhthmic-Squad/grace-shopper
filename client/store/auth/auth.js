@@ -37,6 +37,7 @@ export default (state = initialState, action) => {
   if (type === SET_AUTH) return auth;
   if (type === RESET_AUTH) {
     console.log('-----> Auth reducer', auth);
+    return auth;
   }
   return state;
 };
