@@ -8,33 +8,36 @@ import DeleteButton from '../../components/styles/DeleteButton';
 import IncrementButton from '../../components/styles/IncrementButton';
 import { updateCartProduct } from '../../store/cart/cart';
 
-const ProductCard = ({ product, updateCartProduct }) => {
-  const totalPriceOfItem = product.cartProducts.quantity * product.price;
+const ProductCard = ({ cartProduct, updateCartProduct }) => {
+  console.log(cartProduct);
+  const { quantity, product, productId } = cartProduct;
+  const { price, name, imageUrl } = product;
+  const totalPriceOfItem = quantity * price;
   return (
     <>
       <ProductCardForCart>
         <Column>
-          <h3>{product.name}</h3>
-          <img src={product.imageUrl} width="250rem" overflow="hidden" />
+          <h3>{name}</h3>
+          <img src={imageUrl} width="250rem" overflow="hidden" />
         </Column>
         <Column>
           <div>
             <IncrementButton
               onClick={() => {
                 updateCartProduct({
-                  productId: product.id,
-                  quantity: product.cartProducts.quantity + 1,
+                  productId,
+                  quantity: quantity + 1,
                 });
               }}
             >
               +
             </IncrementButton>
-            <p>{product.cartProducts.quantity}</p>
+            <p>{quantity}</p>
             <IncrementButton
               onClick={() => {
                 updateCartProduct({
-                  productId: product.id,
-                  quantity: product.cartProducts.quantity - 1,
+                  productId,
+                  quantity: quantity - 1,
                 });
               }}
             >
@@ -42,13 +45,13 @@ const ProductCard = ({ product, updateCartProduct }) => {
             </IncrementButton>
           </div>
         </Column>
-        <p>${product.price}</p>
+        <p>${price}</p>
         <Column>
           <h2>${totalPriceOfItem}</h2>
           <DeleteButton
             onClick={() =>
               updateCartProduct({
-                productId: product.id,
+                productId,
                 quantity: 0,
               })
             }
@@ -62,13 +65,9 @@ const ProductCard = ({ product, updateCartProduct }) => {
   );
 };
 
-const mapStateToProps = (state, otherProps) => {
-  return {
-    product: state.cart.products.find(
-      (product) => product.id === otherProps.productId
-    ),
-  };
-};
+const mapStateToProps = (state, { cartProduct }) => ({
+  cartProduct,
+});
 
 const mapDispatchToProps = (dispatch) => {
   return {

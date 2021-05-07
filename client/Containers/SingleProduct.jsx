@@ -5,12 +5,8 @@ import {
   ProductCard,
 } from '../components/styles/SingleProductPage';
 import Button from '../components/styles/Button';
-import productInventory from '../store/product/productInventory';
-import productDetail, {
-  fetchProductDetail,
-} from '../store/product/productDetail';
-import states from '../../server/db/states';
-import { updateCartProduct } from '../store/cart/cartProducts';
+import { fetchProductDetail } from '../store/product/productDetail';
+import { updateCartProduct } from '../store/cart/cart';
 
 class SingleProduct extends Component {
   constructor(props) {

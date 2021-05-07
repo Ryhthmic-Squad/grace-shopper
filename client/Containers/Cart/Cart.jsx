@@ -13,36 +13,37 @@ const mapStateToProps = (state) => {
 class Cart extends Component {
   itemCount = () => {
     let {
-      cart: { products },
+      cart: { cartProducts },
     } = this.props;
-    products = products || [];
-    if (!products.length) return 0;
-    if (products.length === 1) return products[0].cartProducts.quantity;
-    return products.reduce(
-      (a, b) => a.cartProducts.quantity + b.cartProducts.quantity
-    );
+    cartProducts = cartProducts || [];
+    if (!cartProducts.length) return 0;
+    if (cartProducts.length === 1) return cartProducts[0].quantity;
+    return cartProducts.reduce((accum, item) => accum + item.quantity, 0);
   };
 
   render() {
     const { cart } = this.props;
     const { itemCount } = this;
-    let { products } = cart;
-    products = products || [];
+    let { cartProducts } = cart;
+    cartProducts = cartProducts || [];
     return (
       <>
         <Row id="cart">
           <Child>
             <h1>Cart: ({`${itemCount()}`})</h1>
             <hr className="heavy"></hr>
-            {products.length ? (
-              products.map((product) => (
-                <ProductCard productId={product.id} key={product.id} />
+            {cartProducts.length ? (
+              cartProducts.map((cartProduct) => (
+                <ProductCard
+                  cartProduct={cartProduct}
+                  key={cartProduct.productId}
+                />
               ))
             ) : (
               <></>
             )}
           </Child>
-          <Summary products={products} />
+          <Summary cartProducts={cartProducts} />
         </Row>
       </>
     );

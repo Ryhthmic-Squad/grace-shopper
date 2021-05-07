@@ -7,11 +7,10 @@ import {
   Redirect,
 } from 'react-router-dom';
 import AllProducts from './AllProducts';
-import MainNav from './MainNav';
-import HomePage from '../Containers/HomePage';
-import SingleProduct from './SingleProduct';
+import MainNav from './MainNav.jsx';
+import SingleProduct from './SingleProduct.jsx';
 import HomePage from '../Containers/HomePage.jsx';
-import UserDashboard from './UserDashboard';
+import UserDashboard from './UserDashboard.jsx';
 import Cart from './Cart/Cart.jsx';
 import Login from './Login.jsx';
 import SignUp from './SignUp.jsx';
@@ -20,10 +19,10 @@ import { setToken, fetchToken } from '../store/auth/token.js';
 import { fetchCartProducts } from '../store/cart/cart';
 import { fetchAuth } from '../store/auth/auth.js';
 
-const mapStateToProps = ({ auth, token, cartProducts }) => ({
+const mapStateToProps = ({ auth, token, cart }) => ({
   auth,
   token,
-  cartProducts,
+  cart,
 });
 
 const mapDispatchToProps = (dispatch) => ({

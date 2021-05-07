@@ -18,16 +18,14 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 const Summary = ({ cart, resetCart }) => {
-  let { products } = cart;
-  products = products || [];
+  let { cartProducts } = cart;
+  cartProducts = cartProducts || [];
 
   const orderTotal = () => {
-    if (!products.length) return 0;
-    if (products.length === 1)
-      return products[0].cartProducts.quantity * products[0].price;
-    return products.reduce(
-      (a, b) =>
-        a.cartProducts.quantity * a.price + b.cartProducts.quantity * b.price
+    if (!cartProducts.length) return 0;
+    return cartProducts.reduce(
+      (accum, item) => accum + item.quantity * item.product.price,
+      0
     );
   };
 

@@ -29,7 +29,14 @@ router.put('/', requireCartToken, async (req, res, next) => {
     if (quantity) {
       await cart.addProduct(product, { through: { quantity } });
     }
-    cart = await Cart.findByPk(cart.id, { include: Product });
+    cart = await Cart.findByPk(cart.id, {
+      include: {
+        model: CartProduct,
+        include: Product,
+        separate: true,
+        order: [[Product, 'name', 'ASC']],
+      },
+    });
     res.send(cart);
   } catch (err) {
     next(err);

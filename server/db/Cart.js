@@ -2,6 +2,7 @@ const { DataTypes, Model } = require('sequelize');
 const jwt = require('jsonwebtoken');
 const db = require('./db');
 const Product = require('./Product');
+const CartProduct = require('./CartProduct');
 
 class Cart extends Model {}
 Cart.init(
@@ -20,18 +21,17 @@ Cart.init(
 Cart.verifyByToken = async (token) => {
   try {
     const { cartId } = jwt.verify(token, process.env.JWT);
-    const cart = await Cart.findByPk(cartId, { include: Product });
+    const cart = await Cart.findByPk(cartId, {
+      include: {
+        model: CartProduct,
+        include: Product,
+        separate: true,
+        order: [[Product, 'name', 'ASC']],
+      },
+    });
     if (cart) {
       return cart;
     }
-    // if (user.id == reqId) {
-    //   const cart = await Cart.findOne({ where: { userId: user.id } });
-    //   let cartProducts = [];
-    //   if (cart) {
-    //     cartProducts = await cart.getProducts();
-    //   }
-    //   return cartProducts;
-    // }
     const error = Error('unauthorized access');
     error.status = 401;
     throw error;
