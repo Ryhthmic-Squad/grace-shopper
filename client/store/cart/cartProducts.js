@@ -36,6 +36,7 @@ export const updateCartProduct = ({ productId, quantity }) => {
   return async (dispatch, getState) => {
     try {
       const { token } = getState();
+      console.log('sending cart update');
       const { data: cartProducts } = await axios.put(
         `/api/carts`,
         { productId, quantity },

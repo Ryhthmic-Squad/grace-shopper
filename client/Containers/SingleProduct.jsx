@@ -10,6 +10,7 @@ import productDetail, {
   fetchProductDetail,
 } from '../store/product/productDetail';
 import states from '../../server/db/states';
+import { updateCartProduct } from '../store/cart/cartProducts';
 
 class SingleProduct extends Component {
   constructor(props) {
@@ -24,7 +25,7 @@ class SingleProduct extends Component {
   componentDidUpdate() {}
 
   render() {
-    const { productDetail } = this.props;
+    const { productDetail, updateCartProduct } = this.props;
     return (
       <div>
         <SingleProductPage>
@@ -46,18 +47,18 @@ class SingleProduct extends Component {
             <h6> Material: {productDetail.material} </h6>
             {productDetail.availability ? (
               <Button
-              // onClick={() => {
-              //   productDetail.added = true;
-              // }}
+                onClick={() => {
+                  updateCartProduct({
+                    productId: productDetail.id,
+                    quantity: 1,
+                  });
+                }}
               >
                 Add to Cart
               </Button>
             ) : (
               'Out of stock'
             )}
-            {/* {productDetail.added ? (
-          <h4>`${productDetail.name} added to cart!`</h4>
-        ) : null} */}
           </ProductCard>
         </SingleProductPage>
         <h2> Reviews </h2>
@@ -84,6 +85,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   } = ownProps;
   return {
     getProductDetail: () => dispatch(fetchProductDetail(id)),
+    updateCartProduct: ({ productId, quantity }) =>
+      dispatch(updateCartProduct({ productId, quantity })),
   };
 };
 
