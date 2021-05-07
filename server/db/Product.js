@@ -4,10 +4,10 @@ const db = require('./db');
 class Product extends Model {}
 Product.init(
   {
-    id:{
-      type:DataTypes.UUID,
-      defaultValue:DataTypes.UUIDV4,
-      primaryKey:true
+    id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true,
     },
     name: {
       type: DataTypes.STRING,
@@ -58,10 +58,10 @@ Product.init(
     },
     imageUrl: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
       validate: {
         notEmpty: true,
-        isUrl: true,
+        // isUrl: true,
       },
     },
     price: {
