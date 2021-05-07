@@ -20,7 +20,7 @@ Cart.init(
 // Finds the Cart and associated products, ordered by name
 Cart.getWithProducts = async (cartId) => {
   try {
-    const cart = Cart.findByPk(cart.id, {
+    const cart = Cart.findByPk(cartId, {
       include: {
         model: CartProduct,
         include: Product,
