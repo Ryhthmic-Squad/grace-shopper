@@ -37,12 +37,10 @@ class MainNav extends Component {
         <Link id="logo" to="/" className="text-link">
           A&nbsp;Space&nbsp;Apart
         </Link>
-        {!auth.email && (
-          <Link to="/login" className="text-link">
-            Sign&nbsp;In
-          </Link>
-        )}
-        {auth.isAdmin && <Admin>Admin</Admin>}&nbsp;&nbsp;&nbsp;
+        <Link to="/dashboard" className="text-link">
+          {auth.email ? `Welcome ${auth.firstName}!` : `Sign In/Up`}
+        </Link>
+        &nbsp;{auth.isAdmin && <Admin>(Admin)</Admin>}&nbsp;&nbsp;&nbsp;
         {auth.email && (
           <Link to="/" className="text-link" onClick={this.logOut}>
             Sign&nbsp;Out

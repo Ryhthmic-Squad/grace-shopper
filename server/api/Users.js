@@ -62,7 +62,7 @@ router.delete('/:id', async (req, res, next) => {
 });
 
 // POST /api/users
-router.post('/', async (req, res, next) => {
+router.post('/', requireCartToken, async (req, res, next) => {
   try {
     res.status(201).send(await User.create(req.body));
   } catch (er) {

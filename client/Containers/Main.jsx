@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+import {
+  HashRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from 'react-router-dom';
 import AllProducts from './AllProducts.jsx';
 import MainNav from './MainNav.jsx';
 import HomePage from '../Containers/HomePage.jsx';
 import UserDashboard from './UserDashboard';
 import Cart from './Cart/Cart.jsx';
+import Login from './Login.jsx';
+import SignUp from './SignUp.jsx';
 
 import { setToken, fetchToken } from '../store/auth/token.js';
 import { fetchCartProducts } from '../store/cart/cart';
@@ -49,6 +56,7 @@ class Main extends Component {
   };
 
   render() {
+    const { auth } = this.props;
     return (
       <>
         <Router>
@@ -56,7 +64,15 @@ class Main extends Component {
           <Switch>
             <Route component={HomePage} path="/" exact />
             <Route component={AllProducts} path="/products" exact />
-            <Route component={UserDashboard} path="/login" exact />
+            <Route path="/dashboard" exact>
+              {auth.email ? <UserDashboard /> : <Redirect to="/signup" />}
+            </Route>
+            <Route path="/signup" exact>
+              {!auth.email ? <SignUp /> : <Redirect to="/dashboard" />}
+            </Route>
+            <Route path="/login" exact>
+              {!auth.email ? <Login /> : <Redirect to="/dashboard" />}
+            </Route>
             <Route component={Cart} path="/cart" exact />
           </Switch>
         </Router>
