@@ -21,7 +21,6 @@ Cart.verifyByToken = async (token) => {
   try {
     const { cartId } = jwt.verify(token, process.env.JWT);
     const cart = await Cart.findByPk(cartId, { include: Product });
-    console.log('------> Cart.verifyByToken', cartId);
     if (cart) {
       return cart;
     }

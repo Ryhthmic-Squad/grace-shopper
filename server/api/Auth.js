@@ -9,10 +9,8 @@ const { requireUserToken } = require('./Utils');
 // server returns a token, a string that can't be manipulated & will identify user
 router.post('/', async (req, res, next) => {
   try {
-    console.log('-----> POST ROUTE, req.body', req.body);
     const { email, password, visitor } = req.body;
     const token = await User.authentication({ email, password, visitor });
-    console.log('-----> POST ROUTE, token', token);
     res.send({ token });
   } catch (err) {
     next(err);
