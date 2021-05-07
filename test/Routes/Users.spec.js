@@ -83,6 +83,26 @@ describe('POST /api/users', () => {
       .set('authorization', cartToken);
     expect(response.status).toBe(200);
     expect(response.body.fullName).toBe('Test Name');
+    expect(response.body.password).toBeUndefined();
+  });
+  test('creates a new user with an optional password', async () => {
+    await User.destroy({ where: { email: 'test@gmail.com' } });
+    const newCart = await Cart.create();
+    const cartToken = jwt.sign({ cartId: newCart.id }, process.env.JWT);
+    const newUser = {
+      email: 'test@gmail.com',
+      password: 'password',
+      firstName: 'Test',
+      lastName: 'Name',
+      phoneNumber: '1234567890',
+    };
+    const response = await app
+      .post('/api/users')
+      .send(newUser)
+      .set('authorization', cartToken);
+    expect(response.status).toBe(200);
+    expect(response.body.fullName).toBe('Test Name');
+    expect(response.body.password).toBeUndefined();
   });
 });
 describe('DELETE /api/users/:id', () => {
