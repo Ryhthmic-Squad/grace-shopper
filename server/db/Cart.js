@@ -17,11 +17,10 @@ Cart.init(
   { sequelize: db, modelName: 'carts' }
 );
 
-// Verifies if the user id from header request matches with the req.params
-Cart.verifyByToken = async (token) => {
+// Finds the Cart and associated products, ordered by name
+Cart.getWithProducts = async (cartId) => {
   try {
-    const { cartId } = jwt.verify(token, process.env.JWT);
-    const cart = await Cart.findByPk(cartId, {
+    const cart = Cart.findByPk(cart.id, {
       include: {
         model: CartProduct,
         include: Product,
@@ -29,6 +28,18 @@ Cart.verifyByToken = async (token) => {
         order: [[Product, 'name', 'ASC']],
       },
     });
+    return cart;
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+};
+
+// Verifies if the user id from header request matches with the req.params
+Cart.verifyByToken = async (token) => {
+  try {
+    const { cartId } = jwt.verify(token, process.env.JWT);
+    const cart = await Cart.getWithProducts(cartId);
     if (cart) {
       return cart;
     }

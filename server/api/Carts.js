@@ -29,14 +29,7 @@ router.put('/', requireCartToken, async (req, res, next) => {
     if (quantity) {
       await cart.addProduct(product, { through: { quantity } });
     }
-    cart = await Cart.findByPk(cart.id, {
-      include: {
-        model: CartProduct,
-        include: Product,
-        separate: true,
-        order: [[Product, 'name', 'ASC']],
-      },
-    });
+    cart = await Cart.getWithProducts(cart.id);
     res.send(cart);
   } catch (err) {
     next(err);
@@ -48,7 +41,7 @@ router.put('/clear', requireCartToken, async (req, res, next) => {
   try {
     let { cart } = req;
     await cart.setProducts([]);
-    cart = await Cart.findByPk(cart.id);
+    cart = await Cart.getWithProducts(cart.id);
     res.send(cart);
   } catch (err) {
     console.error(err);
