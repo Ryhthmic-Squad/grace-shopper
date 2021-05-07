@@ -40,9 +40,8 @@ const FilterSortBar = styled.div`
   flex-flow: row wrap;
   justify-content: center;
   align-items: center;
-  background: black;
+  background: lightseagreen;
   width: calc(100% - 0.5rem);
-  border-radius: 0 0 0.5rem 0.5rem;
   color: white;
   padding: 0 0.5rem 0.5rem 0;
 `;

@@ -67,10 +67,20 @@ router.post('/', requireCartToken, async (req, res, next) => {
   try {
     const { cart } = req;
     const { email, firstName, lastName, phoneNumber, password } = req.body;
-    const newUserDetails = { email, firstName, lastName, phoneNumber };
+    const newUserDetails = {
+      email,
+      firstName,
+      lastName,
+      phoneNumber,
+      password,
+    };
+    console.log(1);
+    console.log(email, firstName, lastName, phoneNumber, password);
     let user = await User.create(newUserDetails);
+    console.log(2);
     await user.setCart(cart);
-    if (password) {
+    console.log(3);
+    if (password && password !== 'guest') {
       await user.update({ password });
     }
     user = await User.findByPk(user.id, {

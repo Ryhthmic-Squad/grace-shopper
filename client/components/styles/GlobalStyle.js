@@ -54,6 +54,9 @@ const GlobalStyle = createGlobalStyle`
     padding: 0 15rem;
     align-text: center;
   }
+  #placeorder {
+    font-family: 'Raleway', sans-serif;
+  }
   main-nav > * {
    align-text: baseline;
   }
