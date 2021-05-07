@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import UserDashboard from './UserDashboard';
 import { connect } from 'react-redux';
 import AllProducts from './AllProducts';
-import MainNav from './MainNav';
 import HomePage from '../Containers/HomePage';
 import SingleProduct from './SingleProduct';
 import { setToken, fetchToken } from '../store/auth/token.js';
@@ -23,7 +22,6 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 import MainNav from './MainNav';
-import HomePage from '../Containers/HomePage';
 import Checkout from './Checkout/Checkout';
 import AllUsers from './Admin/AllUsers';
 import AllOrders from './Admin/AllOrders';

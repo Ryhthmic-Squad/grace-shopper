@@ -5,7 +5,7 @@ import Login from './Login.jsx';
 import AdminConsole from '../Containers/Admin/AdminConsole';
 import Button from '../components/styles/Button';
 import UserConsole from './User/UserConsole';
-
+import Checkout from './Checkout/Checkout';
 import {
   fetchCartProducts,
   resetCart,
@@ -126,6 +126,7 @@ class UserDashboard extends Component {
           >
             Add Nelson Bed
           </Button>
+          <Checkout order={cartProducts} />
           <Button onClick={logout}>Logout</Button>
         </div>
       );

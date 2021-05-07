@@ -29,6 +29,7 @@ class UserConsole extends Component {
     const { fetchOrders, fetchReviews } = this.props;
     await Promise.all([fetchOrders(auth.id), fetchReviews(auth.id)]);
 
+    console.log('incompmount', orders);
     this.setState({
       orderHistory: this.props.orders,
       reviewHistory: this.props.reviews,
@@ -37,6 +38,7 @@ class UserConsole extends Component {
 
   render() {
     const { auth, orderHistory, reviewHistory } = this.state;
+    console.log(orderHistory);
     return (
       <div>
         <Button

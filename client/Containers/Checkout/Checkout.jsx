@@ -8,17 +8,21 @@ const stripePromise = loadStripe(
   'pk_test_51InzHlFBTivT4al21JN3Jex1hItFC4HXkyriQPWUAD2O2kMglUX41AkmutusPJeU3XMpQz1XBbXkAaEUtD5yHWB500crd0rLxt'
 );
 
-function Checkout() {
+function Checkout(props) {
+  const { cartProducts } = props.order;
+
   const handleClick = async (event) => {
     // Get Stripe.js instance
-
+    console.log(props.order);
     const stripe = await stripePromise;
     // the order id is passed into checkout -> order
     // order => {order.id} passed in as a prop
-    const order = 123445555;
-    //const amount = order.Product// multiply quant by price
-    // const price = amount.toString()+'00'
-    // unit_amount = Number(price)
+    const order = props.order.userId;
+    const amount =
+      props.order.products[0].cartProducts.quantity *
+      props.order.products[0].price; // multiply quant by price
+    const price = amount.toString() + '00';
+    const newAmount = Number(price);
     // quantity => the number of items
     // Call your backend to create the Checkout Session
     const response = await axios.post('/create-checkout-session', {
@@ -31,7 +35,7 @@ function Checkout() {
             product_data: {
               name: 'Checkout',
             },
-            unit_amount: 4533,
+            unit_amount: newAmount,
           },
           quantity: 1,
         },

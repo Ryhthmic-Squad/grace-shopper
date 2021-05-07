@@ -47,6 +47,7 @@ router.post('/webhook', async (req, res) => {
     case 'checkout.session.completed':
       if (order.orderNum && order.status == 'paid') {
         console.log('The end of session', order.orderNum, order.status);
+        await Order.create({ status: 'COMPLETED', userId: order.orderNum });
         //const order = await Order.findByPk(order.orderNum);
         //await order.save({ status: 'COMPLETED' });
       } else if (order.orderNum) {
