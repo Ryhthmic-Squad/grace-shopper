@@ -5,7 +5,7 @@ import { createLogger } from 'redux-logger';
 import productList from './product/productList';
 import productDetail from './product/productDetail';
 import productReviews from './product/productReviews';
-import cartProducts from './cart/cartProducts';
+import cart from './cart/cart';
 import productInventory from './product/productInventory';
 import userList from './user/userList';
 import orderList from './order/orderList';
@@ -19,7 +19,7 @@ import token from './auth/token';
 import auth from './auth/auth';
 
 const reducer = combineReducers({
-  cartProducts,
+  cart,
   productList,
   productDetail,
   productReviews,
