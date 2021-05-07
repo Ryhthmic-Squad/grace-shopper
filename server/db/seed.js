@@ -53,7 +53,7 @@ const syncAndSeed = async () => {
     const user = await User.findOne({
       where: { email: 'user@gmail.com' },
     });
-    const testCart = await Cart.create({ userId: user.id });
+    const testCart = await Cart.findOne({ where: { userId: user.id } });
     const bed = await Product.findOne({
       where: { name: 'Miro King Bed' },
     });

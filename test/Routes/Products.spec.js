@@ -85,12 +85,10 @@ describe('GET /api/products/:Bytype', () => {
     expect(response.body.length).toBe(dressers.length);
   });
 });
-describe('GET /api/products/Byid/:id', () => {
+describe('GET /api/products/:id', () => {
   test('returns a specific product', async () => {
     const dresser = await Product.findOne({ where: { type: 'dresser' } });
-    const response = await agent
-      .get(`/api/products/Byid/${dresser.id}`)
-      .expect(200);
+    const response = await agent.get(`/api/products/${dresser.id}`).expect(200);
     expect(response.body.name).toBe(dresser.name);
   });
 });

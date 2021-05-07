@@ -73,9 +73,7 @@ const FilterSortControl = () => {
       productPagination,
     })
   );
-  const dispatch = useDispatch();
   const history = useHistory();
-  const getProducts = (query) => dispatch(fetchProductList(query));
   const filter = (options) => {
     // options: { type?: string, style?: string, room?: string, clear?: true|false }
     for (const key in productFilters) {
@@ -91,7 +89,6 @@ const FilterSortControl = () => {
       productPagination: { ...productPagination, page: 1 },
     });
     history.push(`/products${query}`);
-    getProducts(query);
   };
   const paginate = (options) => {
     // options: { page?: INT, size?: INT, sort?: STRING }
@@ -100,7 +97,6 @@ const FilterSortControl = () => {
     }
     const query = buildProductQuery({ productFilters, productPagination });
     history.push(`/products${query}`);
-    getProducts(query);
   };
   return (
     <FilterSortBar>

@@ -55,6 +55,7 @@
     "react-helmet": "^6.1.0",
     "react-redux": "^7.2.4",
     "redux": "^4.1.0",
+    "redux-devtools-extension": "^2.13.9",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "webpack": "^5.36.2",

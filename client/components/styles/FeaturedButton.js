@@ -11,6 +11,8 @@ const FeaturedButton = styled.button`
   background-color: #ffda08;
   border: none;
   border-radius: 0.5rem;
+  justify-content: center;
+  align-items: center;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   :not(:disabled) {
     cursor: pointer;
