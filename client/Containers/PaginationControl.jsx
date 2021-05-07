@@ -38,6 +38,7 @@ const PaginationBar = styled.div`
 
 const PageOptionContainer = styled.div`
   display: flex;
+  padding: 0rem 0.5rem 0rem 0.5rem;
 `;
 
 const PageOption = styled.div`

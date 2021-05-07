@@ -14,6 +14,7 @@ export const MainNavDiv = styled.nav`
   top: 0;
   padding: 1.75rem;
   font-family: 'Raleway', sans-serif;
+  overflow-x: hidden;
 `;
 
 export const Admin = styled.span`
