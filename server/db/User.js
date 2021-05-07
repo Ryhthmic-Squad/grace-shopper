@@ -82,26 +82,15 @@ User.authentication = async function ({ email, password, visitor }) {
     const guestToken = jwt.sign({ cartId: cart.id }, process.env.JWT);
     return guestToken;
   }
-  console.log('-----> 1 User.authentication');
   const user = await User.findOne({
     where: { email },
     include: Cart,
   });
-  console.log('-----> User found? ', user);
   if (user) {
     const passwordCheck = await bcrypt.compare(password, user.password);
     if (passwordCheck) {
       //get cart id via sequelize since user properties does not include cartId
       const { cart } = user;
-      console.log('-----> 2 User.authentication', cart);
-      // let token;
-      // if (cart) {
-      //   token = jwt.sign(
-      //     { userId: user.id, cartId: user.cart.id },
-      //     process.env.JWT
-      //   );
-      // } else {
-      // }
       const token = jwt.sign(
         { userId: user.id, cartId: cart.id },
         process.env.JWT
@@ -120,7 +109,9 @@ User.authentication = async function ({ email, password, visitor }) {
 User.verifyByToken = async function (token) {
   try {
     const { userId } = jwt.verify(token, process.env.JWT);
-    const user = await User.findByPk(userId);
+    const user = await User.findByPk(userId, {
+      attributes: { exclude: ['password'] },
+    });
     // check if user exists
     if (user) {
       return user;
@@ -141,7 +132,9 @@ User.verifyByToken = async function (token) {
 User.verifyByTokenIfAdmin = async function (token) {
   try {
     const { userId } = jwt.verify(token, process.env.JWT);
-    const user = await User.findByPk(userId);
+    const user = await User.findByPk(userId, {
+      attributes: { exclude: ['password'] },
+    });
     if (user.isAdmin) {
       return user;
     }
@@ -156,9 +149,9 @@ User.verifyByTokenIfAdmin = async function (token) {
 };
 
 User.afterCreate(async (user) => {
-  const cart = await Cart.create();
+  const [cart] = await Cart.findOrCreate({ where: { userId: user.id } });
   await user.setCart(cart);
-  console.log(cart.userId === user.id);
+  // console.log(cart.userId === user.id);
 });
 
 module.exports = User;
