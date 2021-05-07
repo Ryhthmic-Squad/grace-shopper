@@ -46,7 +46,7 @@ class UserDashboard extends Component {
     window.localStorage.removeItem('token');
     resetAuth();
     resetToken();
-    resetCart();
+    // resetCart();
   };
 
   logIn = (credentials) => {
