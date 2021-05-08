@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import {
   SingleProductPage,
   ProductCard,
+  Hero,
 } from '../components/styles/SingleProductPage';
-import Button from '../components/styles/Button';
+import Button from '../components/styles/FeaturedButton';
 import { fetchProductDetail } from '../store/product/productDetail';
 import { updateCartProduct } from '../store/cart/cart';
 
@@ -25,10 +26,10 @@ class SingleProduct extends Component {
     return (
       <div>
         <SingleProductPage>
-          <ProductCard>
+          <Hero>
             {' '}
-            <img display="block" width="300rem" src={productDetail.imageUrl} />
-          </ProductCard>
+            <img width="100%" src={productDetail.imageUrl} />
+          </Hero>
           <ProductCard>
             {' '}
             <h2> {productDetail.name} </h2>

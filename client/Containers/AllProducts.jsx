@@ -118,7 +118,6 @@ class AllProducts extends Component {
                   <Link className="text-link" to={`/products/${product.id}`}>
                     <ProductImg>
                       <img
-                        display="block"
                         margin-left="auto"
                         margin-right="auto"
                         height="100%"
