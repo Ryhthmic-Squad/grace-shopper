@@ -1,20 +1,20 @@
 import axios from 'axios';
 
-export const UPDATE_USER = 'UPDATE_USER';
+export const DELETE_USER = 'DELETE_USER';
 
-export const updateUser = (user) => ({
+export const deleteUserAway = (user) => ({
   user,
-  type: UPDATE_USER,
+  type: DELETE_USER,
 });
 
-export const updateUserData = (user) => {
+export const deleteUser = (id) => {
   return async (dispatch, getState) => {
     try {
       const { token } = getState();
-      const { data } = await axios.put('/api/users/adminedit', user, {
+      const { data } = await axios.delete(`/api/users/${id}`, {
         headers: { authorization: token },
       });
-      dispatch(updateUser(data));
+      dispatch(deleteUserAway(data));
     } catch (er) {
       console.log(er);
     }
@@ -25,11 +25,9 @@ const initialState = {
 };
 export default (state = initialState, action) => {
   const { type } = action;
-  if (type === UPDATE_USER) {
+  if (type === DELETE_USER) {
     return {
-      users: state.users.map((user) =>
-        user.id === action.user.id ? action.user : user
-      ),
+      users: state.users.filter((user) => user.id != action.user.id),
     };
   } else return state;
 };

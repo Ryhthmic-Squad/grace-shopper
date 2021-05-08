@@ -11,7 +11,6 @@ class EditUser extends Component {
     lastName: '',
     email: '',
     phoneNumber: '',
-    password: '',
     isAdmin: false,
   };
   async componentDidMount() {
@@ -31,20 +30,14 @@ class EditUser extends Component {
   onSubmit = (event) => {
     event.preventDefault();
     const { updateUser } = this.props;
+    console.log({ ...this.props.user, ...this.state });
     updateUser({ ...this.props.user, ...this.state });
     window.location = '#/AdminConsole/users';
   };
 
   render() {
     const { onChange, onSubmit } = this;
-    const {
-      email,
-      password,
-      lastName,
-      firstName,
-      phoneNumber,
-      isAdmin,
-    } = this.state;
+    const { email, lastName, firstName, phoneNumber, isAdmin } = this.state;
     return (
       <>
         <FormGroup onSubmit={onSubmit}>
@@ -57,15 +50,8 @@ class EditUser extends Component {
           <Input value={email} onChange={onChange} name="email" />
           <Label>Phone Number:</Label>
           <Input value={phoneNumber} onChange={onChange} name="phoneNumber" />
-          <Label>Password:</Label>
-          <Input value={password} onChange={onChange} name="password" />
           <Label>isAdmin:</Label>
-          <Input
-            type="slider"
-            value={isAdmin}
-            onChange={onChange}
-            name="isAdmin"
-          />
+          <Input value={isAdmin} onChange={onChange} name="isAdmin" />
           <FeaturedButton>Submit</FeaturedButton>
         </FormGroup>
       </>

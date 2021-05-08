@@ -8,9 +8,12 @@ export const setUserList = (userList) => ({
 });
 
 export const fetchUserList = () => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
     try {
-      const { data } = await axios.get('/api/users');
+      const { token } = getState();
+      const { data } = await axios.get('/api/users/all', {
+        headers: { authorization: token },
+      });
       dispatch(setUserList(data));
     } catch (er) {
       console.log(er);

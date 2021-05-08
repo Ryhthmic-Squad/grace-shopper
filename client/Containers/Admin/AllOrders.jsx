@@ -14,9 +14,11 @@ class AllOrders extends Component {
     const { fetchOrders } = this.props;
     await fetchOrders();
     this.setState({ orders: this.props.orders });
+    console.log(this.state, this.props.orders);
   }
   render() {
     const { orders } = this.state;
+    console.log(orders);
     return (
       <div>
         <h2>All Orders</h2>
@@ -30,6 +32,7 @@ class AllOrders extends Component {
           {orders.length ? (
             orders.map((order) => (
               <Row key={order.id}>
+                <span>{order.id}</span>
                 <span>{order.status}</span>
                 <span>{order.date}</span>
               </Row>

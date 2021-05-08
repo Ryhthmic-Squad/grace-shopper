@@ -18,6 +18,16 @@ router.get('/', requireCartToken, async (req, res, next) => {
     next(err);
   }
 });
+router.get('/:id', async (req, res, next) => {
+  try {
+    console.log(req.params.id);
+    const response = await Cart.findByPk(req.params.id, { include: User }).data;
+    console.log(response);
+    res.send(response);
+  } catch (err) {
+    next(err);
+  }
+});
 
 // PUT /api/carts
 router.put('/', requireCartToken, async (req, res, next) => {

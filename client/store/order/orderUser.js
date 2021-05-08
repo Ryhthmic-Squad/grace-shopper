@@ -12,6 +12,7 @@ export const fetchUserOrders = (id) => {
     try {
       console.log('in orderUser thunks', id);
       const { data } = await axios.get(`api/Orders/${id}`);
+      console.log('the data', data);
       dispatch(setOrderList(data));
     } catch (er) {
       console.log(er);

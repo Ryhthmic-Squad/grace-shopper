@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { resetAuth } from '../store/auth/auth';
 import { fetchToken, resetToken } from '../store/auth/token';
 import axios from 'axios';
+import Checkout from './Checkout/Checkout';
 
 const mapDispatchToProps = (dispatch) => ({
   fetchToken: (credentials) => dispatch(fetchToken(credentials)),
@@ -38,6 +39,7 @@ class GuestCheckout extends Component {
     } catch (err) {
       console.error(err);
     }
+    window.location = '#/';
   };
 
   render() {

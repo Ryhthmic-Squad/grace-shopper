@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import Checkout from './Checkout/Checkout.jsx';
 import AllUsers from './Admin/AllUsers.jsx';
 import AllOrders from './Admin/AllOrders.jsx';
 import AllInventory from './Admin/AllInventory.jsx';
@@ -42,9 +41,8 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 import YourRecentOrders from './User/YourRecentOrders.jsx';
-import EditYourProfile from './User/EditYourProfile.jsx';
-import OrderDetails from './User/OrderDetails.jsx';
-import YourReviews from './User/YourReviews.jsx';
+
+import Checkout from './Checkout/Checkout.jsx';
 class Main extends Component {
   componentDidMount = () => {
     const { fetchToken, setToken } = this.props;
@@ -85,29 +83,18 @@ class Main extends Component {
 
           <Route component={AddProduct} path="/AdminConsole/addproduct" exact />
 
-          <Route component={SingleProduct} path="/products/:id" exact />
           <Switch>
             <Route component={AllUsers} path="/AdminConsole/users" exact />
             <Route component={AllOrders} path="/AdminConsole/orders" exact />
-            <Route
-              component={AllInventory}
-              path="/AdminConsole/inventory"
-              exact
-            />
+
             <Route
               exact
               path="/AdminConsole/users/edit/:id"
               component={EditUser}
             />
-            <Route
-              component={AddProduct}
-              path="/AdminConsole/addproduct"
-              exact
-            />
-            <Route component={EditYourProfile} path="/user/profile" exact />
+            <Route exact path="/checkout" component={Checkout} />
+
             <Route component={YourRecentOrders} path="/user/orders" exact />
-            <Route component={OrderDetails} path="/user/orders/:id" exact />
-            <Route component={YourReviews} path="/user/reviews" exact />
 
             <Route component={HomePage} path="/" exact />
             <Route component={AllProducts} path="/products" exact />
@@ -123,7 +110,7 @@ class Main extends Component {
             </Route>
             <Route component={Cart} path="/cart" exact />
             <Route path="/cart/guestcheckout" exact>
-              {!auth.email ? <GuestCheckout /> : <Redirect to="/cart" />}
+              {!auth.email ? <GuestCheckout /> : <Redirect to="/" />}
             </Route>
           </Switch>
         </Router>

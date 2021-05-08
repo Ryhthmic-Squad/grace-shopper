@@ -1,29 +1,18 @@
-import React from 'react';
-import FeaturedButton from '../../components/styles/FeaturedButton';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { resetCart } from '../../store/cart/cart';
-import Checkout from '../Checkout/Checkout';
-import { Link } from 'react-router-dom';
+
+// need a checkout thunk that converts carts to orders
+
 const mapStateToProps = (state) => {
   return {
-    cart: state.cart,
-    cartcopy: state.processOrder,
-    auth: state.auth,
+    order: state.processOrder,
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    resetCart: () => dispatch(resetCart()),
-  };
-};
-
-const Summary = ({ user, cart, auth }) => {
-  let { cartProducts } = cart;
+const OrderSummary = ({ order }) => {
+  let { cartProducts } = order;
   cartProducts = cartProducts || [];
-  console.log('the user', user);
-  console.log('the cart Products', cartProducts);
+
   const orderTotal = () => {
     if (!cartProducts.length) return 0;
     return cartProducts.reduce(
@@ -59,15 +48,6 @@ const Summary = ({ user, cart, auth }) => {
           </tr>
         </tbody>
       </table>
-
-      {auth.email && (
-        <Checkout id={user} products={cartProducts} reset={resetCart} />
-      )}
-      {!auth.email && (
-        <Link to="/cart/guestcheckout">
-          <FeaturedButton>Guest Checkout</FeaturedButton>
-        </Link>
-      )}
     </SummaryCard>
   );
 };
@@ -77,4 +57,4 @@ const SummaryCard = styled.div`
   padding: 1rem 2rem 2rem 2rem;
 `;
 
-export default connect(mapStateToProps, mapDispatchToProps)(Summary);
+export default connect(mapStateToProps, mapDispatchToProps)(OrderSummary);

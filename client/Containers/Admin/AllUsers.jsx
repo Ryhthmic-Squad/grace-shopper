@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchUserList } from '../../store/user/userList';
 import { Row } from '../../components/styles/AdminConsole';
-import { HashRouter as Router, Route, Link } from 'react-router-dom';
+import { HashRouter as Router } from 'react-router-dom';
 import Button from '../../components/styles/Button';
+import { deleteUser } from '../../store/user/userDelete';
 class AllUsers extends Component {
   constructor() {
     super();
@@ -16,47 +17,57 @@ class AllUsers extends Component {
     await fetchUsers();
     this.setState({ users: this.props.users });
   }
+  delUser = (id) => {
+    const { deleteuser } = this.props;
+    deleteuser(id);
+  };
   render() {
+    const { delUser } = this;
     const { users } = this.state;
     return (
-      <Router>
-        <div>
-          <h2>All Users</h2>
-          <Row>
-            <strong>Name</strong>
-            <strong>Email</strong>
-            <strong>isAdmin</strong>
-            <strong>Phone Number</strong>
-          </Row>
-          <hr />
-          <ul>
-            {users.length ? (
-              users.map((user) => (
-                <Row key={user.id}>
-                  <span>{user.fullName}</span>
-                  <span>{user.email}</span>
-                  <span>{user.isAdmin}</span>
-                  <span>{user.phoneNumber}</span>
-                  <Button
-                    onClick={() => {
-                      window.location = `#/AdminConsole/users/edit/${user.id}`;
-                    }}
-                  >
-                    Edit
-                  </Button>
-                </Row>
-              ))
-            ) : (
-              <Row>
-                <span>{'none'}</span>
-                <span>{'none'}</span>
-                <span>{'none'}</span>
-                <span>{'none'}</span>
+      <div>
+        <h2>All Users</h2>
+        <Row>
+          <strong>Name</strong>
+          <strong>Email</strong>
+          <strong>isAdmin</strong>
+          <strong>Phone Number</strong>
+        </Row>
+        <hr />
+        <ul>
+          {users.length ? (
+            users.map((user) => (
+              <Row key={user.id}>
+                <span>{user.fullName}</span>
+                <span>{user.email}</span>
+                <span>{user.isAdmin}</span>
+                <span>{user.phoneNumber}</span>
+                <Button
+                  onClick={() => {
+                    window.location = `#/AdminConsole/users/edit/${user.id}`;
+                  }}
+                >
+                  Edit
+                </Button>
+                <Button
+                  onClick={() => {
+                    delUser(user.id);
+                  }}
+                >
+                  Delete
+                </Button>
               </Row>
-            )}
-          </ul>
-        </div>
-      </Router>
+            ))
+          ) : (
+            <Row>
+              <span>{'none'}</span>
+              <span>{'none'}</span>
+              <span>{'none'}</span>
+              <span>{'none'}</span>
+            </Row>
+          )}
+        </ul>
+      </div>
     );
   }
 }
@@ -75,6 +86,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchUsers: () => dispatch(fetchUserList()),
+    deleteuser: (id) => dispatch(deleteUser(id)),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(AllUsers);

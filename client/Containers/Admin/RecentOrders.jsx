@@ -18,24 +18,21 @@ class RecentOrders extends Component {
     this.setState({ orders: this.props.orders });
   }
   render() {
-    const { orders } = this.state;
+    const { orders } = this.props;
     return (
       <div>
-        <Router>
-          <Route component={AllOrders} path="/AdminConsole/orders" />
-        </Router>
         <h2>Recent Orders</h2>
         <hr className="heavy" />
         <Row>
-          <strong>Name</strong>
+          <strong>Order Status</strong>
           <strong>Order Date</strong>
         </Row>
         <hr />
-        <Row>
+        <ul>
           {orders.length ? (
             orders.map((order) => (
               <Row key={order.id}>
-                <span>{order.name}</span>
+                <span>{order.status}</span>
                 <span>{order.date}</span>
               </Row>
             ))
@@ -46,7 +43,7 @@ class RecentOrders extends Component {
               <span>{'none'}</span>
             </Row>
           )}
-        </Row>
+        </ul>
         <Button
           onClick={() => {
             window.location = '#/AdminConsole/orders';
@@ -60,21 +57,14 @@ class RecentOrders extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const orders = state.orderList.orders
-    .sort(
-      (user1, user2) =>
-        new Date(user1.createdAt.slice(0, 10)) -
-        new Date(user2.createdAt.slice(0, 10))
-    )
-    .map((order) => {
-      const user = state.users.find((user) => order.userId === user.id);
-      return {
-        date: order.createdAt.slice(0, 10),
-        id: order.id,
-        name: `${user.fullName}`,
-      };
-    });
-  if (orders.length > 3) orders.slice(2);
+  let orders = state.orderList.orders.map((order) => {
+    return {
+      date: order.createdAt.slice(0, 10),
+      status: order.status,
+      id: order.id,
+    };
+  });
+  if (orders.length > 3) orders = orders.slice(0, 2);
   return {
     orders,
   };

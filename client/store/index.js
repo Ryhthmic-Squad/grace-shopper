@@ -8,8 +8,11 @@ import productReviews from './product/productReviews';
 import cart from './cart/cart';
 import productInventory from './product/productInventory';
 import userList from './user/userList';
+import userDelete from './user/userDelete';
 import orderList from './order/orderList';
+import updateOwnUser from './user/updateOwnUser';
 import updateUser from './user/userUpdate';
+import processOrder from './orderProcessing/processOrder';
 import productPagination from './product/productPagination';
 import productFilters from './product/productFilters';
 import productCreate from './product/productCreate';
@@ -29,12 +32,15 @@ const reducer = combineReducers({
   productInventory,
   userList,
   updateUser,
+  userDelete,
   orderList,
   productCreate,
   productPagination,
   productFilters,
+  processOrder,
   orderHistory,
   reviewUsers,
+  updateOwnUser,
   productTypes,
   productStyles,
   productRooms,

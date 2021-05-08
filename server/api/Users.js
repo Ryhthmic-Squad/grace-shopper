@@ -46,6 +46,25 @@ router.get('/', requireUserToken, async (req, res, next) => {
 router.put('/', requireUserToken, async (req, res, next) => {
   try {
     let { user } = req;
+    console.log(user);
+    const { email, password, firstName, lastName, phoneNumber } = req.body;
+    user.email = email || user.email;
+    user.password = password || user.password;
+    user.firstName = firstName || user.firstName;
+    user.lastName = lastName || user.lastName;
+    user.phoneNumber = phoneNumber || user.phoneNumber;
+    await user.save();
+    user = await User.findByPk(user.id, {
+      attributes: { exclude: ['password'] },
+    });
+    res.send(user);
+  } catch (er) {
+    next(er);
+  }
+});
+router.put('/adminedit', requireAdminToken, async (req, res, next) => {
+  try {
+    let { user } = req;
     const { email, password, firstName, lastName, phoneNumber } = req.body;
     user.email = email || user.email;
     user.password = password || user.password;

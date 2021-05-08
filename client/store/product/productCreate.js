@@ -7,10 +7,10 @@ export const createProduct = (product) => ({
   type: CREATE_PRODUCT,
 });
 
-export const createNewProduct = () => {
+export const createNewProduct = (prod) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.post('api/Products/all');
+      const { data } = await axios.post('/api/products/all', prod);
       dispatch(createProduct(data));
     } catch (er) {
       console.log(er);

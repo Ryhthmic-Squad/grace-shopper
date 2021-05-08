@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { FormGroup, Label, Input } from '../../components/styles/Forms';
 import FeaturedButton from '../../components/styles/FeaturedButton';
 import { connect } from 'react-redux';
-import { createProduct } from '../../store/product/productCreate';
+import { createNewProduct } from '../../store/product/productCreate';
 
 class AddProduct extends Component {
   state = {
@@ -82,7 +82,7 @@ class AddProduct extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    createProduct: (product) => dispatch(createProduct(product)),
+    createProduct: (product) => dispatch(createNewProduct(product)),
   };
 };
 export default connect(null, mapDispatchToProps)(AddProduct);
