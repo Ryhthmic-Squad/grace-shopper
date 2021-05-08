@@ -184,7 +184,7 @@ const products = {
       imageUrl:
         'https://bernhardt.com/sites/default/files/product/bernhardt_interiors_cooper_wing_bed_754h66-754fr66_front_1.jpg',
       price: 2125,
-      style: 'traditional',
+      style: 'transitional',
       type: 'bed',
     },
     {
@@ -198,7 +198,7 @@ const products = {
       imageUrl:
         'https://bernhardt.com/sites/default/files/product/bernhardt_interiors_jordan_bed_64in_front.jpg',
       price: 2550,
-      style: 'traditional',
+      style: 'transitional',
       type: 'bed',
     },
     {
@@ -212,7 +212,7 @@ const products = {
       imageUrl:
         'https://bernhardt.com/sites/default/files/product/351-044A.jpg',
       price: 1800,
-      style: 'traditional',
+      style: 'transitional',
       type: 'dresser',
     },
     {
@@ -225,7 +225,7 @@ const products = {
       color: 'cream',
       imageUrl: 'https://bernhardt.com/sites/default/files/product/374-052.jpg',
       price: 1600,
-      style: 'traditional',
+      style: 'transitional',
       type: 'dresser',
     },
     {
@@ -239,7 +239,7 @@ const products = {
       imageUrl:
         'https://bernhardt.com/sites/default/files/product/bernhardt_linea_bachelors_chest_384-230b.jpg',
       price: 525,
-      style: 'traditional',
+      style: 'transitional',
       type: 'nightstand',
     },
     {
@@ -253,7 +253,7 @@ const products = {
       imageUrl:
         'https://bernhardt.com/sites/default/files/product/bernhardt_allure_nightstand_399-229_front.jpg',
       price: 665,
-      style: 'traditional',
+      style: 'transitional',
       type: 'nightstand',
     },
   ],
@@ -423,7 +423,7 @@ const products = {
       imageUrl:
         'https://bernhardt.com/sites/default/files/product/bernhardt_interiors_kingston_wing_chair_n1712_2857-021_front.jpg',
       price: 550,
-      style: 'traditional',
+      style: 'transitional',
       type: 'chair',
     },
     {
@@ -437,7 +437,7 @@ const products = {
       imageUrl:
         'https://bernhardt.com/sites/default/files/product/N3103_2312002_FrontS_0.jpg',
       price: 325,
-      style: 'traditional',
+      style: 'transitional',
       type: 'chair',
     },
     {
@@ -451,7 +451,7 @@ const products = {
       imageUrl:
         'https://bernhardt.com/sites/default/files/product/bernhardt_interiors_aubree_sofa_n3597_front_0.jpg',
       price: 2100,
-      style: 'traditional',
+      style: 'transitional',
       type: 'sofa',
     },
     {
@@ -465,7 +465,7 @@ const products = {
       imageUrl:
         'https://bernhardt.com/sites/default/files/product/n2876-2267-013.jpg',
       price: 1675,
-      style: 'traditional',
+      style: 'transitional',
       type: 'sofa',
     },
     {
@@ -479,7 +479,7 @@ const products = {
       imageUrl:
         'https://bernhardt.com/sites/default/files/product/bernhardt_avondale_round_metal_cocktail_table_470-015_front.jpg',
       price: 625,
-      style: 'traditional',
+      style: 'transitional',
       type: 'table',
     },
     {
@@ -493,7 +493,7 @@ const products = {
       imageUrl:
         'https://bernhardt.com/sites/default/files/product/bernhardt_canyon-ridge_square_cocktail_table_397-011_front-alt.jpg',
       price: 380,
-      style: 'traditional',
+      style: 'transitional',
       type: 'table',
     },
   ],
@@ -691,7 +691,7 @@ const products = {
       imageUrl:
         'https://bernhardt.com/sites/default/files/product/2017_Bernhardt_Clarendon_Host_Arm_Chair_377-548_front.jpg',
       price: 140,
-      style: 'traditional',
+      style: 'transitional',
       type: 'chair',
     },
     {
@@ -705,7 +705,7 @@ const products = {
       imageUrl:
         'https://bernhardt.com/sites/default/files/product/bernhardt_interiors_linder_bar_stool_301-580_1196-044_front.jpg',
       price: 85,
-      style: 'traditional',
+      style: 'transitional',
       type: 'chair',
     },
     {
@@ -719,7 +719,7 @@ const products = {
       imageUrl:
         'https://bernhardt.com/sites/default/files/product/bernhardt_east-hampton_oval_back_side_chair_395-561_front.jpg',
       price: 120,
-      style: 'traditional',
+      style: 'transitional',
       type: 'chair',
     },
     {
@@ -733,7 +733,7 @@ const products = {
       imageUrl:
         'https://bernhardt.com/sites/default/files/product/bernhardt_interiors_slope_leather_bar_stool_319-586l_front.jpg',
       price: 215,
-      style: 'traditional',
+      style: 'transitional',
       type: 'chair',
     },
     {
@@ -747,7 +747,7 @@ const products = {
       imageUrl:
         'https://bernhardt.com/sites/default/files/product/bernhardt_canyon-ridge_dining_table_397-224-226_front-alt.jpg',
       price: 825,
-      style: 'traditional',
+      style: 'transitional',
       type: 'table',
     },
     {
@@ -760,7 +760,7 @@ const products = {
       color: 'cream',
       imageUrl: 'https://bernhardt.com/sites/default/files/product/370-222.jpg',
       price: 485,
-      style: 'traditional',
+      style: 'transitional',
       type: 'table',
     },
   ],
@@ -874,7 +874,7 @@ const products = {
       imageUrl:
         'https://assets.pbimgs.com/pbimgs/rk/images/dp/wcm/202103/0039/aubrey-entryway-wall-shelf-with-hooks-z.jpg',
       price: 249,
-      style: 'traditional',
+      style: 'transitional',
       type: 'hooks',
     },
     {
@@ -888,7 +888,7 @@ const products = {
       imageUrl:
         'https://rnb.scene7.com/is/image/roomandboard/574006?$prodzoom0$&size=1280,400&scl=1',
       price: 699,
-      style: 'traditional',
+      style: 'transitional',
       type: 'mirror',
     },
     {
@@ -902,7 +902,7 @@ const products = {
       imageUrl:
         'https://cdn.shopify.com/s/files/1/1087/6904/products/f74b43fdc8ddcafa2dbdc38ed96d3928_1400x.jpg?v=1571438933',
       price: 680,
-      style: 'traditional',
+      style: 'transitional',
       type: 'waste',
     },
   ],
