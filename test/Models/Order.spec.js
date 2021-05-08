@@ -108,7 +108,9 @@ describe('Order and Product associations', () => {
   });
   test('Orders can have Products', async () => {
     try {
-      await newOrder.addProduct(products[0], { through: { quantity: 1 } });
+      await newOrder.addProduct(products[0], {
+        through: { quantity: 1, price: products[0].price },
+      });
     } catch (err) {
       console.error(err);
       expect(true).toBe(false);
@@ -118,7 +120,9 @@ describe('Order and Product associations', () => {
   });
   test('Orders note the quantity of each Product', async () => {
     try {
-      await newOrder.addProduct(products[0], { through: { quantity: 7 } });
+      await newOrder.addProduct(products[0], {
+        through: { quantity: 7, price: products[0].price },
+      });
     } catch (err) {
       console.error(err);
       expect(true).toBe(false);

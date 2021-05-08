@@ -11,6 +11,13 @@ OrderProduct.init(
         min: 1,
       },
     },
+    price: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        min: 0,
+      },
+    },
   },
   { sequelize: db, modelName: 'orderProducts' }
 );
