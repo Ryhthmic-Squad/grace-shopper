@@ -64,7 +64,9 @@ const Summary = ({ user, cart, auth }) => {
         <Checkout id={user} products={cartProducts} reset={resetCart} />
       )}
       {!auth.email && (
-        <Checkout id={user} products={cartProducts} reset={resetCart} />
+        <Link to="/cart/guestcheckout">
+          <FeaturedButton>Guest Checkout</FeaturedButton>
+        </Link>
       )}
     </SummaryCard>
   );

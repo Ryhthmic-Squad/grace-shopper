@@ -10,6 +10,7 @@ const stripePromise = loadStripe(
 
 function Checkout(props) {
   const { products, id } = props;
+  const user = id;
 
   //const { userId } = await axios.get(`/api/carts/${cartProducts.cartId}`);
   const arr = products.map((product) => {
@@ -29,7 +30,8 @@ function Checkout(props) {
 
     const response = await axios.post('/create-checkout-session', {
       payment_method_types: ['card'],
-      client_reference_id: id,
+      client_reference_id: user,
+
       line_items: arr,
 
       mode: 'payment',
