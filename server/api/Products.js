@@ -69,57 +69,39 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-// Products by type
-
-router.get('/Bytype/:type', async (req, res, next) => {
+// GET /api/products/rooms
+router.get('/rooms', async (req, res, next) => {
   try {
-    const type = await Product.findAll({
-      where: {
-        type: req.params.type,
-      },
-    });
-    res.status(200).send(type);
-  } catch (er) {
-    next(er);
+    const rooms = await Room.findAll({ attributes: { include: ['name'] } });
+    res.send(rooms);
+  } catch (err) {
+    next(err);
   }
 });
 
-router.get('/Bystyle/:style', async (req, res, next) => {
+// GET /api/products/styles
+router.get('/styles', async (req, res, next) => {
   try {
-    const type = await Product.findAll({
-      style: req.params.style,
-    });
-    res.status(200).send(type);
-  } catch (er) {
-    next(er);
+    const styles = await Product.sequelize.query(
+      'SELECT DISTINCT style FROM products;',
+      { raw: true }
+    );
+    res.send(styles[0]);
+  } catch (err) {
+    next(err);
   }
 });
 
-//Products by room and style
-
-router.get('/Byroom/:room', async (req, res, next) => {
+// GET /api/products/types
+router.get('/types', async (req, res, next) => {
   try {
-    const room = await Product.findAll({
-      where: {
-        room: req.params.room,
-      },
-    });
-    res.status(200).send(room);
-  } catch (er) {
-    next(er);
-  }
-});
-router.get('/Byroom/:room/:style', async (req, res, next) => {
-  try {
-    const room = await Product.findAll({
-      where: {
-        room: req.params.room,
-        style: req.params.style,
-      },
-    });
-    res.status(200).send(room);
-  } catch (er) {
-    next(er);
+    const types = await Product.sequelize.query(
+      'SELECT DISTINCT type FROM products;',
+      { raw: true }
+    );
+    res.send(types[0]);
+  } catch (err) {
+    next(err);
   }
 });
 

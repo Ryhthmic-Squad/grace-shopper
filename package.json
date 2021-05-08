@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "webpack",
+    "build": "npm run seed && webpack",
     "build:dev": "webpack --watch --mode=development",
     "seed": "node server/db/seed.js",
     "start": "node server/index.js",
