@@ -13,6 +13,7 @@ import {
 import Button from '../components/styles/Button';
 import buildProductQuery from '../components/utils/buildProductQuery';
 import { fetchProductList } from '../store/product/productList';
+import { fetchProductTypes } from '../store/product/productTypes';
 
 // const mapStateToProps = ({ productFilters }) => ({ productFilters });
 
@@ -65,12 +66,29 @@ const FilterSelect = styled.select`
 `;
 
 const FilterSortControl = () => {
-  const { productFilters, productPagination } = useSelector(
-    ({ productFilters, productPagination }) => ({
+  const {
+    productFilters,
+    productPagination,
+    productTypes,
+    productStyles,
+    productRooms,
+  } = useSelector(
+    ({
       productFilters,
       productPagination,
+      productTypes,
+      productStyles,
+      productRooms,
+    }) => ({
+      productFilters,
+      productPagination,
+      productTypes,
+      productStyles,
+      productRooms,
     })
   );
+  console.log(productRooms);
+  const dispatch = useDispatch();
   const history = useHistory();
   const filter = (options) => {
     // options: { type?: string, style?: string, room?: string, clear?: true|false }
@@ -127,28 +145,30 @@ const FilterSortControl = () => {
           [
             'room',
             [
-              ['bedroom', 'Bedroom'],
-              ['living', 'Living'],
-              ['dining', 'Dining'],
-              ['bathroom', 'Bathroom'],
+              ...productRooms.map(({ name: room }) => [
+                room,
+                `${room[0].toUpperCase()}${room.slice(1)}`,
+              ]),
               ['', 'None'],
             ],
           ],
           [
             'style',
             [
-              ['contemporary', 'Contemporary'],
-              ['modern', 'Modern'],
-              ['transitional', 'Transitional'],
+              ...productStyles.map(({ style }) => [
+                style,
+                `${style[0].toUpperCase()}${style.slice(1)}`,
+              ]),
               ['', 'None'],
             ],
           ],
           [
             'type',
             [
-              ['bed', 'Beds'],
-              ['dresser', 'Dressers'],
-              ['nightstand', 'Nightstands'],
+              ...productTypes.map(({ type }) => [
+                type,
+                `${type[0].toUpperCase()}${type.slice(1)}`,
+              ]),
               ['', 'None'],
             ],
           ],

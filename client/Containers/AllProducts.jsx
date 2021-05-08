@@ -15,6 +15,9 @@ import {
   ProductInfo,
   ProductImg,
 } from '../components/styles/ProductCard';
+import { fetchProductTypes } from '../store/product/productTypes';
+import { fetchProductStyles } from '../store/product/productStyles';
+import { fetchProductRooms } from '../store/product/productRooms';
 const mapStateToProps = (
   { productList, productPagination, productFilters },
   { location }
@@ -29,6 +32,9 @@ const mapDispatchToProps = (dispatch) => ({
   setPagination: (productPagination) =>
     dispatch(setProductPagination(productPagination)),
   setFilters: (productFilters) => dispatch(setProductFilters(productFilters)),
+  getProductTypes: () => dispatch(fetchProductTypes()),
+  getProductStyles: () => dispatch(fetchProductStyles()),
+  getProductRooms: () => dispatch(fetchProductRooms()),
 });
 
 class AllProducts extends Component {
@@ -42,6 +48,9 @@ class AllProducts extends Component {
       productFilters,
       setFilters,
       getProducts,
+      getProductTypes,
+      getProductStyles,
+      getProductRooms,
       location: { search },
     } = this.props;
     const { page, size, sort, type, style, room } = getProductQueries(search);
@@ -64,6 +73,9 @@ class AllProducts extends Component {
       productPagination: newPagination,
     });
     getProducts(query);
+    getProductTypes();
+    getProductStyles();
+    getProductRooms();
   }
 
   componentDidUpdate = (prevProps) => {

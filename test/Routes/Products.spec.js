@@ -74,17 +74,6 @@ describe('GET /api/products with queries', () => {
     }
   });
 });
-describe('GET /api/products/:Bytype', () => {
-  test('returns all products of a given type', async () => {
-    const dressers = await Product.findAll({ where: { type: 'dresser' } });
-    // console.log(dressers);
-    const response = await agent
-      .get('/api/products/Bytype/dresser')
-      .expect(200);
-    // console.log(response.body);
-    expect(response.body.length).toBe(dressers.length);
-  });
-});
 describe('GET /api/products/:id', () => {
   test('returns a specific product', async () => {
     const dresser = await Product.findOne({ where: { type: 'dresser' } });

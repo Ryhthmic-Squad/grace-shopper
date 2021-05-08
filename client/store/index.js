@@ -13,6 +13,9 @@ import updateUser from './user/userUpdate';
 import productPagination from './product/productPagination';
 import productFilters from './product/productFilters';
 import productCreate from './product/productCreate';
+import productTypes from './product/productTypes';
+import productStyles from './product/productStyles';
+import productRooms from './product/productRooms';
 import token from './auth/token';
 import auth from './auth/auth';
 
@@ -28,6 +31,9 @@ const reducer = combineReducers({
   productCreate,
   productPagination,
   productFilters,
+  productTypes,
+  productStyles,
+  productRooms,
   token,
   auth,
 });
