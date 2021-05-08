@@ -17,11 +17,8 @@ class NewUsers extends Component {
     await fetchUsers();
     this.setState({ users: this.props.users });
   }
-  handleClick = () => {
-    //need to link to allusers in a different page
-  };
+
   render() {
-    const { handleClick } = this;
     const { users } = this.state;
     return (
       <div>
@@ -73,7 +70,7 @@ const mapStateToProps = (state) => {
     )
     .filter((user) => !user.isAdmin);
 
-  if (users.length > 3) users.slice(2);
+  if (users.length > 3) users.slice(3);
 
   return {
     users,

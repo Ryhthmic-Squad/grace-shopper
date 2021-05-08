@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchUserList } from '../../store/user/userList';
 import { Row } from '../../components/styles/AdminConsole';
-import { HashRouter as Router, Route, Link } from 'react-router-dom';
+import { HashRouter as Router } from 'react-router-dom';
 import Button from '../../components/styles/Button';
+import { deleteUser } from '../../store/user/userDelete';
 class AllUsers extends Component {
   constructor() {
     super();
@@ -16,7 +17,12 @@ class AllUsers extends Component {
     await fetchUsers();
     this.setState({ users: this.props.users });
   }
+  async delUser(id) {
+    const { deleteUser } = this.props;
+    await deleteUser(id);
+  }
   render() {
+    const { delUser } = this;
     const { users } = this.state;
     return (
       <Router>
@@ -44,6 +50,7 @@ class AllUsers extends Component {
                   >
                     Edit
                   </Button>
+                  <Button onClick={delUser(user.id)}>Delete</Button>
                 </Row>
               ))
             ) : (
@@ -75,6 +82,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchUsers: () => dispatch(fetchUserList()),
+    deleteuser: (id) => dispatch(deleteUser(id)),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(AllUsers);

@@ -35,7 +35,7 @@ class OrderDetails extends Component {
           <strong>Id</strong>
           <strong>Products</strong>
           <strong>QTY</strong>
-          <strong>Details</strong>
+          <strong>Product Page</strong>
         </Row>
         <Row>
           {products.length ? (
@@ -46,10 +46,10 @@ class OrderDetails extends Component {
                 <span>{order.status}</span>
                 <Button
                   onClick={() => {
-                    window.location = `#/users/orders/${order.id}`;
+                    window.location = `#/products/:id`;
                   }}
                 >
-                  Show Order Details
+                  Show Product Page
                 </Button>
               </Row>
             ))

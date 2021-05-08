@@ -1,28 +1,18 @@
-import React from 'react';
-import FeaturedButton from '../../components/styles/FeaturedButton';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { resetCart } from '../../store/cart/cart';
-import Checkout from '../Checkout/Checkout';
+
 // need a checkout thunk that converts carts to orders
 
 const mapStateToProps = (state) => {
   return {
-    cart: state.cart,
-    cartcopy: state.processOrder,
+    order: state.processOrder,
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    resetCart: () => dispatch(resetCart()),
-  };
-};
-
-const Summary = ({ cart, cartCopy, resetCart }) => {
-  let { cartProducts } = cart;
+const OrderSummary = ({ order }) => {
+  let { cartProducts } = order;
   cartProducts = cartProducts || [];
-  console.log(cartProducts);
+
   const orderTotal = () => {
     if (!cartProducts.length) return 0;
     return cartProducts.reduce(
@@ -58,8 +48,6 @@ const Summary = ({ cart, cartCopy, resetCart }) => {
           </tr>
         </tbody>
       </table>
-
-      <Checkout products={cartCopy} reset={resetCart} />
     </SummaryCard>
   );
 };
@@ -69,4 +57,4 @@ const SummaryCard = styled.div`
   padding: 1rem 2rem 2rem 2rem;
 `;
 
-export default connect(mapStateToProps, mapDispatchToProps)(Summary);
+export default connect(mapStateToProps, mapDispatchToProps)(OrderSummary);

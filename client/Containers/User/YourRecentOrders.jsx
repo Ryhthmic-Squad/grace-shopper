@@ -43,7 +43,7 @@ class YourRecentOrders extends Component {
             orderHistory.map((order) => (
               <Row key={order.id}>
                 <span>{order.id}</span>
-                <span>{order.createdAt.slice(0, 10)}</span>
+                <span>{order.date}</span>
                 <span>{order.status}</span>
                 <Button
                   onClick={() => {

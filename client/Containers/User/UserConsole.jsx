@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { Row, Spacer } from '../../components/styles/AdminConsole';
 import Button from '../../components/styles/Button';
 import { fetchUserOrders } from '../../store/order/orderUser';
-import { fetchUserReviews } from '../../store/reviews/reviewUsers';
 
 class UserConsole extends Component {
   constructor() {
@@ -27,12 +26,10 @@ class UserConsole extends Component {
     }
     const { auth } = this.state;
     const { fetchOrders, fetchReviews } = this.props;
-    await Promise.all([fetchOrders(auth.id), fetchReviews(auth.id)]);
+    await fetchOrders(auth.id);
 
-    console.log('incompmount', orders);
     this.setState({
       orderHistory: this.props.orders,
-      reviewHistory: this.props.reviews,
     });
   }
 
@@ -41,13 +38,6 @@ class UserConsole extends Component {
     console.log(orderHistory);
     return (
       <div>
-        <Button
-          onClick={() => {
-            window.location = '#/user/profile';
-          }}
-        >
-          Edit Your Profile
-        </Button>
         <hr className="heavy" />
         <h2>Order History</h2>
         <Row>
@@ -61,7 +51,7 @@ class UserConsole extends Component {
             orderHistory.map((order) => (
               <Row key={order.id}>
                 <span>{order.id}</span>
-                <span>{order.createdAt.slice(0, 10)}</span>
+                <span>{order.date}</span>
                 <span>{order.status}</span>
                 <Button
                   onClick={() => {
@@ -87,48 +77,12 @@ class UserConsole extends Component {
         >
           Show All Orders
         </Button>
-        <Spacer m={4} />
-        <h2>Reviews</h2>
-        <Row>
-          <strong>Review</strong>
-          <strong>Rating</strong>
-          <strong>Date</strong>
-        </Row>
-        <Row>
-          {reviewHistory.length ? (
-            reviewHistory.map((review) => (
-              <Row key={review.id}>
-                <span>{review.text}</span>
-                <span>{review.rating}</span>
-                <span>{review.createdAt.slice(0, 10)}</span>
-              </Row>
-            ))
-          ) : (
-            <Row>
-              <span>{'none'}</span>
-              <span>{'none'}</span>
-              <span>{'none'}</span>
-            </Row>
-          )}
-        </Row>
-        <Button
-          onClick={() => {
-            window.location = '#/user/reviews';
-          }}
-        >
-          Show All Reviews
-        </Button>
       </div>
     );
   }
 }
 
 const mapStateToProps = (state) => {
-  const reviews = state.reviewUsers.reviews.sort(
-    (review1, review2) =>
-      new Date(review1.createdAt.slice(0, 10)) -
-      new Date(review2.createdAt.slice(0, 10))
-  );
   const orders = state.orderHistory.orders
     .sort(
       (order1, order2) =>
@@ -144,14 +98,12 @@ const mapStateToProps = (state) => {
     });
   if (orders.length > 3) orders.slice(2);
   return {
-    reviews,
     orders,
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchOrders: (id) => dispatch(fetchUserOrders(id)),
-    fetchReviews: (id) => dispatch(fetchUserReviews(id)),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(UserConsole);

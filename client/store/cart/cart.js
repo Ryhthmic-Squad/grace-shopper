@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import { copyCartProducts } from '../orderProcessing/processOrder';
 export const SET_CART_PRODUCTS = 'SET_CART_PRODUCTS';
 export const REMOVE_PRODUCT = 'REMOVE_PRODUCT';
 export const INCREASE_QTY = 'INCREASE_QTY';
@@ -24,6 +24,7 @@ export const fetchCartProducts = () => {
         },
       });
       dispatch(setCartProducts(cartProducts));
+      dispatch(copyCartProducts(cartProducts));
     } catch (err) {
       console.error(err);
     }

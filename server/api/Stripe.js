@@ -1,5 +1,5 @@
 const {
-  models: { Cart, Order },
+  models: { Cart, Order, User, Product },
 } = require('../db/index');
 const router = require('express').Router();
 const stripe = require('stripe')(
@@ -8,7 +8,7 @@ const stripe = require('stripe')(
 
 router.post('/', async (req, res) => {
   const session = await stripe.checkout.sessions.create(req.body);
-
+  console.log(req.body);
   res.send({ id: session.id });
 });
 
@@ -24,8 +24,9 @@ router.post('/webhook', async (req, res) => {
   console.log(
     `The event type is =====>${event.type}`,
     'The event is =>>>>>>>>>>',
-    event
+    event.data.object.total_details
   );
+
   switch (event.type) {
     case 'payment_intent.succeeded':
       const paymentIntent = event.data.object;
@@ -46,13 +47,20 @@ router.post('/webhook', async (req, res) => {
     // ... handle other event types
     case 'checkout.session.completed':
       if (order.orderNum && order.status == 'paid') {
-        console.log('The end of session', order.orderNum, order.status);
-        await Order.create({ status: 'COMPLETED', userId: order.orderNum });
-        //const order = await Order.findByPk(order.orderNum);
-        //await order.save({ status: 'COMPLETED' });
-      } else if (order.orderNum) {
-        //const order = await Order.findByPk(order.orderNum);
-        //await order.save({ status: 'CANCELLED' });
+        const user = await User.findByPk(order.orderNum, { include: Cart });
+        const cart = await Cart.getWithProducts(user.cart.id);
+        const neworder = await Order.create({ status: 'CREATED' });
+        await neworder.setUser(user);
+
+        const { cartProducts } = cart;
+        for (const cartProduct of cartProducts) {
+          const { quantity, product } = cartProduct;
+          const { price } = product;
+          await neworder.addProduct(product, { through: { quantity, price } });
+        }
+        console.log(await neworder.getProducts());
+
+        await cart.setProducts([]);
       }
 
     default:

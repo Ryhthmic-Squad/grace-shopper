@@ -37,14 +37,7 @@ class EditUser extends Component {
 
   render() {
     const { onChange, onSubmit } = this;
-    const {
-      email,
-      password,
-      lastName,
-      firstName,
-      phoneNumber,
-      isAdmin,
-    } = this.state;
+    const { email, lastName, firstName, phoneNumber, isAdmin } = this.state;
     return (
       <>
         <FormGroup onSubmit={onSubmit}>
@@ -57,15 +50,8 @@ class EditUser extends Component {
           <Input value={email} onChange={onChange} name="email" />
           <Label>Phone Number:</Label>
           <Input value={phoneNumber} onChange={onChange} name="phoneNumber" />
-          <Label>Password:</Label>
-          <Input value={password} onChange={onChange} name="password" />
           <Label>isAdmin:</Label>
-          <Input
-            type="slider"
-            value={isAdmin}
-            onChange={onChange}
-            name="isAdmin"
-          />
+          <Input value={isAdmin} onChange={onChange} name="isAdmin" />
           <FeaturedButton>Submit</FeaturedButton>
         </FormGroup>
       </>

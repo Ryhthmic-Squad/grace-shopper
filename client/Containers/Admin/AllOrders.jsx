@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchOrderList } from '../../store/order/orderList';
 import { Row } from '../../components/styles/AdminConsole';
-
+import Button from '../../components/styles/Button';
 class AllOrders extends Component {
   constructor() {
     super();
@@ -14,9 +14,11 @@ class AllOrders extends Component {
     const { fetchOrders } = this.props;
     await fetchOrders();
     this.setState({ orders: this.props.orders });
+    console.log(this.state, this.props.orders);
   }
   render() {
     const { orders } = this.state;
+    console.log(orders);
     return (
       <div>
         <h2>All Orders</h2>
@@ -32,6 +34,20 @@ class AllOrders extends Component {
               <Row key={order.id}>
                 <span>{order.status}</span>
                 <span>{order.date}</span>
+                <Button
+                  onClick={() => {
+                    window.location = `#/AdminConsole/orders/${order.id}`;
+                  }}
+                >
+                  View Order Details
+                </Button>
+                <Button
+                  onClick={() => {
+                    window.location = `#/AdminConsole/orders/edit/${order.id}`;
+                  }}
+                >
+                  Edit Order
+                </Button>
               </Row>
             ))
           ) : (

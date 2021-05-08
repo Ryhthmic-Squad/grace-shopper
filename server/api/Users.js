@@ -61,6 +61,24 @@ router.put('/', requireUserToken, async (req, res, next) => {
     next(er);
   }
 });
+router.put('/adminedit', requireAdminToken, async (req, res, next) => {
+  try {
+    let { user } = req;
+    const { email, password, firstName, lastName, phoneNumber } = req.body;
+    user.email = email || user.email;
+    user.password = password || user.password;
+    user.firstName = firstName || user.firstName;
+    user.lastName = lastName || user.lastName;
+    user.phoneNumber = phoneNumber || user.phoneNumber;
+    await user.save();
+    user = await User.findByPk(user.id, {
+      attributes: { exclude: ['password'] },
+    });
+    res.send(user);
+  } catch (er) {
+    next(er);
+  }
+});
 
 // POST /api/users creates a new user with the details provided
 router.post('/', requireCartToken, async (req, res, next) => {

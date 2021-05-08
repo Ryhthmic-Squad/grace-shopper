@@ -1,14 +1,6 @@
 import React, { Component } from 'react';
-<<<<<<< HEAD
-import UserDashboard from './UserDashboard';
-import { connect } from 'react-redux';
-import AllProducts from './AllProducts';
-import HomePage from '../Containers/HomePage';
-import SingleProduct from './SingleProduct';
-=======
 import { connect } from 'react-redux';
 
-import Checkout from './Checkout/Checkout.jsx';
 import AllUsers from './Admin/AllUsers.jsx';
 import AllOrders from './Admin/AllOrders.jsx';
 import AllInventory from './Admin/AllInventory.jsx';
@@ -30,7 +22,6 @@ import Cart from './Cart/Cart.jsx';
 import Login from './Login.jsx';
 import SignUp from './SignUp.jsx';
 
->>>>>>> main
 import { setToken, fetchToken } from '../store/auth/token.js';
 import { fetchCartProducts } from '../store/cart/cart';
 import { fetchAuth } from '../store/auth/auth.js';
@@ -48,25 +39,11 @@ const mapDispatchToProps = (dispatch) => ({
   fetchCartProducts: (token) => dispatch(fetchCartProducts(token)),
 });
 
-<<<<<<< HEAD
-import MainNav from './MainNav';
-import Checkout from './Checkout/Checkout';
-import AllUsers from './Admin/AllUsers';
-import AllOrders from './Admin/AllOrders';
-import AllInventory from './Admin/AllInventory';
-import EditUser from './Admin/EditUser';
-import AddProduct from './Admin/AddProduct';
-import { HashRouter as Router, Route, Switch } from 'react-router-dom';
-import YourRecentOrders from './User/YourRecentOrders';
-import EditYourProfile from './User/EditYourProfile';
-import OrderDetails from './User/OrderDetails';
-import YourReviews from './User/YourReviews';
-=======
 import YourRecentOrders from './User/YourRecentOrders.jsx';
-import EditYourProfile from './User/EditYourProfile.jsx';
+
 import OrderDetails from './User/OrderDetails.jsx';
-import YourReviews from './User/YourReviews.jsx';
->>>>>>> main
+import EditOrder from './Admin/EditOrder.jsx';
+import Checkout from './Checkout/Checkout.jsx';
 class Main extends Component {
   componentDidMount = () => {
     const { fetchToken, setToken } = this.props;
@@ -107,30 +84,24 @@ class Main extends Component {
 
           <Route component={AddProduct} path="/AdminConsole/addproduct" exact />
 
-          <Route component={SingleProduct} path="/products/:id" exact />
           <Switch>
             <Route component={AllUsers} path="/AdminConsole/users" exact />
             <Route component={AllOrders} path="/AdminConsole/orders" exact />
-            <Route
-              component={AllInventory}
-              path="/AdminConsole/inventory"
-              exact
-            />
+
             <Route
               exact
               path="/AdminConsole/users/edit/:id"
               component={EditUser}
             />
+            <Route exact path="/checkout" component={Checkout} />
             <Route
-              component={AddProduct}
-              path="/AdminConsole/addproduct"
+              component={EditOrder}
               exact
+              path="/AdminConsole/orders/edit/:id"
             />
-            <Route component={EditYourProfile} path="/user/profile" exact />
+
             <Route component={YourRecentOrders} path="/user/orders" exact />
             <Route component={OrderDetails} path="/user/orders/:id" exact />
-            <Route component={YourReviews} path="/user/reviews" exact />
-
             <Route component={HomePage} path="/" exact />
             <Route component={AllProducts} path="/products" exact />
             <Route component={SingleProduct} path="/products/:id" exact />

@@ -8,26 +8,27 @@ const stripePromise = loadStripe(
   'pk_test_51InzHlFBTivT4al21JN3Jex1hItFC4HXkyriQPWUAD2O2kMglUX41AkmutusPJeU3XMpQz1XBbXkAaEUtD5yHWB500crd0rLxt'
 );
 
-function Checkout(props) {
-  const { cartProducts } = props.order;
-
+function Checkout({ products }) {
+  //const { cartProducts } = props.products;
+  //const { userId } = await axios.get(`/api/carts/${cartProducts.cartId}`);
+  // const arr = cartProducts.map((product) => {
+  //   return {
+  //     price_data: {
+  //       currency: 'usd',
+  //       product_data: {
+  //         name: 'Checkout',
+  //       },
+  //       unit_amount: product.price * 100,
+  //     },
+  //     quantity: product.quantity,
+  //   };
+  // });
   const handleClick = async (event) => {
-    // Get Stripe.js instance
-    console.log(props.order);
     const stripe = await stripePromise;
-    // the order id is passed into checkout -> order
-    // order => {order.id} passed in as a prop
-    const order = props.order.userId;
-    const amount =
-      props.order.products[0].cartProducts.quantity *
-      props.order.products[0].price; // multiply quant by price
-    const price = amount.toString() + '00';
-    const newAmount = Number(price);
-    // quantity => the number of items
-    // Call your backend to create the Checkout Session
+
     const response = await axios.post('/create-checkout-session', {
       payment_method_types: ['card'],
-      client_reference_id: order,
+      client_reference_id: 4,
       line_items: [
         {
           price_data: {
@@ -35,7 +36,17 @@ function Checkout(props) {
             product_data: {
               name: 'Checkout',
             },
-            unit_amount: newAmount,
+            unit_amount: 666,
+          },
+          quantity: 1,
+        },
+        {
+          price_data: {
+            currency: 'usd',
+            product_data: {
+              name: 'Checkout',
+            },
+            unit_amount: 557,
           },
           quantity: 1,
         },

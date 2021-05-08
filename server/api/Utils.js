@@ -16,6 +16,7 @@ const requireUserToken = async (req, res, next) => {
 const requireAdminToken = async (req, res, next) => {
   try {
     const token = req.headers.authorization;
+    console.log('require admin token', token);
     const user = await User.verifyByTokenIfAdmin(token);
     if (!user.isAdmin) {
       throw new Error('unauthorized attempt to access Admin functions');
