@@ -46,6 +46,7 @@ router.get('/', requireUserToken, async (req, res, next) => {
 router.put('/', requireUserToken, async (req, res, next) => {
   try {
     let { user } = req;
+    console.log(user);
     const { email, password, firstName, lastName, phoneNumber } = req.body;
     user.email = email || user.email;
     user.password = password || user.password;

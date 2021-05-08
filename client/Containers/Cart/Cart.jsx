@@ -22,6 +22,7 @@ class Cart extends Component {
 
   render() {
     const { cart } = this.props;
+
     const { itemCount } = this;
     let { cartProducts } = cart;
     cartProducts = cartProducts || [];
@@ -42,7 +43,7 @@ class Cart extends Component {
               <></>
             )}
           </Child>
-          <Summary cartProducts={cartProducts} />
+          <Summary user={cart.userId} cartProducts={cartProducts} />
         </Row>
       </>
     );

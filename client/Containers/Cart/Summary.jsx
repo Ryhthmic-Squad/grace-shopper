@@ -19,10 +19,11 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-const Summary = ({ cart, cartCopy, resetCart }) => {
+const Summary = ({ user, cart, cartCopy }) => {
   let { cartProducts } = cart;
   cartProducts = cartProducts || [];
-  console.log(cartProducts);
+  console.log('the user', user);
+  console.log('the cart Products', cartProducts);
   const orderTotal = () => {
     if (!cartProducts.length) return 0;
     return cartProducts.reduce(
@@ -59,7 +60,7 @@ const Summary = ({ cart, cartCopy, resetCart }) => {
         </tbody>
       </table>
 
-      <Checkout products={cartCopy} reset={resetCart} />
+      <Checkout id={user} products={cartProducts} reset={resetCart} />
     </SummaryCard>
   );
 };

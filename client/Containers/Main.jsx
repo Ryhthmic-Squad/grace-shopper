@@ -41,8 +41,6 @@ const mapDispatchToProps = (dispatch) => ({
 
 import YourRecentOrders from './User/YourRecentOrders.jsx';
 
-import OrderDetails from './User/OrderDetails.jsx';
-import EditOrder from './Admin/EditOrder.jsx';
 import Checkout from './Checkout/Checkout.jsx';
 class Main extends Component {
   componentDidMount = () => {
@@ -94,14 +92,9 @@ class Main extends Component {
               component={EditUser}
             />
             <Route exact path="/checkout" component={Checkout} />
-            <Route
-              component={EditOrder}
-              exact
-              path="/AdminConsole/orders/edit/:id"
-            />
 
             <Route component={YourRecentOrders} path="/user/orders" exact />
-            <Route component={OrderDetails} path="/user/orders/:id" exact />
+
             <Route component={HomePage} path="/" exact />
             <Route component={AllProducts} path="/products" exact />
             <Route component={SingleProduct} path="/products/:id" exact />

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchOrderList } from '../../store/order/orderList';
 import { Row } from '../../components/styles/AdminConsole';
-import Button from '../../components/styles/Button';
+
 class AllOrders extends Component {
   constructor() {
     super();
@@ -32,22 +32,9 @@ class AllOrders extends Component {
           {orders.length ? (
             orders.map((order) => (
               <Row key={order.id}>
+                <span>{order.id}</span>
                 <span>{order.status}</span>
                 <span>{order.date}</span>
-                <Button
-                  onClick={() => {
-                    window.location = `#/AdminConsole/orders/${order.id}`;
-                  }}
-                >
-                  View Order Details
-                </Button>
-                <Button
-                  onClick={() => {
-                    window.location = `#/AdminConsole/orders/edit/${order.id}`;
-                  }}
-                >
-                  Edit Order
-                </Button>
               </Row>
             ))
           ) : (

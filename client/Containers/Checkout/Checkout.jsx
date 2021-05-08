@@ -8,53 +8,33 @@ const stripePromise = loadStripe(
   'pk_test_51InzHlFBTivT4al21JN3Jex1hItFC4HXkyriQPWUAD2O2kMglUX41AkmutusPJeU3XMpQz1XBbXkAaEUtD5yHWB500crd0rLxt'
 );
 
-function Checkout({ products }) {
-  //const { cartProducts } = props.products;
+function Checkout(props) {
+  const { products, id } = props;
+
   //const { userId } = await axios.get(`/api/carts/${cartProducts.cartId}`);
-  // const arr = cartProducts.map((product) => {
-  //   return {
-  //     price_data: {
-  //       currency: 'usd',
-  //       product_data: {
-  //         name: 'Checkout',
-  //       },
-  //       unit_amount: product.price * 100,
-  //     },
-  //     quantity: product.quantity,
-  //   };
-  // });
+  const arr = products.map((product) => {
+    return {
+      price_data: {
+        currency: 'usd',
+        product_data: {
+          name: product.product.name,
+        },
+        unit_amount: product.product.price * 100,
+      },
+      quantity: product.quantity,
+    };
+  });
   const handleClick = async (event) => {
     const stripe = await stripePromise;
 
     const response = await axios.post('/create-checkout-session', {
       payment_method_types: ['card'],
-      client_reference_id: 4,
-      line_items: [
-        {
-          price_data: {
-            currency: 'usd',
-            product_data: {
-              name: 'Checkout',
-            },
-            unit_amount: 666,
-          },
-          quantity: 1,
-        },
-        {
-          price_data: {
-            currency: 'usd',
-            product_data: {
-              name: 'Checkout',
-            },
-            unit_amount: 557,
-          },
-          quantity: 1,
-        },
-      ],
+      client_reference_id: id,
+      line_items: arr,
 
       mode: 'payment',
       success_url: `${window.location.origin}`,
-      cancel_url: 'http://localhost:3000/#/checkout',
+      cancel_url: 'http://localhost:3000/#/cart',
     });
 
     const session = response.data;
