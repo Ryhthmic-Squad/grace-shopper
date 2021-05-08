@@ -10,7 +10,7 @@ export const createProduct = (product) => ({
 export const createNewProduct = (prod) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.post('api/Products/all', prod);
+      const { data } = await axios.post('/api/products/all', prod);
       dispatch(createProduct(data));
     } catch (er) {
       console.log(er);
