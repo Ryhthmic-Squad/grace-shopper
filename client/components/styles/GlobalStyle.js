@@ -16,6 +16,7 @@ const GlobalStyle = createGlobalStyle`
   }
   h1{
     font-size: 2rem;
+    padding: 0rem 2rem 0rem 2rem;
   }
   h2{
     font-size: 2rem;
@@ -38,11 +39,11 @@ const GlobalStyle = createGlobalStyle`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 0 15rem;
   }
   #showcase h4 {
     line-height: 1.5;
     text-shadow: 6px 6px 10px rgba(0, 0, 0, 0.75);
+    padding: 2rem 10rem 2rem 10rem;
   }
   .text-link {
     color: inherit;
@@ -50,9 +51,11 @@ const GlobalStyle = createGlobalStyle`
   }
   #logo {
     font-family: 'Raleway', sans-serif;
-    font-size: 2rem;
-    padding: 0 15rem;
-    align-text: center;
+    font-size: 2.5rem;
+    flex-grow: 2;
+  }
+  #placeorder {
+    font-family: 'Raleway', sans-serif;
   }
   main-nav > * {
    align-text: baseline;

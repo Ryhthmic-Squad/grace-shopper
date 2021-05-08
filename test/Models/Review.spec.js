@@ -136,7 +136,7 @@ describe('Review and Product associations', () => {
       type: 'chair',
       style: 'modern',
       imageUrl: 'test.png',
-      price: 1.11,
+      price: 1,
       description: 'product 1',
     }).save();
   });

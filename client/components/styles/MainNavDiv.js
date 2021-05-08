@@ -3,7 +3,6 @@ import styled from 'styled-components';
 export const MainNavDiv = styled.nav`
   display: flex;
   justify-content: space-between;
-  justify-content: center;
   font-size: 1rem;
   font-weight: bold;
   line-height: 1;
@@ -15,11 +14,10 @@ export const MainNavDiv = styled.nav`
   top: 0;
   padding: 1.75rem;
   font-family: 'Raleway', sans-serif;
+  overflow-x: hidden;
 `;
 
 export const Admin = styled.span`
-  display: flex;
-  justify-content: space-between;
   font-size: 1rem;
   font-weight: bold;
   line-height: 1;

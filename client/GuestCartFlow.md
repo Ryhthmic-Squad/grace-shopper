@@ -1,6 +1,6 @@
-# Guest Checkout Flow Conditions
+# Guest Checkout Flow ]
 
-## Guest does not sign in and checks out
+## When a new guest does not sign in until the end and checks out
 
 - A guest token is created for that user, and a cart is created for that gets saved in the backend
 - When the guest decides to checkout a 'guest checkout button' appears instead of the regular checkout button. This button should fire:
@@ -10,3 +10,7 @@
     - grab the cartId from store
     - the new user account ID is set to that cart
     - functionality required for stripe to work like the regular checkout process
+
+## When a guest signs up, adds stuff their cart and then logs in as a user
+
+- Unsure if I will be able to get to this but have noted it here
