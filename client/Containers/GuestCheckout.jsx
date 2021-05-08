@@ -39,6 +39,7 @@ class GuestCheckout extends Component {
     } catch (err) {
       console.error(err);
     }
+    window.location = '#/';
   };
 
   render() {

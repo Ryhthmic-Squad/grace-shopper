@@ -110,7 +110,7 @@ class Main extends Component {
             </Route>
             <Route component={Cart} path="/cart" exact />
             <Route path="/cart/guestcheckout" exact>
-              {!auth.email ? <GuestCheckout /> : <Redirect to="/cart" />}
+              {!auth.email ? <GuestCheckout /> : <Redirect to="/" />}
             </Route>
           </Switch>
         </Router>
