@@ -28,7 +28,7 @@ class SingleProduct extends Component {
         <SingleProductPage>
           <Hero>
             {' '}
-            <img width="100%" src={productDetail.imageUrl} />
+            <img max-width="100%" src={productDetail.imageUrl} />
           </Hero>
           <ProductCard>
             {' '}

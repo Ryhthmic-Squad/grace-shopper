@@ -2,11 +2,10 @@ import styled from 'styled-components';
 
 export const SingleProductPage = styled.div`
   display: flex;
-  bordercolor: black;
 `;
 
 export const ProductCard = styled.div`
-  flex-grow: 2;
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;

@@ -99,7 +99,7 @@ const FilterSortControl = () => {
   return (
     <FilterSortBar>
       <FilterContainer>
-        <FilterLabel>Sort</FilterLabel>
+        <FilterLabel>sort</FilterLabel>
         <FilterSelect
           value={productPagination.sort}
           onChange={(ev) => paginate({ page: 1, sort: ev.target.value })}
@@ -111,7 +111,7 @@ const FilterSortControl = () => {
         </FilterSelect>
       </FilterContainer>
       <FilterContainer>
-        <FilterLabel>Size</FilterLabel>
+        <FilterLabel>size</FilterLabel>
         <FilterSelect
           value={productPagination.size}
           onChange={(ev) => paginate({ page: 1, size: ev.target.value * 1 })}
@@ -125,7 +125,7 @@ const FilterSortControl = () => {
       <AllFilterContainer>
         {[
           [
-            'Room',
+            'room',
             [
               ['bedroom', 'Bedroom'],
               ['living', 'Living'],
@@ -135,7 +135,7 @@ const FilterSortControl = () => {
             ],
           ],
           [
-            'Style',
+            'style',
             [
               ['contemporary', 'Contemporary'],
               ['modern', 'Modern'],
@@ -144,7 +144,7 @@ const FilterSortControl = () => {
             ],
           ],
           [
-            'Type',
+            'type',
             [
               ['bed', 'Beds'],
               ['dresser', 'Dressers'],
@@ -153,7 +153,7 @@ const FilterSortControl = () => {
             ],
           ],
         ].map((val, idx) => {
-          const [selectLabel, options] = val;
+          let [selectLabel, options] = val;
           return (
             <FilterContainer key={idx}>
               <FilterLabel>{selectLabel}</FilterLabel>
@@ -162,7 +162,7 @@ const FilterSortControl = () => {
                 onChange={(ev) => filter({ [selectLabel]: ev.target.value })}
               >
                 {options.map((option, idx) => {
-                  const [newOpt, label] = option;
+                  let [newOpt, label] = option;
                   return (
                     <option key={idx} value={newOpt}>
                       {label}
