@@ -18,7 +18,7 @@ describe('Product Model', () => {
       material: 'wood',
       color: 'pink',
       imageUrl: 'image.com',
-      price: 1000.25,
+      price: 1000,
       description:
         'This is a long detailed description of the product you are currently looking at.',
       type: 'typetest',
