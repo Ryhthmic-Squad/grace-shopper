@@ -11,7 +11,6 @@ class EditUser extends Component {
     lastName: '',
     email: '',
     phoneNumber: '',
-    password: '',
     isAdmin: false,
   };
   async componentDidMount() {
@@ -31,6 +30,7 @@ class EditUser extends Component {
   onSubmit = (event) => {
     event.preventDefault();
     const { updateUser } = this.props;
+    console.log({ ...this.props.user, ...this.state });
     updateUser({ ...this.props.user, ...this.state });
     window.location = '#/AdminConsole/users';
   };

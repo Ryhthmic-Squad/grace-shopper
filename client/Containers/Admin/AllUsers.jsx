@@ -17,53 +17,57 @@ class AllUsers extends Component {
     await fetchUsers();
     this.setState({ users: this.props.users });
   }
-  async delUser(id) {
-    const { deleteUser } = this.props;
-    await deleteUser(id);
-  }
+  delUser = (id) => {
+    const { deleteuser } = this.props;
+    deleteuser(id);
+  };
   render() {
     const { delUser } = this;
     const { users } = this.state;
     return (
-      <Router>
-        <div>
-          <h2>All Users</h2>
-          <Row>
-            <strong>Name</strong>
-            <strong>Email</strong>
-            <strong>isAdmin</strong>
-            <strong>Phone Number</strong>
-          </Row>
-          <hr />
-          <ul>
-            {users.length ? (
-              users.map((user) => (
-                <Row key={user.id}>
-                  <span>{user.fullName}</span>
-                  <span>{user.email}</span>
-                  <span>{user.isAdmin}</span>
-                  <span>{user.phoneNumber}</span>
-                  <Button
-                    onClick={() => {
-                      window.location = `#/AdminConsole/users/edit/${user.id}`;
-                    }}
-                  >
-                    Edit
-                  </Button>
-                  <Button onClick={delUser(user.id)}>Delete</Button>
-                </Row>
-              ))
-            ) : (
-              <Row>
-                <span>{'none'}</span>
-                <span>{'none'}</span>
-                <span>{'none'}</span>
-                <span>{'none'}</span>
+      <div>
+        <h2>All Users</h2>
+        <Row>
+          <strong>Name</strong>
+          <strong>Email</strong>
+          <strong>isAdmin</strong>
+          <strong>Phone Number</strong>
+        </Row>
+        <hr />
+        <ul>
+          {users.length ? (
+            users.map((user) => (
+              <Row key={user.id}>
+                <span>{user.fullName}</span>
+                <span>{user.email}</span>
+                <span>{user.isAdmin}</span>
+                <span>{user.phoneNumber}</span>
+                <Button
+                  onClick={() => {
+                    window.location = `#/AdminConsole/users/edit/${user.id}`;
+                  }}
+                >
+                  Edit
+                </Button>
+                <Button
+                  onClick={() => {
+                    delUser(user.id);
+                  }}
+                >
+                  Delete
+                </Button>
               </Row>
-            )}
-          </ul>
-        </div>
-      </Router>
+            ))
+          ) : (
+            <Row>
+              <span>{'none'}</span>
+              <span>{'none'}</span>
+              <span>{'none'}</span>
+              <span>{'none'}</span>
+            </Row>
+          )}
+        </ul>
+      </div>
     );
   }
 }

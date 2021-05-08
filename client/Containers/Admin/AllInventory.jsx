@@ -26,6 +26,7 @@ class AllInventory extends Component {
           <strong>Id</strong>
           <strong>Item Name</strong>
           <strong>QTY</strong>
+          <strong>Product Page</strong>
         </Row>
         <hr />
         <ul>
@@ -35,6 +36,13 @@ class AllInventory extends Component {
                 <span>{product.id}</span>
                 <span>{product.name}</span>
                 <span>{product.inventory}</span>
+                <Button
+                  onClick={() => {
+                    window.location = `#/products/${product.id}`;
+                  }}
+                >
+                  Go To Product Page
+                </Button>
               </Row>
             ))
           ) : (

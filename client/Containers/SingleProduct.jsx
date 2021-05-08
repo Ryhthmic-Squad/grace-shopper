@@ -57,7 +57,6 @@ class SingleProduct extends Component {
             )}
           </ProductCard>
         </SingleProductPage>
-        <h2> Reviews </h2>
       </div>
     );
   }
