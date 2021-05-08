@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { resetCart } from '../../store/cart/cart';
 import Checkout from '../Checkout/Checkout';
-
+import { Link } from 'react-router-dom';
 const mapStateToProps = (state) => {
   return {
     cart: state.cart,
