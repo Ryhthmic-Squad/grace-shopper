@@ -18,6 +18,9 @@ import productFilters from './product/productFilters';
 import productCreate from './product/productCreate';
 import orderHistory from './order/orderUser';
 import reviewUsers from './reviews/reviewUsers';
+import productTypes from './product/productTypes';
+import productStyles from './product/productStyles';
+import productRooms from './product/productRooms';
 import token from './auth/token';
 import auth from './auth/auth';
 
@@ -38,6 +41,9 @@ const reducer = combineReducers({
   orderHistory,
   reviewUsers,
   updateOwnUser,
+  productTypes,
+  productStyles,
+  productRooms,
   token,
   auth,
 });

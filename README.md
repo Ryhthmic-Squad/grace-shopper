@@ -1,6 +1,6 @@
 # Rhythmic Squad's Grace Shopper
 
-Welcome to our eCommerce site: A Space Apart.
+Welcome to our eCommerce site: A Space Apart. You can view our app here: [A Space Apart](https://rhythmic-squad-grace-shopper.herokuapp.com/#/)
 
 ## Set-Up
 
