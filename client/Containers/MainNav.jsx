@@ -8,6 +8,7 @@ import { resetCart } from '../store/cart/cart';
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  cart: state.cart,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -17,6 +18,15 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 class MainNav extends Component {
+  itemCount = () => {
+    let {
+      cart: { cartProducts },
+    } = this.props;
+    cartProducts = cartProducts || [];
+    if (!cartProducts.length) return 0;
+    return cartProducts.reduce((accum, item) => accum + item.quantity, 0);
+  };
+
   logOut = () => {
     const { resetAuth, resetToken, resetCart } = this.props;
     window.localStorage.removeItem('token');
@@ -27,6 +37,7 @@ class MainNav extends Component {
 
   render() {
     const { auth } = this.props;
+    const { itemCount } = this;
     return (
       <MainNavDiv className="main-nav">
         <Link id="logo" to="/" className="text-link">
@@ -46,7 +57,7 @@ class MainNav extends Component {
         }
         &nbsp;&nbsp;&nbsp;
         <Link to="/cart" className="text-link">
-          Cart
+          Cart&nbsp;({`${itemCount()}`})
         </Link>
       </MainNavDiv>
     );

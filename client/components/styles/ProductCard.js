@@ -20,7 +20,7 @@ export const ProductCard = styled.div`
 //ugly borders are just here to help me visualize. i will remove :)
 
 export const ProductImg = styled.div`
-  max-width: 65%;
+  max-width: 50%;
   height: 10rem;
   margin: 5%;
   align-items: center;
