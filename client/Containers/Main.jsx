@@ -14,6 +14,7 @@ import UserDashboard from './UserDashboard.jsx';
 import Cart from './Cart/Cart.jsx';
 import Login from './Login.jsx';
 import SignUp from './SignUp.jsx';
+import GuestCheckout from './GuestCheckout.jsx';
 
 import { setToken, fetchToken } from '../store/auth/token.js';
 import { fetchCartProducts } from '../store/cart/cart';
@@ -57,7 +58,7 @@ class Main extends Component {
   };
 
   render() {
-    console.log('Main', this.props);
+    // console.log('Main', this.props);
     const { auth } = this.props;
     return (
       <>
@@ -77,6 +78,9 @@ class Main extends Component {
               {!auth.email ? <Login /> : <Redirect to="/dashboard" />}
             </Route>
             <Route component={Cart} path="/cart" exact />
+            <Route path="/cart/guestcheckout" exact>
+              {!auth.email ? <GuestCheckout /> : <Redirect to="/cart" />}
+            </Route>
           </Switch>
         </Router>
       </>

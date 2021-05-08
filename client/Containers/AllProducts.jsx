@@ -115,18 +115,19 @@ class AllProducts extends Component {
             {this.props.productList.map((product) => {
               return (
                 <ProductCard key={product.id}>
-                  <Link to={`/products/${product.id}`}>
+                  <Link className="text-link" to={`/products/${product.id}`}>
                     <ProductImg>
                       <img
-                        display="block"
-                        width="150rem"
+                        margin-left="auto"
+                        margin-right="auto"
+                        height="100%"
                         src={product.imageUrl}
                       />
                     </ProductImg>
-                    <hr />
                     <ProductInfo>
-                      <h4> {product.name} </h4>
-                      <h5> ${product.price}</h5>
+                      <hr className="heavy text-link" />
+                      <h3> {product.name} </h3>
+                      <h4> ${product.price}</h4>
                     </ProductInfo>
                   </Link>
                 </ProductCard>
@@ -134,6 +135,7 @@ class AllProducts extends Component {
             })}
           </ProductGrid>
         </div>
+        <hr />
         <PaginationControl></PaginationControl>
       </div>
     );

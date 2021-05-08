@@ -583,7 +583,7 @@ const products = {
       type: 'table',
     },
     {
-      name: 'light table extending 341e',
+      name: 'Light Table Extending 341e',
       inventory: 10,
       height: 28.9,
       width: 78.75,

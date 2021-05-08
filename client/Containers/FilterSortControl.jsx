@@ -40,11 +40,9 @@ const FilterSortBar = styled.div`
   flex-flow: row wrap;
   justify-content: center;
   align-items: center;
-  background: black;
-  width: calc(100% - 0.5rem);
-  border-radius: 0 0 0.5rem 0.5rem;
-  color: white;
-  padding: 0 0.5rem 0.5rem 0;
+  background-color: #ffda08;
+  color: black;
+  padding: 0.5rem;
 `;
 
 const AllFilterContainer = styled.div`
@@ -101,7 +99,7 @@ const FilterSortControl = () => {
   return (
     <FilterSortBar>
       <FilterContainer>
-        <FilterLabel>SORT</FilterLabel>
+        <FilterLabel>sort</FilterLabel>
         <FilterSelect
           value={productPagination.sort}
           onChange={(ev) => paginate({ page: 1, sort: ev.target.value })}
@@ -113,7 +111,7 @@ const FilterSortControl = () => {
         </FilterSelect>
       </FilterContainer>
       <FilterContainer>
-        <FilterLabel>SIZE</FilterLabel>
+        <FilterLabel>size</FilterLabel>
         <FilterSelect
           value={productPagination.size}
           onChange={(ev) => paginate({ page: 1, size: ev.target.value * 1 })}
@@ -155,16 +153,16 @@ const FilterSortControl = () => {
             ],
           ],
         ].map((val, idx) => {
-          const [selectLabel, options] = val;
+          let [selectLabel, options] = val;
           return (
             <FilterContainer key={idx}>
-              <FilterLabel>{selectLabel.toUpperCase()}</FilterLabel>
+              <FilterLabel>{selectLabel}</FilterLabel>
               <FilterSelect
                 value={productFilters[selectLabel]}
                 onChange={(ev) => filter({ [selectLabel]: ev.target.value })}
               >
                 {options.map((option, idx) => {
-                  const [newOpt, label] = option;
+                  let [newOpt, label] = option;
                   return (
                     <option key={idx} value={newOpt}>
                       {label}

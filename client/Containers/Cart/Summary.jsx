@@ -3,11 +3,13 @@ import FeaturedButton from '../../components/styles/FeaturedButton';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { resetCart } from '../../store/cart/cart';
+import { Link } from 'react-router-dom';
 // need a checkout thunk that converts carts to orders
 
 const mapStateToProps = (state) => {
   return {
     cart: state.cart,
+    auth: state.auth,
   };
 };
 
@@ -17,7 +19,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-const Summary = ({ cart, resetCart }) => {
+const Summary = ({ cart, auth }) => {
   let { cartProducts } = cart;
   cartProducts = cartProducts || [];
 
@@ -56,7 +58,12 @@ const Summary = ({ cart, resetCart }) => {
           </tr>
         </tbody>
       </table>
-      <FeaturedButton>Checkout Now</FeaturedButton>
+      {auth.email && <FeaturedButton>Checkout Now</FeaturedButton>}
+      {!auth.email && (
+        <Link to="/cart/guestcheckout">
+          <FeaturedButton>Guest Checkout</FeaturedButton>
+        </Link>
+      )}
     </SummaryCard>
   );
 };
