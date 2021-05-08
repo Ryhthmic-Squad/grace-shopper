@@ -3,8 +3,11 @@ import { connect } from 'react-redux';
 import {
   SingleProductPage,
   ProductCard,
+  HeroImg,
+  Line,
+  Table,
 } from '../components/styles/SingleProductPage';
-import Button from '../components/styles/Button';
+import Button from '../components/styles/FeaturedButton';
 import { fetchProductDetail } from '../store/product/productDetail';
 import { updateCartProduct } from '../store/cart/cart';
 
@@ -25,22 +28,37 @@ class SingleProduct extends Component {
     return (
       <div>
         <SingleProductPage>
+          <HeroImg src={productDetail.imageUrl} />
           <ProductCard>
-            {' '}
-            <img display="block" width="300rem" src={productDetail.imageUrl} />
-          </ProductCard>
-          <ProductCard>
-            {' '}
             <h2> {productDetail.name} </h2>
-            <h4> $ {productDetail.price} </h4>
-            <h5> {productDetail.description} </h5>
-            <h6>
-              {' '}
-              Dimensions: {productDetail.height}" H {productDetail.width}" W $
-              {productDetail.depth}" D
-            </h6>
-            <h6> Color: {productDetail.color} </h6>
-            <h6> Material: {productDetail.material} </h6>
+            <Line />
+            <h3> $ {productDetail.price} </h3>
+            <p> {productDetail.description} </p>
+            <Table>
+              <tbody>
+                <tr>
+                  <td>
+                    <strong>Dimensions&nbsp;&nbsp;</strong>
+                  </td>
+                  <td>
+                    {productDetail.height}" H {productDetail.width}" W
+                    {productDetail.depth}" D
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Color</strong>
+                  </td>
+                  <td>{productDetail.color}</td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Material</strong>
+                  </td>
+                  <td>{productDetail.material}</td>
+                </tr>
+              </tbody>
+            </Table>
             {productDetail.availability ? (
               <Button
                 onClick={() => {

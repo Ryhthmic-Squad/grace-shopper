@@ -4,12 +4,12 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { resetCart } from '../../store/cart/cart';
 import Checkout from '../Checkout/Checkout';
-// need a checkout thunk that converts carts to orders
 
 const mapStateToProps = (state) => {
   return {
     cart: state.cart,
     cartcopy: state.processOrder,
+    auth: state.auth,
   };
 };
 
@@ -19,7 +19,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-const Summary = ({ user, cart, cartCopy }) => {
+const Summary = ({ user, cart, auth }) => {
   let { cartProducts } = cart;
   cartProducts = cartProducts || [];
   console.log('the user', user);
@@ -60,7 +60,12 @@ const Summary = ({ user, cart, cartCopy }) => {
         </tbody>
       </table>
 
-      <Checkout id={user} products={cartProducts} reset={resetCart} />
+      {auth.email && (
+        <Checkout id={user} products={cartProducts} reset={resetCart} />
+      )}
+      {!auth.email && (
+        <Checkout id={user} products={cartProducts} reset={resetCart} />
+      )}
     </SummaryCard>
   );
 };
